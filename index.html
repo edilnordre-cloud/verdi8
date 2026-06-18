@@ -1325,9 +1325,116 @@ footer .footer-logo{height:24px!important;width:auto!important;opacity:.55!impor
 .stage-wrap.zoomed .building-img{
   transition:transform 1.4s cubic-bezier(.22,1,.36,1);
 }
+
+/* ══ CURSOR LUXURY (desktop only) ══ */
+@media(min-width:769px){
+  body.cr-ready *{cursor:none!important;}
+  #cDot{position:fixed;top:0;left:0;width:6px;height:6px;border-radius:50%;background:#9dc0aa;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);will-change:transform;transition:width .18s var(--e),height .18s var(--e),background .2s,opacity .3s;}
+  #cRing{position:fixed;top:0;left:0;width:34px;height:34px;border-radius:50%;border:1px solid rgba(157,192,170,.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);will-change:transform;transition:width .28s var(--e),height .28s var(--e),border-color .28s,opacity .3s;}
+  body.cr-marker #cDot{width:14px;height:14px;background:#fff;}
+  body.cr-marker #cRing{width:56px;height:56px;border-color:rgba(255,255,255,.45);}
+  body.cr-stage #cRing{width:56px;height:56px;border-color:rgba(157,192,170,.2);}
+  body.cr-click #cDot{transform:translate(-50%,-50%) scale(.6);}
+  body.cr-click #cRing{transform:translate(-50%,-50%) scale(1.4);opacity:0;}
+}
+
+/* ══ KEN BURNS ENHANCED ══ */
+@keyframes kb-1{0%{transform:scale(1.09) translate(1.6%,.9%)}100%{transform:scale(1.0) translate(0,0)}}
+@keyframes kb-2{0%{transform:scale(1.09) translate(-1.8%,.7%)}100%{transform:scale(1.0) translate(0,0)}}
+@keyframes kb-3{0%{transform:scale(1.08) translate(.9%,-1.3%)}100%{transform:scale(1.0) translate(0,0)}}
+@keyframes kb-4{0%{transform:scale(1.09) translate(-1.1%,-.9%)}100%{transform:scale(1.0) translate(0,0)}}
+.sl-slide img{transition:none!important;transform:scale(1.09)!important;}
+.sl-slide.sl-active.kb-1 img{animation:kb-1 6.5s ease-out forwards!important;}
+.sl-slide.sl-active.kb-2 img{animation:kb-2 7s ease-out forwards!important;}
+.sl-slide.sl-active.kb-3 img{animation:kb-3 6s ease-out forwards!important;}
+.sl-slide.sl-active.kb-4 img{animation:kb-4 6.8s ease-out forwards!important;}
+
+/* ══ WIPE SLIDE TRANSITION ══ */
+@keyframes wipeR{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0% 0 0)}}
+@keyframes wipeL{from{clip-path:inset(0 0% 0 100%)}to{clip-path:inset(0 0% 0 0%)}}
+.sl-slide.sl-active.sl-wipe-r{animation:wipeR .68s cubic-bezier(.22,1,.36,1) forwards;}
+.sl-slide.sl-active.sl-wipe-l{animation:wipeL .68s cubic-bezier(.22,1,.36,1) forwards;}
+
+/* ══ TRACK CARDS — clip-path reveal (mobile) ══ */
+@media(max-width:768px){
+  .track-card{
+    clip-path:inset(0 0 100% 0)!important;
+    transition:clip-path .55s var(--e),opacity .3s!important;
+    opacity:0!important;
+  }
+  .track-card.active{
+    opacity:1!important;
+    clip-path:inset(0 0 0% 0)!important;
+  }
+}
+
+/* ══ STAGE HOVER BAR ══ */
+#stageHoverBar{
+  position:absolute;bottom:0;left:0;right:0;z-index:12;
+  background:linear-gradient(to top,rgba(10,10,10,.95) 0%,rgba(10,10,10,.25) 68%,transparent 100%);
+  padding:60px 32px 22px;
+  transform:translateY(100%);
+  transition:transform .44s var(--e);
+  pointer-events:none;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
+}
+#stageHoverBar.vis{transform:translateY(0);}
+.shb-tag{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);margin-bottom:5px;}
+.shb-name{font-family:'Anton',sans-serif;font-size:clamp(22px,2.8vw,38px);color:#fff;letter-spacing:-.01em;line-height:1.05;}
+.shb-sub{font-size:9px;color:rgba(240,236,228,.42);margin-top:3px;letter-spacing:.1em;text-transform:uppercase;}
+.shb-cta{flex-shrink:0;display:inline-flex;align-items:center;gap:8px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border:.5px solid rgba(157,192,170,.28);padding:10px 20px;border-radius:6px;white-space:nowrap;}
+
+/* ══ CINEMATIC UNIT REVEAL (click) ══ */
+#unitReveal{
+  position:absolute;inset:0;z-index:17;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  pointer-events:none;opacity:0;
+  background:rgba(5,5,5,.22);
+  transition:opacity .32s;
+}
+#unitReveal.show{opacity:1;}
+.ur-name{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(42px,5.5vw,88px);
+  color:#fff;letter-spacing:-.02em;text-align:center;line-height:1;
+  clip-path:inset(0 100% 0 0);
+  transition:clip-path .58s cubic-bezier(.22,1,.36,1);
+}
+#unitReveal.show .ur-name{clip-path:inset(0 0% 0 0);}
+.ur-sep{width:0;height:1px;background:var(--accent);margin:12px auto;transition:width .48s var(--e) .18s;}
+#unitReveal.show .ur-sep{width:80px;}
+.ur-sub{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(157,192,170,.85);opacity:0;transition:opacity .38s .32s;}
+#unitReveal.show .ur-sub{opacity:1;}
+
+/* ══ SCANLINE on zoom ══ */
+@keyframes scanln{0%{transform:translateY(-100%)}100%{transform:translateY(200%)}}
+.stage-wrap.scanning::before{
+  content:'';position:absolute;left:0;right:0;height:120px;z-index:14;pointer-events:none;
+  background:linear-gradient(to bottom,transparent,rgba(157,192,170,.05) 50%,transparent);
+  top:0;animation:scanln .9s ease-in-out;
+}
+
+/* ══ BRG STATS — stagger reveal ══ */
+.brg-stats>div{
+  opacity:0;transform:translateY(18px);
+  transition:opacity .5s var(--e),transform .5s var(--e);
+}
+.brg-left.visible .brg-stats>div:nth-child(1){opacity:1;transform:none;transition-delay:.22s;}
+.brg-left.visible .brg-stats>div:nth-child(2){opacity:1;transform:none;transition-delay:.34s;}
+.brg-left.visible .brg-stats>div:nth-child(3){opacity:1;transform:none;transition-delay:.46s;}
+
+/* ══ GALLERY ITEMS — clip-path stagger ══ */
+.gl-item{
+  opacity:0;
+  clip-path:inset(0 0 28% 0);
+  transition:opacity .62s var(--e),clip-path .62s var(--e);
+}
+.gl-item.gl-vis{opacity:1;clip-path:inset(0 0 0% 0);}
 </style>
 </head>
 <body>
+<div id="cDot"></div>
+<div id="cRing"></div>
 
 <!-- ══ 1. HERO ═══════════════════════════════════════════ -->
 <div id="hero">
@@ -1411,6 +1518,24 @@ footer .footer-logo{height:24px!important;width:auto!important;opacity:.55!impor
         <span class="m-label-sub">indipendente · giardino · terrazzo</span>
       </div>
     </div>
+
+    <!-- Hover bar — unità info on marker hover -->
+    <div id="stageHoverBar">
+      <div>
+        <div class="shb-tag" id="shbTag">Unità</div>
+        <div class="shb-name" id="shbName">—</div>
+        <div class="shb-sub" id="shbSub"></div>
+      </div>
+      <div class="shb-cta">Clicca per entrare &nbsp;&#8594;</div>
+    </div>
+
+    <!-- Unit reveal overlay — appare al click prima dell'iris -->
+    <div id="unitReveal">
+      <div class="ur-name" id="urName"></div>
+      <div class="ur-sep"></div>
+      <div class="ur-sub" id="urSub"></div>
+    </div>
+
   </div>
   <p class="stage-hint" id="stageHint">clicca su un'unità per esplorarla</p>
 </section>
@@ -1699,6 +1824,75 @@ footer .footer-logo{height:24px!important;width:auto!important;opacity:.55!impor
 </div>
 
 <script>
+/* ══ CURSOR LUXURY ══ */
+(function(){
+  if(window.innerWidth <= 768) return;
+  const dot  = document.getElementById('cDot');
+  const ring = document.getElementById('cRing');
+  if(!dot || !ring) return;
+  let mx=0, my=0, rx=0, ry=0;
+  document.body.classList.add('cr-ready');
+  document.addEventListener('mousemove', e=>{
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+  },{passive:true});
+  (function lerp(){
+    rx += (mx-rx)*.12;
+    ry += (my-ry)*.12;
+    ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+    requestAnimationFrame(lerp);
+  })();
+  /* Change state on stage */
+  document.getElementById('stage')?.addEventListener('mouseenter',()=>document.body.classList.add('cr-stage'));
+  document.getElementById('stage')?.addEventListener('mouseleave',()=>document.body.classList.remove('cr-stage','cr-marker'));
+})();
+
+/* ══ GALLERY CLIP-PATH REVEAL ══ */
+(function(){
+  const glIO = new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){
+        setTimeout(()=>e.target.classList.add('gl-vis'), e.target.dataset.gdelay||0);
+      }
+    });
+  },{threshold:0.05});
+  document.querySelectorAll('.gl-item').forEach((el,i)=>{
+    el.dataset.gdelay = i * 55;
+    glIO.observe(el);
+  });
+})();
+
+/* ══ BRG STATS COUNTUP ══ */
+(function(){
+  const brgLeft = document.getElementById('brgL');
+  if(!brgLeft) return;
+  const stats = brgLeft.querySelectorAll('.brg-stat-n');
+  let done = false;
+  const brgIO = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting && !done){
+        done = true;
+        stats.forEach(el=>{
+          const txt = el.textContent.trim();
+          const match = txt.match(/^(~?)(\d+)(k|'|)?$/);
+          if(!match) return;
+          const prefix = match[1]||'', target = parseInt(match[2]), suffix = match[3]||'';
+          const dur = 900 + target * 18;
+          const start = performance.now();
+          (function tick(now){
+            const p = Math.min((now-start)/dur,1);
+            const eased = 1-Math.pow(1-p,4);
+            el.textContent = prefix + Math.round(eased*target) + suffix;
+            if(p<1) requestAnimationFrame(tick);
+            else el.textContent = prefix+target+suffix;
+          })(start);
+        });
+      }
+    });
+  },{threshold:0.3});
+  brgIO.observe(brgLeft);
+})();
+
 /* ══ IntersectionObserver (Brugherio + Maps) ══ */
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -1781,41 +1975,80 @@ stage.addEventListener('mouseleave', () => {
 
 const irisDot = document.getElementById('irisDot');
 const irisOv  = document.getElementById('irisOverlay');
+const hoverBar = document.getElementById('stageHoverBar');
+const shbTag   = document.getElementById('shbTag');
+const shbName  = document.getElementById('shbName');
+const shbSub   = document.getElementById('shbSub');
+const unitReveal = document.getElementById('unitReveal');
+const urName   = document.getElementById('urName');
+const urSub    = document.getElementById('urSub');
+
+/* Stage hover bar on marker mouseenter/leave */
+document.querySelectorAll('.marker').forEach(m => {
+  const u = units[m.dataset.unit];
+  if(!u) return;
+  m.addEventListener('mouseenter', () => {
+    if(zoomed) return;
+    shbTag.textContent  = u.tag;
+    shbName.textContent = u.name;
+    shbSub.textContent  = u.mq + ' · ' + u.extra;
+    hoverBar?.classList.add('vis');
+    document.body.classList.add('cr-marker');
+  });
+  m.addEventListener('mouseleave', () => {
+    hoverBar?.classList.remove('vis');
+    document.body.classList.remove('cr-marker');
+  });
+});
 
 document.querySelectorAll('.marker').forEach(m => {
   m.addEventListener('click', e => {
     e.stopPropagation();
     if(zoomed) return;
-    const link = units[m.dataset.unit]?.link;
+    const u    = units[m.dataset.unit];
+    const link = u?.link;
     if(!link) return;
 
-    /* 1. Calculate click position relative to stage for iris origin */
+    /* 1. Cursor click flash */
+    document.body.classList.add('cr-click');
+    setTimeout(()=>document.body.classList.remove('cr-click'), 400);
+
+    /* 2. Iris origin */
     const r = stage.getBoundingClientRect();
     const ox = e.clientX - r.left;
     const oy = e.clientY - r.top;
-    irisDot.style.left = ox + 'px';
-    irisDot.style.top  = oy + 'px';
+    irisDot.style.left   = ox + 'px';
+    irisDot.style.top    = oy + 'px';
     irisDot.style.width  = '0';
     irisDot.style.height = '0';
 
-    /* 2. Zoom building image toward unit zone */
+    /* 3. Zoom building */
     building.style.setProperty('--zx', m.dataset.zx);
     building.style.setProperty('--zy', m.dataset.zy);
     building.style.setProperty('--zs', m.dataset.zs || '3');
     building.style.transform = '';
-    stage.classList.add('zoomed');
+    stage.classList.add('zoomed','scanning');
+    hoverBar?.classList.remove('vis');
     hint.classList.add('hidden');
     zoomed = true;
 
-    /* 3. After 550ms — iris closes */
+    /* 4. After 200ms — cinematic unit name reveal */
+    setTimeout(() => {
+      if(urName) urName.textContent = u.name;
+      if(urSub)  urSub.textContent  = u.tag + ' · ' + u.mq;
+      unitReveal?.classList.add('show');
+    }, 200);
+
+    /* 5. After 620ms — iris closes */
     setTimeout(() => {
       irisOv.classList.add('closing');
-    }, 550);
+      unitReveal?.classList.remove('show');
+    }, 620);
 
-    /* 4. Navigate after iris is full */
+    /* 6. Navigate */
     setTimeout(() => {
       window.location.href = link;
-    }, 1280);
+    }, 1380);
   });
 });
 
@@ -2007,7 +2240,7 @@ if(contactEl) ctaIO.observe(contactEl);
 })();
 
 
-/* ══ SLIDER RENDERING ══ */
+/* ══ SLIDER RENDERING — wipe + ken burns ══ */
 (function(){
   const slides  = document.querySelectorAll('#photoSlider .sl-slide');
   const dots    = document.querySelectorAll('#slDots .sl-dot');
@@ -2015,28 +2248,53 @@ if(contactEl) ctaIO.observe(contactEl);
   const counter = document.getElementById('slCounter');
   if(!slides.length) return;
   let cur = 0, timer;
-  function goTo(n) {
-    slides[cur].classList.remove('sl-active');
-    dots[cur]?.classList.remove('sl-dot-active');
+  const kbCycle = ['kb-1','kb-2','kb-3','kb-4'];
+  let kbIdx = 0;
+
+  function goTo(n, dir) {
+    const prev = cur;
     cur = (n + slides.length) % slides.length;
-    slides[cur].classList.add('sl-active');
+    if(prev === cur) return;
+    /* Direction: 1 = forward (wipe right), -1 = backward (wipe left) */
+    const forward = dir === undefined ? (n > prev || (prev === slides.length-1 && n === 0)) : dir >= 0;
+
+    /* Remove active from previous */
+    slides[prev].classList.remove('sl-active','sl-wipe-r','sl-wipe-l');
+    ['kb-1','kb-2','kb-3','kb-4'].forEach(k=>slides[prev].classList.remove(k));
+    dots[prev]?.classList.remove('sl-dot-active');
+
+    /* Add active + wipe direction + ken burns to new */
+    const kb = kbCycle[kbIdx % 4];
+    kbIdx++;
+    slides[cur].classList.remove('sl-wipe-r','sl-wipe-l','kb-1','kb-2','kb-3','kb-4');
+    void slides[cur].offsetWidth; /* reflow to restart animation */
+    slides[cur].classList.add('sl-active', forward ? 'sl-wipe-r' : 'sl-wipe-l', kb);
     dots[cur]?.classList.add('sl-dot-active');
+
     if(fill)    fill.style.width = ((cur+1)/slides.length*100)+'%';
     if(counter) counter.innerHTML = String(cur+1).padStart(2,'0')+' <span class="sl-sep">&#8212;</span> '+String(slides.length).padStart(2,'0');
     clearInterval(timer);
-    timer = setInterval(()=>goTo(cur+1), 5000);
+    timer = setInterval(()=>goTo(cur+1, 1), 5800);
   }
-  document.getElementById('slPrev')?.addEventListener('click', ()=>goTo(cur-1));
-  document.getElementById('slNext')?.addEventListener('click', ()=>goTo(cur+1));
-  dots.forEach((d,i)=>d.addEventListener('click',()=>goTo(i)));
+
+  document.getElementById('slPrev')?.addEventListener('click', ()=>goTo(cur-1, -1));
+  document.getElementById('slNext')?.addEventListener('click', ()=>goTo(cur+1, 1));
+  dots.forEach((d,i)=>d.addEventListener('click',()=>goTo(i, i>cur?1:-1)));
   let tx=0;
   const wrap = document.getElementById('photoSlider');
   wrap?.addEventListener('touchstart', e=>tx=e.touches[0].clientX, {passive:true});
-  wrap?.addEventListener('touchend', e=>{ const dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>40) goTo(dx<0?cur+1:cur-1); });
-  document.addEventListener('keydown',e=>{ if(e.key==='ArrowRight')goTo(cur+1); if(e.key==='ArrowLeft')goTo(cur-1); });
+  wrap?.addEventListener('touchend', e=>{ const dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>40) goTo(dx<0?cur+1:cur-1, dx<0?1:-1); });
+  document.addEventListener('keydown',e=>{ if(e.key==='ArrowRight')goTo(cur+1,1); if(e.key==='ArrowLeft')goTo(cur-1,-1); });
   wrap?.addEventListener('mouseenter',()=>clearInterval(timer));
-  wrap?.addEventListener('mouseleave',()=>{ timer=setInterval(()=>goTo(cur+1),5000); });
-  goTo(0);
+  wrap?.addEventListener('mouseleave',()=>{ timer=setInterval(()=>goTo(cur+1,1),5800); });
+
+  /* Init first slide */
+  slides[0].classList.add('sl-active','kb-1');
+  kbIdx=1;
+  if(fill) fill.style.width = (1/slides.length*100)+'%';
+  if(counter) counter.innerHTML = '01 <span class="sl-sep">&#8212;</span> '+String(slides.length).padStart(2,'0');
+  dots[0]?.classList.add('sl-dot-active');
+  timer = setInterval(()=>goTo(cur+1,1), 5800);
 })();
 
 </script>
