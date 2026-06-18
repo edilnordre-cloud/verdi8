@@ -246,8 +246,20 @@ body.light #themeBtn{background:rgba(58,122,82,.1);border-color:rgba(58,122,82,.
 .feat-list{display:grid!important;grid-template-columns:1fr 1fr!important;gap:0!important;margin-bottom:32px!important;}
 .feat-item{padding:10px 0!important;font-size:12px!important;}
 @media(max-width:600px){.feat-list{grid-template-columns:1fr!important;}}
+</style>
+<style>
+/* ══ IRIS OPEN — entrata cinematic ══ */
+#irisOpen{
+  position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background:rgba(10,10,10,.97);
+  clip-path:circle(120% at 50% 38%);
+  transition:clip-path 1.05s cubic-bezier(.22,1,.36,1) .05s;
+  will-change:clip-path;
+}
+#irisOpen.open{clip-path:circle(0% at 50% 38%);}
 </style></head>
 <body>
+<div id="irisOpen"></div>
 <nav>
   <a class="nav-brand" href="index.html">VERD<em>I</em>8</a>
   <div style="display:flex;align-items:center;gap:10px;"><button id="themeBtn" onclick="toggleTheme()" aria-label="Tema"><span id="themeIcon">&#9788;</span></button><a class="nav-back" href="index.html#unita">Tutte le unità</a>
@@ -404,6 +416,18 @@ function toggleTheme(){
       if(i)i.textContent=String.fromCharCode(9685);
     }
   }catch(e){}
+})();
+</script>
+<script>
+(function(){
+  var el=document.getElementById('irisOpen');
+  if(!el)return;
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      el.classList.add('open');
+      el.addEventListener('transitionend',function(){el.remove();},{once:true});
+    });
+  });
 })();
 </script></body>
 </html>
