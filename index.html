@@ -1,0 +1,2210 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Residenza Verdi8 – Brugherio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="images/index_1.jpeg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--v:#3a7a52;--accent:#9dc0aa;--t:#f0ece4;--t2:rgba(240,236,228,.72);--bg:#0a0a0a;--e:cubic-bezier(.22,1,.36,1);}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--bg);font-family:'Montserrat',sans-serif;overflow-x:hidden;color:var(--t);}
+
+/* ══════════════════════════════
+   1. HERO
+══════════════════════════════ */
+#hero{position:relative;width:100%;height:100vh;overflow:hidden;background:#0a0a0a;}
+#bg{position:absolute;inset:0;background-image:url('images/index_1.jpeg');background-size:cover;background-position:center 35%;will-change:transform;}
+#overlay{position:absolute;inset:0;background:rgba(10,10,10,.52);}
+
+/* Nav */
+#nav{position:absolute;top:0;left:0;right:0;z-index:10;padding:22px 40px 8px;overflow:visible;}
+.nav-top{display:flex;justify-content:space-between;align-items:center;}
+.brand-logo{height:70px;width:auto;opacity:.85;display:block;transition:opacity .2s;}
+.brand-logo:hover{opacity:1;}
+.nav-links{display:flex;gap:34px;align-items:center;}
+.nav-link{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#f0ece4;text-decoration:none;opacity:.88;transition:opacity .2s,color .2s;}
+.nav-link:hover{opacity:1;color:#9dc0aa;}
+.nav-divider{margin-top:14px;display:flex;align-items:center;gap:16px;width:100%;}
+.divider-line{flex:1;height:.5px;background:#9dc0aa;opacity:.5;}
+.nav-partners{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.partner-label{font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,236,228,.28);white-space:nowrap;}
+.partner-sep{width:1px;height:10px;background:#9dc0aa;opacity:.3;}
+.partner-logo{height:20px;width:auto;opacity:.65;transition:opacity .2s;display:block;}
+.partner-logo:hover{opacity:.9;}
+
+/* Titolo hero */
+#hero-title{position:absolute;bottom:28px;left:40px;right:40px;z-index:4;pointer-events:none;}
+.title-row{display:block;line-height:.84;font-size:clamp(100px,18vw,240px);}
+.t-verdi{font-family:'Anton',sans-serif;font-size:1em;line-height:.84;letter-spacing:-.01em;color:#f0ece4;white-space:nowrap;display:inline;}
+.t-accent{color:#9dc0aa;font-style:normal;}
+
+.meta{margin-top:14px;display:flex;align-items:center;gap:16px;}
+.meta-line{width:28px;height:1px;background:#9dc0aa;flex-shrink:0;}
+.meta-txt{font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:.14em;color:rgba(240,236,228,.5);}
+
+/* ══════════════════════════════
+   2. EXPLORER (desktop)
+══════════════════════════════ */
+.units-section{width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 0 60px;}
+.section-eyebrow{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;text-align:center;}
+.section-title{font-family:'Anton',sans-serif;font-size:clamp(28px,4.5vw,58px);color:var(--t);letter-spacing:-.01em;text-align:center;margin-bottom:40px;}
+.section-title em{color:var(--accent);font-style:normal;}
+.stage-wrap{position:relative;width:88vw;max-width:1200px;border-radius:12px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.65);cursor:crosshair;}
+.stage-wrap.zoomed{cursor:zoom-out;}
+.building-img{display:block;width:100%;height:auto;transform-origin:var(--zx,50%) var(--zy,50%);transform:scale(var(--zs,1));transition:transform 1.4s var(--e);will-change:transform;user-select:none;pointer-events:none;}
+.zoom-overlay{position:absolute;inset:0;background:rgba(10,10,10,0);transition:background .8s;pointer-events:none;z-index:1;}
+.stage-wrap.zoomed .zoom-overlay{background:rgba(10,10,10,.12);}
+.marker{position:absolute;transform:translate(-50%,-50%);z-index:10;cursor:pointer;transition:opacity .3s;}
+.stage-wrap.zoomed .marker{opacity:0;pointer-events:none;}
+.m-dot{position:relative;width:14px;height:14px;}
+.m-dot::before{content:'';position:absolute;inset:0;border-radius:50%;background:var(--accent);animation:pulse 2.2s infinite;}
+.m-dot::after{content:'';position:absolute;width:6px;height:6px;top:4px;left:4px;border-radius:50%;background:#fff;z-index:1;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(157,192,170,.7)}70%{box-shadow:0 0 0 10px rgba(157,192,170,0)}100%{box-shadow:0 0 0 0 rgba(157,192,170,0)}}
+.m-line{position:absolute;background:rgba(157,192,170,.45);}
+.m-label{position:absolute;white-space:nowrap;background:rgba(10,10,10,.82);border:.5px solid rgba(157,192,170,.35);border-radius:6px;padding:8px 14px;transition:background .2s,border-color .2s;}
+.marker:hover .m-label{background:rgba(58,122,82,.9);border-color:var(--accent);}
+.marker:hover .m-dot::before{animation-play-state:paused;background:#fff;}
+.m-label-name{font-family:'Anton',sans-serif;font-size:13px;letter-spacing:.04em;color:var(--t);display:block;}
+.m-label-sub{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-top:2px;display:block;}
+.stage-hint{margin-top:20px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,236,228,.22);display:flex;align-items:center;gap:10px;transition:opacity .3s;}
+.stage-hint::before,.stage-hint::after{content:'';width:20px;height:.5px;background:rgba(157,192,170,.25);}
+.stage-hint.hidden{opacity:0;pointer-events:none;}
+
+/* ══════════════════════════════
+   3. MOBILE: TRACKING SHOT
+══════════════════════════════ */
+.tracking-section{display:none!important;}
+
+/* ══════════════════════════════
+   4. BRUGHERIO
+══════════════════════════════ */
+.brg-section{width:100%;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:#050505;overflow:hidden;}
+.brg-left{display:flex;flex-direction:column;justify-content:center;padding:80px 60px 80px 80px;opacity:0;transform:translateX(-70px);transition:opacity .9s var(--e),transform .9s var(--e);}
+.brg-left.visible{opacity:1;transform:none;}
+.brg-right{position:relative;overflow:hidden;opacity:0;transform:translateX(70px);transition:opacity .9s var(--e) .12s,transform .9s var(--e) .12s;}
+.brg-right.visible{opacity:1;transform:none;}
+.brg-eyebrow{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.brg-eyebrow::before{content:'';width:24px;height:.5px;background:var(--accent);}
+.brg-title{font-family:'Anton',sans-serif;font-size:clamp(44px,5.5vw,80px);color:var(--t);line-height:.88;letter-spacing:-.02em;margin-bottom:28px;}
+.brg-title em{color:var(--accent);font-style:normal;}
+.brg-text{font-size:14px;color:var(--t2);line-height:1.85;margin-bottom:36px;max-width:460px;}
+.brg-stats{display:flex;gap:36px;}
+.brg-stat-n{font-family:'Anton',sans-serif;font-size:34px;color:var(--t);}
+.brg-stat-l{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-top:3px;}
+.brg-img{width:100%;height:100%;min-height:500px;object-fit:cover;display:block;}
+.brg-img-overlay{position:absolute;inset:0;background:linear-gradient(to right,#050505 0%,transparent 25%),linear-gradient(to top,#050505 0%,transparent 20%);}
+.brg-caption{position:absolute;bottom:24px;left:28px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,236,228,.3);}
+
+/* ══════════════════════════════
+   5. MAPPA (OpenStreetMap)
+══════════════════════════════ */
+.maps-section{width:100%;min-height:100vh;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 5vw;gap:40px;}
+.maps-hdr{text-align:center;width:100%;opacity:0;transform:translateY(-36px);transition:opacity .7s var(--e),transform .7s var(--e);}
+.maps-hdr.visible{opacity:1;transform:none;}
+.maps-eyebrow{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.maps-title{font-family:'Anton',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--t);letter-spacing:-.01em;}
+.maps-title em{color:var(--accent);font-style:normal;}
+.maps-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;width:100%;max-width:1100px;}
+.maps-l{opacity:0;transform:translateX(-70px);transition:opacity .9s var(--e) .1s,transform .9s var(--e) .1s;}
+.maps-l.visible{opacity:1;transform:none;}
+.maps-r{opacity:0;transform:translateX(70px);transition:opacity .9s var(--e) .2s,transform .9s var(--e) .2s;}
+.maps-r.visible{opacity:1;transform:none;}
+.map-container{border-radius:10px;overflow:hidden;border:.5px solid rgba(157,192,170,.18);aspect-ratio:4/3;}
+.map-container iframe{width:100%;height:100%;border:none;display:block;}
+.poi-list{display:flex;flex-direction:column;}
+.poi-category{margin-bottom:18px;}
+.poi-cat-label{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;padding-bottom:6px;border-bottom:.5px solid rgba(157,192,170,.15);}
+.poi-item{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:.5px solid rgba(255,255,255,.04);}
+.poi-icon{width:30px;height:30px;border-radius:7px;background:rgba(157,192,170,.07);border:.5px solid rgba(157,192,170,.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.poi-name{flex:1;font-size:12px;color:var(--t);font-weight:500;}
+.poi-time{font-family:'Anton',sans-serif;font-size:15px;color:var(--accent);}
+.poi-mode{font-size:8px;letter-spacing:.1em;color:var(--t2);}
+
+/* ══════════════════════════════
+   UNIT OVERLAY (desktop)
+══════════════════════════════ */
+.unit-overlay{position:fixed;inset:0;z-index:200;pointer-events:none;display:flex;align-items:flex-end;justify-content:center;}
+.unit-overlay.active{pointer-events:all;}
+.unit-backdrop{position:absolute;inset:0;background:rgba(10,10,10,0);backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);transition:background .6s,backdrop-filter .6s;cursor:pointer;}
+.unit-overlay.active .unit-backdrop{background:rgba(10,10,10,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+.unit-panel{position:relative;width:100%;max-width:620px;background:linear-gradient(160deg,#161616,#0d0d0d);border:1px solid rgba(157,192,170,.15);border-bottom:none;border-radius:20px 20px 0 0;padding:40px 44px 52px;transform:translateY(110%) scale(.95);opacity:0;transition:transform .7s var(--e),opacity .5s;z-index:1;}
+.unit-panel::before{content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);width:36px;height:3px;border-radius:2px;background:rgba(157,192,170,.25);}
+.unit-overlay.active .unit-panel{transform:translateY(0) scale(1);opacity:1;}
+.unit-panel>*{opacity:0;transform:translateY(14px);transition:opacity .4s,transform .4s var(--e);}
+.unit-overlay.active .unit-panel>*:nth-child(1){opacity:1;transform:none;transition-delay:.18s;}
+.unit-overlay.active .unit-panel>*:nth-child(2){opacity:1;transform:none;transition-delay:.25s;}
+.unit-overlay.active .unit-panel>*:nth-child(3){opacity:1;transform:none;transition-delay:.31s;}
+.unit-overlay.active .unit-panel>*:nth-child(4){opacity:1;transform:none;transition-delay:.38s;}
+.unit-overlay.active .unit-panel>*:nth-child(5){opacity:1;transform:none;transition-delay:.46s;}
+.unit-overlay.active .unit-panel>*:nth-child(6){opacity:1;transform:none;transition-delay:.54s;}
+.unit-close{position:absolute;top:18px;right:20px;width:30px;height:30px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);border-radius:50%;cursor:pointer;color:var(--t);font-size:12px;display:flex;align-items:center;justify-content:center;transition:all .2s;opacity:1!important;transform:none!important;}
+.unit-close:hover{background:rgba(255,255,255,.12);border-color:var(--accent);}
+.unit-tag{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);}
+.unit-name{font-family:'Anton',sans-serif;font-size:40px;color:var(--t);letter-spacing:-.01em;margin:6px 0;}
+.unit-desc{font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:28px;}
+.unit-specs{display:flex;gap:0;margin-bottom:32px;padding:20px 0;border-top:.5px solid rgba(255,255,255,.07);border-bottom:.5px solid rgba(255,255,255,.07);}
+.unit-spec-item{flex:1;display:flex;flex-direction:column;gap:4px;}
+.unit-spec-item+.unit-spec-item{padding-left:20px;border-left:.5px solid rgba(255,255,255,.07);}
+.unit-spec-val{font-family:'Anton',sans-serif;font-size:26px;color:var(--t);}
+.unit-spec-lbl{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);}
+.unit-cta{display:inline-flex;align-items:center;gap:12px;background:var(--v);color:var(--t);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:15px 30px;border-radius:8px;text-decoration:none;transition:background .2s,transform .2s;}
+.unit-cta:hover{background:#2d5a3f;transform:translateX(3px);}
+.unit-cta svg{width:14px;height:14px;}
+
+/* ══════════════════════════════
+   MOBILE OVERRIDES
+══════════════════════════════ */
+@media(max-width:768px){
+  /* Hero */
+  #nav{padding:14px 20px 6px;}
+  .nav-links{gap:16px;}
+  .nav-link{font-size:10px;letter-spacing:.12em;}
+  .brand-logo{height:38px;}
+  .nav-divider{display:none;}
+  #hero-title{left:20px;right:20px;bottom:20px;}
+
+  /* Nascondi explorer desktop */
+  .units-section{display:none;}
+
+  /* Mostra tracking shot */
+  .tracking-section{
+    display:block;
+    position:relative;
+    height:500vh; /* scroll budget */
+  }
+  .tracking-panel{
+    position:sticky;
+    top:0;
+    height:100svh;
+    width:100%;
+    overflow:hidden;
+    background:#000;
+  }
+
+  /* Immagine wide — scorre orizzontalmente */
+  .tracking-img-wrap{
+    position:absolute;
+    inset:0;
+    will-change:transform;
+  }
+  .tracking-img{
+    height:100%;
+    width:auto;
+    max-width:none;
+    display:block;
+    object-fit:cover;
+    pointer-events:none;
+    user-select:none;
+  }
+  /* Vignette laterale */
+  .tracking-vignette{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(to right, rgba(0,0,0,.6) 0%, transparent 15%, transparent 85%, rgba(0,0,0,.6) 100%),
+      linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 40%);
+    pointer-events:none;z-index:2;
+  }
+
+  /* Progress bar cinematica in alto */
+  .track-progress{
+    position:absolute;top:0;left:0;right:0;height:2px;z-index:10;
+    background:rgba(255,255,255,.08);
+  }
+  .track-progress-fill{
+    height:100%;background:var(--accent);width:0%;transition:width .05s linear;
+  }
+
+  /* Label sezione in alto */
+  .track-section-label{
+    position:absolute;top:24px;left:50%;transform:translateX(-50%);
+    z-index:10;font-size:9px;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(240,236,228,.35);white-space:nowrap;
+  }
+
+  /* Schede unità — overlay in basso */
+  .track-card{
+    position:absolute;bottom:0;left:0;right:0;
+    z-index:5;padding:0 24px 44px;
+    opacity:0;
+    transition:opacity .5s var(--e);
+    pointer-events:none;
+  }
+  .track-card.active{opacity:1;pointer-events:all;}
+
+  .tc-label{
+    font-size:9px;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:8px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .tc-label::before{content:'';width:16px;height:.5px;background:var(--accent);}
+  .tc-name{
+    font-family:'Anton',sans-serif;font-size:38px;color:var(--t);
+    line-height:.88;letter-spacing:-.01em;margin-bottom:20px;
+  }
+  .tc-specs{
+    display:flex;align-items:center;
+    margin-bottom:20px;padding-bottom:18px;
+    border-bottom:.5px solid rgba(157,192,170,.2);
+  }
+  .tc-spec{display:flex;flex-direction:column;gap:3px;flex:1;}
+  .tc-divider{width:.5px;height:28px;background:rgba(255,255,255,.1);margin:0 14px;}
+  .tc-val{font-family:'Anton',sans-serif;font-size:22px;color:var(--t);}
+  .tc-val-sm{font-family:'Anton',sans-serif;font-size:14px;color:var(--t);}
+  .tc-lbl{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);}
+  .tc-cta{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--v);color:var(--t);
+    font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;
+    letter-spacing:.16em;text-transform:uppercase;
+    padding:12px 22px;border-radius:7px;text-decoration:none;
+  }
+  .tc-cta svg{width:12px;height:12px;}
+
+  /* Indicatore unità (dots laterali) */
+  .track-dots{
+    position:absolute;right:16px;top:50%;transform:translateY(-50%);
+    z-index:10;display:flex;flex-direction:column;gap:8px;
+  }
+  .track-dot{
+    width:5px;height:5px;border-radius:50%;
+    background:rgba(157,192,170,.25);
+    transition:background .3s,transform .3s;
+  }
+  .track-dot.active{background:var(--accent);transform:scale(1.6);}
+
+  /* Brugherio mobile */
+  .brg-section:not(#contatti){grid-template-columns:1fr;min-height:auto;}
+  .brg-left{padding:60px 24px 32px;transform:translateX(0) translateY(40px);}
+  .brg-right{min-height:56vw;transform:translateX(0) translateY(40px);}
+  .brg-left.visible,.brg-right.visible{transform:none;}
+
+  /* Maps mobile */
+  .maps-grid{grid-template-columns:1fr;}
+  .maps-l{transform:translateY(40px);}
+  .maps-r{transform:translateY(40px);}
+  .maps-l.visible,.maps-r.visible{transform:none;}
+}
+
+/* ══ HAMBURGER ══════════════════════════════════ */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:110;background:none;border:none;}
+.hamburger span{display:block;width:22px;height:1.5px;background:#f0ece4;transition:transform .35s var(--e),opacity .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+/* ══ MENU OVERLAY ═══════════════════════════════ */
+#menuOverlay{
+  position:fixed;inset:0;z-index:100;
+  background:rgba(5,5,5,.97);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;
+  opacity:0;pointer-events:none;
+  transition:opacity .4s var(--e);
+}
+#menuOverlay.open{opacity:1;pointer-events:all;}
+.mob-nav-link{
+  font-family:'Anton',sans-serif;font-size:44px;
+  letter-spacing:-.01em;color:rgba(240,236,228,.55);
+  text-decoration:none;padding:10px 0;
+  opacity:0;transform:translateY(24px);
+  transition:color .2s,opacity .55s var(--e),transform .55s var(--e);
+}
+#menuOverlay.open .mob-nav-link{opacity:1;transform:none;}
+#menuOverlay.open .mob-nav-link:nth-child(1){transition-delay:.08s;}
+#menuOverlay.open .mob-nav-link:nth-child(2){transition-delay:.14s;}
+#menuOverlay.open .mob-nav-link:nth-child(3){transition-delay:.20s;}
+#menuOverlay.open .mob-nav-link:nth-child(4){transition-delay:.26s;}
+#menuOverlay.open .mob-nav-link:nth-child(5){transition-delay:.32s;}
+.mob-nav-link:hover{color:var(--accent);}
+.mob-nav-partners{
+  margin-top:32px;display:flex;align-items:center;gap:20px;
+  opacity:0;transition:opacity .5s .4s;
+}
+#menuOverlay.open .mob-nav-partners{opacity:1;}
+.mob-partner-logo{height:20px;width:auto;opacity:.45;filter:brightness(2);}
+
+/* ══ STICKY CTA ═════════════════════════════════ */
+#stickyCta{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:90;
+  background:rgba(10,10,10,.92);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-top:.5px solid rgba(157,192,170,.2);
+  padding:14px 20px 24px;
+  flex-direction:row;align-items:center;gap:12px;
+}
+.cta-main{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  background:var(--v);color:var(--t);
+  font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:13px 20px;border-radius:8px;text-decoration:none;gap:8px;
+}
+.cta-icon{
+  width:40px;height:40px;border-radius:8px;
+  border:.5px solid rgba(157,192,170,.25);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--t);text-decoration:none;font-size:18px;
+  background:rgba(157,192,170,.06);transition:background .2s;
+}
+.cta-icon:hover{background:rgba(157,192,170,.14);}
+
+/* ══ GALLERY ════════════════════════════════════ */
+.gallery-section{
+  width:100%;background:var(--bg);
+  padding:80px 0;
+}
+.gallery-header{
+  text-align:center;margin-bottom:48px;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .7s var(--e),transform .7s var(--e);
+}
+.gallery-header.visible{opacity:1;transform:none;}
+.gallery-eyebrow{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.gallery-title{font-family:'Anton',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--t);letter-spacing:-.01em;}
+.gallery-title em{color:var(--accent);font-style:normal;}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:auto;
+  gap:3px;
+  width:100%;
+}
+.gallery-item{
+  overflow:hidden;aspect-ratio:1;cursor:zoom-in;
+  opacity:0;transform:scale(.96);
+  transition:opacity .6s var(--e),transform .6s var(--e);
+}
+.gallery-item.visible{opacity:1;transform:none;}
+.gallery-item:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:1;}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--e);}
+.gallery-item:hover img{transform:scale(1.04);}
+
+/* Lightbox */
+#lightbox{
+  position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.95);
+  display:none;align-items:center;justify-content:center;cursor:zoom-out;
+}
+#lightbox.open{display:flex;}
+#lightbox img{max-width:92vw;max-height:92vh;object-fit:contain;border-radius:4px;}
+#lightboxClose{position:absolute;top:20px;right:24px;color:#fff;font-size:28px;cursor:pointer;background:none;border:none;opacity:.6;transition:opacity .2s;}
+#lightboxClose:hover{opacity:1;}
+
+/* ══ SECTION NUMBERS ════════════════════════════ */
+.section-num{
+  font-family:'Anton',sans-serif;font-size:10px;
+  letter-spacing:.28em;color:rgba(157,192,170,.35);
+  margin-bottom:6px;text-align:center;
+}
+
+@media(max-width:768px){
+  .hamburger{display:flex;}
+  .nav-links{display:none;}
+  #stickyCta{display:flex;}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  .gallery-item:first-child{grid-column:span 2;grid-row:span 1;aspect-ratio:2/1;}
+  .gallery-section{padding:60px 0;}
+  .gallery-header{margin-bottom:32px;}
+}
+
+/* ══ MOBILE EXPLORER v2 ══════════════════════════════════ */
+@media(max-width:768px){
+  .mob-explorer{
+    display:flex;flex-direction:column;
+    height:100svh;background:#0a0a0a;
+    position:relative;overflow:hidden;
+  }
+  .mob-render{
+    flex:0 0 40%;position:relative;overflow:hidden;
+  }
+  .mob-render-img{
+    width:100%;height:100%;
+    object-fit:cover;object-position:center 30%;
+    display:block;pointer-events:none;user-select:none;
+  }
+  .mob-render-ov{
+    position:absolute;inset:0;
+    background:linear-gradient(to bottom,rgba(10,10,10,.1) 0%,rgba(10,10,10,.75) 100%);
+  }
+  /* Pin */
+  .mob-pin{
+    position:absolute;transform:translate(-50%,-50%);
+    cursor:pointer;z-index:5;
+  }
+  .mob-pin-ring{
+    position:absolute;
+    width:24px;height:24px;
+    border-radius:50%;
+    border:1.5px solid rgba(157,192,170,.5);
+    top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    animation:mobring 2.4s infinite;
+  }
+  @keyframes mobring{
+    0%{transform:translate(-50%,-50%) scale(1);opacity:.7}
+    70%{transform:translate(-50%,-50%) scale(2);opacity:0}
+    100%{transform:translate(-50%,-50%) scale(2);opacity:0}
+  }
+  .mob-pin-dot{
+    width:10px;height:10px;border-radius:50%;
+    background:#9dc0aa;
+    position:relative;z-index:1;
+    transition:background .25s,transform .25s;
+  }
+  .mob-pin.active .mob-pin-dot{
+    background:#6fcf8f;
+    transform:scale(1.3);
+    box-shadow:0 0 8px rgba(111,207,143,.5);
+  }
+  .mob-pin.active .mob-pin-ring{
+    border-color:rgba(111,207,143,.6);
+  }
+  .mob-pin-tip{
+    position:absolute;
+    bottom:calc(100% + 8px);
+    left:50%;transform:translateX(-50%);
+    background:rgba(6,6,6,.9);
+    border:.5px solid rgba(157,192,170,.3);
+    border-radius:4px;
+    padding:3px 8px;
+    white-space:nowrap;
+    font-size:8px;font-weight:700;letter-spacing:.08em;
+    color:#f0ece4;
+    pointer-events:none;
+    transition:opacity .2s;
+  }
+  .mob-pin-tip::after{
+    content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+    border:4px solid transparent;border-top-color:rgba(157,192,170,.3);
+  }
+  /* Cards orizzontali */
+  .mob-cards-wrap{
+    flex-shrink:0;
+    padding:12px 0 8px;
+  }
+  .mob-cards-label{
+    font-size:8px;letter-spacing:.22em;text-transform:uppercase;
+    color:rgba(157,192,170,.5);padding:0 18px;margin-bottom:8px;
+  }
+  .mob-cards{
+    display:flex;gap:8px;
+    padding:0 18px;
+    overflow-x:auto;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x mandatory;
+  }
+  .mob-cards::-webkit-scrollbar{display:none;}
+  .mob-card{
+    flex:0 0 120px;
+    border-radius:10px;
+    padding:10px 11px;
+    background:rgba(157,192,170,.04);
+    border:.5px solid rgba(157,192,170,.1);
+    cursor:pointer;
+    transition:background .25s,border-color .25s;
+    scroll-snap-align:start;
+    position:relative;overflow:hidden;
+  }
+  .mob-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:transparent;transition:background .25s;
+  }
+  .mob-card.active{
+    background:rgba(58,122,82,.14);
+    border-color:rgba(58,122,82,.45);
+  }
+  .mob-card.active::before{
+    background:linear-gradient(to right,#3a7a52,#6fcf8f);
+  }
+  .mc-tag{font-size:7px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(157,192,170,.55);margin-bottom:4px;}
+  .mob-card.active .mc-tag{color:#9dc0aa;}
+  .mc-name{font-size:11px;font-weight:700;color:#f0ece4;line-height:1.15;margin-bottom:5px;}
+  .mc-mq{font-size:16px;font-weight:700;color:rgba(157,192,170,.7);}
+  .mob-card.active .mc-mq{color:#6fcf8f;}
+  .mc-sub{font-size:7px;color:rgba(240,236,228,.35);letter-spacing:.04em;margin-top:1px;}
+  /* Dots indicatore */
+  .mob-dots{
+    display:flex;justify-content:center;gap:5px;
+    padding:5px 0 0;
+  }
+  .mob-dot{
+    width:4px;height:4px;border-radius:50%;
+    background:rgba(157,192,170,.2);
+    transition:background .25s,width .25s;
+  }
+  .mob-dot.active{width:12px;border-radius:2px;background:#9dc0aa;}
+  /* Detail panel */
+  .mob-detail{
+    flex:1;
+    padding:12px 18px 28px;
+    overflow:hidden;
+    display:flex;flex-direction:column;
+    gap:0;
+  }
+  .mob-det-tag{
+    font-size:8px;letter-spacing:.22em;text-transform:uppercase;
+    color:#9dc0aa;margin-bottom:5px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .mob-det-tag::before{content:'';width:14px;height:.5px;background:#9dc0aa;}
+  .mob-det-name{
+    font-family:'Anton',sans-serif;
+    font-size:26px;color:#f0ece4;
+    letter-spacing:-.01em;line-height:.9;
+    margin-bottom:12px;
+  }
+  .mob-det-name em{color:#9dc0aa;font-style:normal;}
+  .mob-specs-grid{
+    display:grid;grid-template-columns:1fr 1fr 1fr;
+    gap:6px;margin-bottom:12px;
+  }
+  .mob-spec{
+    background:rgba(255,255,255,.03);
+    border:.5px solid rgba(255,255,255,.07);
+    border-radius:8px;padding:8px 6px;text-align:center;
+  }
+  .mob-spec-val{font-size:15px;font-weight:700;color:#f0ece4;}
+  .mob-spec-lbl{font-size:6px;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,236,228,.4);margin-top:2px;}
+  .mob-actions{display:flex;gap:7px;align-items:center;}
+  .mob-cta{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+    background:#3a7a52;color:#f0ece4;
+    font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;
+    letter-spacing:.14em;text-transform:uppercase;
+    padding:11px 14px;border-radius:8px;text-decoration:none;
+    transition:background .2s;
+  }
+  .mob-cta svg{width:12px;height:12px;flex-shrink:0;}
+  .mob-action-btn{
+    width:38px;height:38px;flex-shrink:0;
+    border-radius:8px;border:.5px solid rgba(157,192,170,.2);
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;text-decoration:none;
+    background:rgba(157,192,170,.05);
+    transition:background .2s;
+  }
+}
+
+@media(min-width:769px){
+  .mob-explorer{display:none;}
+}
+
+/* ══ MOBILE POPUP MODAL ═════════════════════════════════ */
+@media(max-width:768px){
+  .mob-explorer{
+    height:auto;
+    
+    padding-bottom:16px;
+  }
+  .mob-detail{display:none;}
+
+  /* Modale bottom-sheet */
+  #mobModal{
+    position:fixed;inset:0;z-index:300;
+    pointer-events:none;
+    display:flex;align-items:flex-end;justify-content:center;
+  }
+  #mobModal.open{pointer-events:all;}
+  #mobModalBdp{
+    position:absolute;inset:0;
+    background:rgba(0,0,0,0);
+    backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);
+    transition:background .5s,backdrop-filter .5s;
+    cursor:pointer;
+  }
+  #mobModal.open #mobModalBdp{
+    background:rgba(0,0,0,.6);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  }
+  #mobModalPanel{
+    position:relative;z-index:1;
+    width:100%;
+    background:#0f0f0f;
+    border:1px solid rgba(157,192,170,.15);
+    border-bottom:none;
+    border-radius:20px 20px 0 0;
+    padding:36px 24px 48px;
+    transform:translateY(100%);
+    opacity:0;
+    transition:transform .6s cubic-bezier(.22,1,.36,1),opacity .4s;
+  }
+  #mobModal.open #mobModalPanel{
+    transform:translateY(0);
+    opacity:1;
+  }
+  /* handle */
+  #mobModalPanel::before{
+    content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);
+    width:36px;height:3px;border-radius:2px;background:rgba(157,192,170,.2);
+  }
+  /* stagger children */
+  #mobModalPanel>*{
+    opacity:0;transform:translateY(12px);
+    transition:opacity .4s,transform .4s cubic-bezier(.22,1,.36,1);
+  }
+  #mobModal.open #mobModalPanel>*:nth-child(1){opacity:1;transform:none;transition-delay:.12s;}
+  #mobModal.open #mobModalPanel>*:nth-child(2){opacity:1;transform:none;transition-delay:.18s;}
+  #mobModal.open #mobModalPanel>*:nth-child(3){opacity:1;transform:none;transition-delay:.24s;}
+  #mobModal.open #mobModalPanel>*:nth-child(4){opacity:1;transform:none;transition-delay:.30s;}
+  #mobModal.open #mobModalPanel>*:nth-child(5){opacity:1;transform:none;transition-delay:.37s;}
+
+  .mm-close{
+    position:absolute;top:18px;right:18px;
+    width:28px;height:28px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.05);
+    color:#f0ece4;font-size:12px;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;opacity:1!important;transform:none!important;
+  }
+  .mm-tag{
+    font-size:8px;letter-spacing:.26em;text-transform:uppercase;
+    color:#9dc0aa;margin-bottom:6px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .mm-tag::before{content:'';width:14px;height:.5px;background:#9dc0aa;}
+  .mm-name{
+    font-family:'Anton',sans-serif;font-size:34px;
+    color:#f0ece4;letter-spacing:-.01em;line-height:.88;
+    margin-bottom:20px;
+  }
+  .mm-name em{color:#9dc0aa;font-style:normal;}
+  .mm-specs{
+    display:grid;grid-template-columns:1fr 1fr 1fr;
+    gap:8px;margin-bottom:22px;
+    padding-bottom:20px;
+    border-bottom:.5px solid rgba(255,255,255,.07);
+  }
+  .mm-spec{
+    background:rgba(255,255,255,.03);
+    border:.5px solid rgba(255,255,255,.06);
+    border-radius:8px;padding:10px 8px;text-align:center;
+  }
+  .mm-sv{font-size:18px;font-weight:700;color:#f0ece4;}
+  .mm-sl{font-size:7px;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,236,228,.4);margin-top:2px;}
+  .mm-actions{display:flex;gap:8px;align-items:center;}
+  .mm-cta{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
+    background:#3a7a52;color:#f0ece4;
+    font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;
+    letter-spacing:.14em;text-transform:uppercase;
+    padding:13px 16px;border-radius:9px;text-decoration:none;
+  }
+  .mm-cta svg{width:12px;height:12px;flex-shrink:0;}
+  .mm-icon{
+    width:44px;height:44px;border-radius:9px;
+    border:.5px solid rgba(157,192,170,.2);
+    background:rgba(157,192,170,.05);
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;text-decoration:none;flex-shrink:0;
+  }
+}
+
+@media(min-width:769px){
+  #mobModal{display:none!important;}
+  .mob-explorer{display:none!important;}
+}
+
+.ct-fl{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,236,228,.3);margin-bottom:3px;}
+.ct-inp{display:block;width:100%;background:rgba(255,255,255,.04);border:.5px solid rgba(255,255,255,.09);border-radius:5px;padding:8px 11px;font-size:12px;color:var(--t);font-family:'Montserrat',sans-serif;}
+.ct-inp::placeholder{color:rgba(240,236,228,.25);}
+.ct-priv{font-size:8px;color:rgba(240,236,228,.22);line-height:1.5;margin-bottom:10px;}
+.ct-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--v);color:var(--t);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:12px;border-radius:7px;border:none;cursor:pointer;transition:background .2s;}
+.ct-btn:hover{background:#2d5a3f;}
+.ct-cocard{background:rgba(157,192,170,.04);border:.5px solid rgba(157,192,170,.1);border-radius:8px;padding:14px 16px;}
+.co-logo{height:24px;margin-bottom:8px;display:block;}
+.co-role{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:5px;}
+.co-desc{font-size:11px;color:rgba(240,236,228,.4);line-height:1.6;}
+.ct-disc{font-size:8px;color:rgba(240,236,228,.2);line-height:1.6;margin-top:18px;padding-top:14px;border-top:.5px solid rgba(255,255,255,.05);}
+.val-step{background:var(--bg);padding:22px 20px;text-align:center;}
+.val-step-n{font-family:'Anton',sans-serif;font-size:24px;color:var(--v);margin-bottom:6px;}
+.val-step-t{font-size:11px;font-weight:600;color:var(--t);margin-bottom:4px;}
+.val-step-d{font-size:9px;color:rgba(240,236,228,.35);line-height:1.5;}
+.val-cta-btn{display:inline-flex;align-items:center;background:#f0ece4;color:#0a0a0a;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:12px 24px;border-radius:7px;text-decoration:none;transition:background .2s;white-space:nowrap;}
+.val-cta-btn:hover{background:#ddd8d0;}
+@media(max-width:768px){
+  .val-step-t,.val-step-d{display:none;}
+  .ct-disc{font-size:7px;}
+}
+
+/* ══ LEGGIBILITÀ GLOBALE ══════════════════════════════════ */
+/* Testo secondario: .55 → .72 */
+:root { --t2: rgba(240,236,228,.72) !important; }
+
+/* Body base */
+body { font-size: 15px; line-height: 1.7; }
+
+/* Nav links */
+.nav-link { font-size: 13px !important; opacity: .92 !important; letter-spacing:.15em !important; }
+
+/* Section eyebrows */
+.section-eyebrow, .section-num, .brg-eyebrow, .maps-eyebrow,
+.gallery-eyebrow, .vl, .u-tag, .u-num, .mob-det-tag,
+.mob-cards-label, .mc-tag, .tc-label, .slide-tag,
+.partner-label, .mm-tag {
+  font-size: 10px !important;
+  letter-spacing: .22em !important;
+}
+
+/* Titoli sezione */
+.section-title, .brg-title, .maps-title, .val-title, .ct-title {
+  letter-spacing: -.02em !important;
+}
+
+/* Testi body */
+.brg-text { font-size:15px !important; line-height:1.9 !important; color:rgba(240,236,242,.78) !important; }
+.co-desc, .ct-intro, .intro { font-size:13px !important; line-height:1.75 !important; color:rgba(240,236,228,.72) !important; }
+.unit-desc, .vbody, .val-sub { font-size:14px !important; line-height:1.8 !important; }
+.disc, .ct-disc, .disclaimer { font-size:10px !important; line-height:1.65 !important; color:rgba(240,236,228,.38) !important; }
+
+/* Stats Brugherio */
+.brg-stat-n { font-size:36px !important; }
+.brg-stat-l { font-size:10px !important; letter-spacing:.16em !important; color:rgba(157,192,170,.8) !important; }
+
+/* POI list */
+.poi-name { font-size:13px !important; }
+.poi-cat-label { font-size:10px !important; letter-spacing:.2em !important; }
+.poi-time { font-size:16px !important; }
+.poi-mode { font-size:9px !important; }
+
+/* Cards mobile */
+.mc-name { font-size:13px !important; }
+.mc-mq { font-size:18px !important; }
+.mc-sub { font-size:9px !important; }
+.mc-tag { font-size:8px !important; }
+
+/* Hint bar */
+.stage-hint { font-size:11px !important; }
+
+/* Meta hero */
+.meta-txt { font-size:13px !important; letter-spacing:.12em !important; color:rgba(240,236,228,.6) !important; }
+
+/* Marker labels */
+.m-label-name { font-size:14px !important; }
+.m-label-sub { font-size:10px !important; letter-spacing:.1em !important; }
+
+/* Map section header */
+.maps-title { font-size:clamp(32px,4vw,56px) !important; }
+
+/* Footer disclaimer */
+footer p { font-size:10px !important; line-height:1.7 !important; color:rgba(240,236,228,.35) !important; }
+
+/* Valutazione steps */
+.val-step-t { font-size:12px !important; }
+.val-step-d { font-size:10px !important; line-height:1.6 !important; color:rgba(240,236,228,.5) !important; }
+.val-step-n { font-size:28px !important; }
+
+/* Form labels */
+.ct-fl, .f-label { font-size:10px !important; letter-spacing:.14em !important; color:rgba(240,236,228,.45) !important; }
+.ct-inp, .f-inp, .f-sel, .f-ta { font-size:13px !important; }
+
+/* Spaziature sezioni */
+.maps-section { padding: 100px 5vw !important; }
+.units-section { padding: 100px 0 70px !important; }
+.stage-hint { margin-top:24px !important; }
+
+/* Co-role */
+.co-role { font-size:9px !important; letter-spacing:.16em !important; color:rgba(157,192,170,.8) !important; }
+
+/* Disclaimer legale */
+.ct-disc { font-size:9.5px !important; color:rgba(240,236,228,.32) !important; }
+
+.t-eight-txt{
+  font-family:'Anton',sans-serif;
+  font-size:1em;
+  line-height:.84;
+  letter-spacing:-.01em;
+  color:#9dc0aa;
+  display:inline;
+}
+
+
+/* ══ GALLERY BENTO ═══════════════════════════════════════ */
+.gl-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:auto;
+  gap:3px;
+  width:100%;
+}
+.gl-item{overflow:hidden;position:relative;aspect-ratio:1;cursor:zoom-in;}
+.gl-item.gl-big{grid-column:span 2;grid-row:span 2;aspect-ratio:auto;}
+.gl-item.gl-tall{grid-row:span 2;aspect-ratio:auto;}
+.gl-item.gl-wide{grid-column:span 2;aspect-ratio:2/1;}
+.gl-item img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .7s cubic-bezier(.22,1,.36,1);
+}
+.gl-item:hover img{transform:scale(1.06);}
+/* Lightbox */
+#glLightbox{
+  position:fixed;inset:0;z-index:400;
+  background:rgba(0,0,0,.92);
+  display:none;align-items:center;justify-content:center;
+  cursor:zoom-out;
+}
+#glLightbox.open{display:flex;}
+#glLightbox img{max-width:92vw;max-height:90vh;object-fit:contain;border-radius:4px;}
+#glClose{position:absolute;top:20px;right:24px;font-size:28px;color:rgba(255,255,255,.6);cursor:pointer;background:none;border:none;transition:color .2s;}
+#glClose:hover{color:#fff;}
+@media(max-width:768px){
+  .gl-grid{grid-template-columns:repeat(2,1fr);}
+  .gl-item.gl-big,.gl-item.gl-tall,.gl-item.gl-wide{grid-column:span 1;grid-row:span 1;aspect-ratio:1;}
+}
+
+/* ══════════════════════════════════════════════════════
+   MOBILE FIX — sezioni nuove (gallery, contatti, val.)
+══════════════════════════════════════════════════════ */
+@media(max-width:768px){
+
+  /* ── Gallery + Descrizione ── */
+  #gallery{padding:60px 0 0;}
+  #gallery > div:first-child{
+    width:92vw!important;margin:0 auto 32px!important;
+  }
+  #gallery > div:first-child > div{
+    grid-template-columns:1fr!important;gap:32px!important;
+  }
+  /* Quote architetto */
+  #gallery blockquote{font-size:13px!important;}
+  /* Stats */
+  #gallery > div:first-child .brg-title{font-size:clamp(32px,8vw,48px)!important;}
+
+  /* Gallery grid: 2 col, tutti 1x1 */
+  .gl-grid{grid-template-columns:repeat(2,1fr)!important;gap:2px!important;}
+  .gl-item,.gl-item.gl-big,.gl-item.gl-tall,.gl-item.gl-wide{
+    grid-column:span 1!important;grid-row:span 1!important;
+    aspect-ratio:1!important;
+  }
+
+  /* ── Contatti ── */
+  #contatti .brg-left,
+  #ctLeft{
+    padding:32px 20px 24px!important;
+  }
+  #ctRight{
+    padding:24px 20px 40px!important;
+    border-top:.5px solid rgba(255,255,255,.06)!important;
+  }
+  #contatti > div[style*="width:.5px"]{display:none!important;}
+  #contatti .brg-title{font-size:clamp(32px,8vw,48px)!important;margin-bottom:16px!important;}
+  .ct-inp{font-size:14px!important;padding:10px 12px!important;}
+  .ct-btn{font-size:11px!important;padding:14px!important;}
+
+  /* ── Valutazione ── */
+  #valutazione{padding:60px 0 0!important;}
+  #valutazione > div:first-child{
+    width:92vw!important;
+    grid-template-columns:1fr!important;
+    gap:20px!important;
+  }
+  #valutazione > div:first-child img[style*="height:40px"]{display:none!important;}
+  .brg-title[style*="font-size:26px"]{font-size:clamp(28px,7vw,42px)!important;}
+  .val-step-n{font-size:22px!important;}
+
+  /* Val steps: 2 colonne su mobile */
+  .val-steps{
+    grid-template-columns:repeat(2,1fr)!important;
+    gap:.5px!important;
+  }
+  .val-step{padding:16px 12px!important;}
+  .val-step-t{font-size:11px!important;display:block!important;}
+  .val-step-d{font-size:9px!important;display:block!important;}
+
+  /* Val footer CTA */
+  #valutazione > div:last-child,
+  div[style*="background:#0e0e0e"][style*="padding:20px 5vw"]{
+    flex-direction:column!important;
+    gap:14px!important;
+    align-items:flex-start!important;
+    padding:20px 24px!important;
+  }
+  .val-cta-btn{
+    width:100%!important;
+    justify-content:center!important;
+    padding:14px!important;
+    font-size:11px!important;
+  }
+
+  /* ── Footer ── */
+  footer{
+    flex-direction:column!important;
+    gap:16px!important;
+    padding:28px 24px!important;
+    align-items:flex-start!important;
+  }
+
+  /* ── Mappa / Il Cantiere ── */
+  .maps-section{padding:60px 20px!important;}
+  .maps-grid{grid-template-columns:1fr!important;gap:24px!important;}
+  .map-container{aspect-ratio:4/3!important;}
+  .maps-title{font-size:clamp(28px,7vw,42px)!important;}
+  .poi-list{max-height:none!important;}
+
+  /* ── Sezione brg (Brugherio) ── */
+  .brg-section:not(#contatti){
+    grid-template-columns:1fr!important;min-height:auto!important;
+  }
+  .brg-left{padding:60px 24px 32px!important;}
+  .brg-right{min-height:56vw!important;}
+  .brg-title{font-size:clamp(36px,9vw,56px)!important;}
+  .brg-text{font-size:14px!important;}
+  .brg-stats{gap:24px!important;}
+  .brg-stat-n{font-size:28px!important;}
+
+  /* ── Nav divider partner (nasconde su mobile nel nav) ── */
+  .nav-divider{display:none!important;}
+
+  /* ── Sezione hero mobile padding bottom per sticky CTA ── */
+  body{padding-bottom:0;}
+  #stickyCta{padding-bottom:calc(env(safe-area-inset-bottom) + 14px)!important;}
+
+  /* ── Co-cards contatti ── */
+  .ct-cocard{padding:14px!important;}
+  #ctRight > div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}
+  .co-logo{max-width:100px!important;}
+
+  /* ── Lightbox ── */
+  #glLightbox img{max-width:96vw!important;max-height:80vh!important;}
+}
+
+@media(max-width:560px){
+  #contatti{grid-template-columns:1fr!important;}
+  #ctRight{border-top:.5px solid rgba(255,255,255,.06)!important;}
+}
+
+
+
+@media(max-width:768px){
+  .maps-l,.maps-r{opacity:1!important;transform:none!important;}
+  .maps-hdr{opacity:1!important;transform:none!important;}
+  .map-container{aspect-ratio:1/1!important;}
+  .map-open-link{display:flex!important;}
+}
+.map-open-link{display:none;margin-top:10px;align-items:center;justify-content:center;gap:8px;background:rgba(157,192,170,.08);border:.5px solid rgba(157,192,170,.2);border-radius:7px;padding:10px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);text-decoration:none;}
+
+.sl-wrap{position:relative;width:100%;height:70vh;min-height:400px;overflow:hidden;background:#0d0d0d;cursor:grab;}
+.sl-wrap:active{cursor:grabbing;}
+.sl-track{position:absolute;inset:0;}
+.sl-slide{position:absolute;inset:0;opacity:0;transition:opacity .8s cubic-bezier(.22,1,.36,1);pointer-events:none;}
+.sl-slide.sl-active{opacity:1;pointer-events:all;}
+.sl-slide img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.06);transition:transform 7s ease-out;}
+.sl-slide.sl-active img{transform:scale(1);}
+.sl-track::after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(to right,rgba(0,0,0,.4) 0%,transparent 18%,transparent 82%,rgba(0,0,0,.4) 100%),linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 30%);pointer-events:none;}
+.sl-ui{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:0 28px;pointer-events:none;}
+.sl-btn{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#f0ece4;font-size:22px;cursor:pointer;pointer-events:all;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;backdrop-filter:blur(6px);}
+.sl-btn:hover{background:rgba(58,122,82,.75);transform:scale(1.1);}
+.sl-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,.08);z-index:6;}
+.sl-progress-fill{height:100%;background:var(--accent);width:0%;transition:width .7s;}
+.sl-counter{position:absolute;top:22px;right:28px;z-index:6;font-family:'Anton',sans-serif;font-size:14px;color:rgba(240,236,228,.55);letter-spacing:.06em;}
+.sl-sep{margin:0 8px;color:rgba(157,192,170,.35);}
+.sl-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:6;display:flex;gap:6px;}
+.sl-dot{width:5px;height:5px;border-radius:50%;background:rgba(240,236,228,.22);cursor:pointer;transition:background .3s,width .3s;}
+.sl-dot.sl-dot-active{background:var(--accent);width:18px;border-radius:3px;}
+@media(max-width:768px){.sl-wrap{height:56vw;min-height:240px;}.sl-btn{width:38px;height:38px;font-size:17px;}.sl-counter{font-size:11px;top:14px;right:16px;}}
+
+
+/* ═══ LOGHI PARTNER — regola unica definitiva ═══════════════════════ */
+.logo-wrap{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.logo-wrap img{
+  height:22px;
+  width:auto;
+  opacity:.68;
+  display:block;
+  transition:opacity .2s;
+}
+.logo-wrap img:hover{opacity:1;}
+/* Nav divider: leggermente più piccolo */
+.nav-divider .logo-wrap img{height:20px;}
+/* Sezione contatti */
+.co-logo{height:30px!important;width:auto!important;display:block!important;margin-bottom:12px!important;opacity:.88!important;}
+/* Footer */
+footer .footer-logo{height:24px!important;width:auto!important;opacity:.55!important;}
+@media(max-width:768px){
+  .co-logo{height:26px!important;}
+  footer .footer-logo{height:20px!important;}
+}
+
+/* Nav divider animazione entrata */
+.nav-divider{
+  opacity:0;
+  transform:translateY(-8px);
+  transition:opacity .5s ease .3s, transform .5s ease .3s;
+}
+.nav-divider.nav-in{
+  opacity:1;
+  transform:none;
+}
+
+/* ═══ HERO TITLE ANIMAZIONE ═══════════════════════════════ */
+#hero-title{
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .9s cubic-bezier(.22,1,.36,1) .4s,
+             transform .9s cubic-bezier(.22,1,.36,1) .4s;
+}
+#hero-title.hero-in{
+  opacity:1;
+  transform:none;
+}
+.t-verdi{
+  display:inline-block;
+  clip-path:inset(0 100% 0 0);
+  transition:clip-path 1.1s cubic-bezier(.22,1,.36,1) .6s;
+}
+.t-verdi.hero-in{ clip-path:inset(0 0% 0 0); }
+.t-eight-txt{
+  display:inline-block;
+  opacity:0;
+  transform:scale(.7) rotate(-8deg);
+  transition:opacity .6s ease 1.4s, transform .6s cubic-bezier(.34,1.56,.64,1) 1.4s;
+}
+.t-eight-txt.hero-in{
+  opacity:1;
+  transform:none;
+}
+.meta{
+  opacity:0;
+  transform:translateX(-12px);
+  transition:opacity .6s ease 1.7s, transform .6s ease 1.7s;
+}
+.meta.hero-in{
+  opacity:1;
+  transform:none;
+}
+
+/* ═══ SEZIONE POSIZIONE REDESIGN ══════════════════════════════════════ */
+.loc-section{
+  background:#060606;
+  padding:0 0 80px;
+  overflow:hidden;
+}
+.loc-header{
+  padding:100px 6vw 48px;
+  max-width:1400px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:end;
+  gap:24px;
+}
+.loc-eyebrow{
+  grid-column:1/-1;
+  font-family:'Montserrat',sans-serif;
+  font-size:9px;letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.loc-eyebrow::before{content:'';display:block;width:28px;height:.5px;background:var(--accent);}
+.loc-title{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(48px,7vw,96px);
+  line-height:.92;
+  color:var(--t);
+  letter-spacing:-.02em;
+  overflow:hidden;
+}
+.loc-t-line{
+  display:block;
+  overflow:hidden;
+}
+.loc-t-inner{
+  display:block;
+  transform:translateY(110%);
+  transition:transform .9s cubic-bezier(.22,1,.36,1);
+}
+.loc-t-line:nth-child(2) .loc-t-inner{transition-delay:.12s;}
+.loc-t-line:nth-child(3) .loc-t-inner{transition-delay:.22s; color:var(--accent);}
+.loc-section.loc-in .loc-t-inner{transform:translateY(0);}
+.loc-address{
+  font-family:'Montserrat',sans-serif;
+  font-size:11px;letter-spacing:.14em;
+  color:rgba(240,236,228,.38);
+  text-transform:uppercase;
+  text-align:right;
+  line-height:1.8;
+  opacity:0;
+  transform:translateX(20px);
+  transition:opacity .7s ease .5s, transform .7s ease .5s;
+}
+.loc-section.loc-in .loc-address{opacity:1;transform:none;}
+
+/* Map */
+.loc-map-wrap{
+  position:relative;
+  width:100%;
+  height:52vh;
+  min-height:340px;
+  overflow:hidden;
+  margin-bottom:0;
+  transform:scaleX(.96);
+  opacity:0;
+  transition:transform 1s cubic-bezier(.22,1,.36,1) .3s,
+             opacity .8s ease .3s;
+}
+.loc-section.loc-in .loc-map-wrap{transform:scaleX(1);opacity:1;}
+.loc-map-wrap iframe{
+  width:100%;height:100%;
+  border:none;
+  filter:invert(.92) hue-rotate(180deg) saturate(.7) brightness(.85);
+}
+.loc-map-badge{
+  position:absolute;
+  bottom:24px;right:24px;
+  background:#0e0e0e;
+  border:.5px solid rgba(157,192,170,.25);
+  border-radius:8px;
+  padding:10px 18px;
+  display:flex;align-items:center;gap:8px;
+  font-family:'Montserrat',sans-serif;
+  font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--t);
+  text-decoration:none;
+  transition:background .2s,border-color .2s;
+  backdrop-filter:blur(8px);
+}
+.loc-map-badge:hover{background:#1a1a1a;border-color:rgba(157,192,170,.5);}
+.loc-map-badge::before{content:'⬡';color:var(--accent);font-size:14px;}
+
+/* POI strip */
+.loc-pois{
+  display:flex;
+  gap:0;
+  padding:0 6vw;
+  max-width:1400px;
+  margin:0 auto;
+  border-top:.5px solid rgba(255,255,255,.06);
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.loc-pois::-webkit-scrollbar{display:none;}
+.loc-poi{
+  flex:1;min-width:140px;
+  display:flex;flex-direction:column;
+  padding:28px 0;
+  border-right:.5px solid rgba(255,255,255,.06);
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1);
+}
+.loc-poi:last-child{border-right:none;}
+.loc-poi:nth-child(1){transition-delay:.1s;}
+.loc-poi:nth-child(2){transition-delay:.18s;}
+.loc-poi:nth-child(3){transition-delay:.26s;}
+.loc-poi:nth-child(4){transition-delay:.34s;}
+.loc-poi:nth-child(5){transition-delay:.42s;}
+.loc-poi:nth-child(6){transition-delay:.50s;}
+.loc-poi:nth-child(7){transition-delay:.58s;}
+.loc-poi:nth-child(8){transition-delay:.66s;}
+.loc-section.loc-in .loc-poi{opacity:1;transform:none;}
+.loc-poi-icon{font-size:18px;margin-bottom:10px;line-height:1;}
+.loc-poi-name{font-size:11px;color:rgba(240,236,228,.55);font-family:'Montserrat',sans-serif;margin-bottom:6px;line-height:1.4;}
+.loc-poi-time{font-family:'Anton',sans-serif;font-size:28px;color:var(--t);line-height:1;}
+.loc-poi-mode{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-top:2px;}
+@media(max-width:768px){
+  .loc-header{grid-template-columns:1fr;padding:60px 20px 32px;}
+  .loc-address{text-align:left;opacity:1;transform:none;}
+  .loc-map-wrap{height:55vw;min-height:260px;}
+  .loc-pois{padding:0;flex-wrap:wrap;}
+  .loc-poi{min-width:50%;flex:0 0 50%;padding:20px 16px;border-right:.5px solid rgba(255,255,255,.06)!important;}
+  .loc-poi:nth-child(even){border-right:none!important;}
+  .loc-poi-time{font-size:26px;}
+}
+
+/* ═══ POI STRIP — styling luminoso + animazioni ════════════════════════ */
+.loc-pois{background:rgba(255,255,255,.025);border-top:.5px solid rgba(255,255,255,.08);}
+.loc-poi{padding:32px 20px;}
+.loc-poi-icon{
+  font-size:26px;margin-bottom:12px;line-height:1;
+  display:inline-block;
+  animation-play-state:paused;
+  animation-iteration-count:infinite;
+  animation-timing-function:ease-in-out;
+}
+.loc-section.loc-in .loc-poi-icon{animation-play-state:running;}
+.loc-poi-name{font-size:12px;color:rgba(240,236,228,.82);font-family:'Montserrat',sans-serif;font-weight:600;margin-bottom:8px;line-height:1.4;}
+.loc-poi-time{font-family:'Anton',sans-serif;font-size:36px;color:#fff;line-height:1;letter-spacing:-.02em;}
+.loc-apo{font-size:18px;opacity:.6;}
+.loc-poi-mode{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-top:4px;font-family:'Montserrat',sans-serif;font-weight:700;}
+
+/* ── Keyframes per ogni icona ─────────────────────────── */
+@keyframes train-move{
+  0%,100%{transform:translateX(0);}
+  30%{transform:translateX(5px);}
+  70%{transform:translateX(-3px);}
+}
+@keyframes metro-bounce{
+  0%,100%{transform:translateY(0);}
+  40%{transform:translateY(-5px) scaleY(.9);}
+  60%{transform:translateY(1px) scaleY(1.05);}
+}
+@keyframes city-glow{
+  0%,100%{transform:scale(1);filter:brightness(1);}
+  50%{transform:scale(1.15);filter:brightness(1.4);}
+}
+@keyframes monument-sway{
+  0%,100%{transform:rotate(0);}
+  33%{transform:rotate(4deg);}
+  66%{transform:rotate(-3deg);}
+}
+@keyframes plane-fly{
+  0%{transform:translateX(-8px) translateY(5px) rotate(-12deg);opacity:.5;}
+  50%{transform:translateX(0) translateY(0) rotate(0);opacity:1;}
+  100%{transform:translateX(8px) translateY(-5px) rotate(12deg);opacity:.5;}
+}
+@keyframes tree-sway{
+  0%,100%{transform:rotate(0) translateY(0);}
+  25%{transform:rotate(6deg) translateY(-1px);}
+  75%{transform:rotate(-5deg) translateY(-1px);}
+}
+@keyframes heartbeat{
+  0%,100%{transform:scale(1);}
+  12%{transform:scale(1.25);}
+  24%{transform:scale(1);}
+  36%{transform:scale(1.18);}
+  60%{transform:scale(1);}
+}
+@keyframes school-bounce{
+  0%,100%{transform:translateY(0) rotate(0);}
+  25%{transform:translateY(-5px) rotate(-4deg);}
+  75%{transform:translateY(-3px) rotate(3deg);}
+}
+
+.anim-train   {animation-name:train-move;    animation-duration:1.4s;}
+.anim-metro   {animation-name:metro-bounce;  animation-duration:.9s;}
+.anim-city    {animation-name:city-glow;     animation-duration:2.8s;}
+.anim-monument{animation-name:monument-sway; animation-duration:3.2s;}
+.anim-plane   {animation-name:plane-fly;     animation-duration:2.2s;animation-direction:alternate;}
+.anim-tree    {animation-name:tree-sway;     animation-duration:2.4s;transform-origin:bottom center;}
+.anim-heart   {animation-name:heartbeat;     animation-duration:1.6s;}
+.anim-school  {animation-name:school-bounce; animation-duration:2s;}
+
+.menu-close-btn{
+  position:absolute;top:20px;right:24px;
+  background:none;border:none;
+  color:rgba(240,236,228,.7);font-size:28px;
+  cursor:pointer;padding:8px;line-height:1;
+  transition:color .2s,transform .2s;
+}
+.menu-close-btn:hover{color:#f0ece4;transform:rotate(90deg);}
+#menuOverlay{position:relative;}
+/* ══ IRIS OVERLAY (fly-into-building) ══════════════════ */
+#irisOverlay{
+  position:absolute;inset:0;z-index:20;
+  pointer-events:none;overflow:hidden;border-radius:inherit;
+}
+#irisDot{
+  position:absolute;
+  width:0;height:0;
+  border-radius:50%;
+  background:rgba(10,10,10,.96);
+  transform:translate(-50%,-50%);
+  transition:none;
+}
+#irisOverlay.closing #irisDot{
+  width:250vmax;height:250vmax;
+  transition:width 0.65s cubic-bezier(.4,0,.2,1),height 0.65s cubic-bezier(.4,0,.2,1);
+}
+/* Mouse parallax on building */
+.stage-wrap .building-img{
+  transition:transform 1.4s cubic-bezier(.22,1,.36,1);
+}
+.stage-wrap.zoomed .building-img{
+  transition:transform 1.4s cubic-bezier(.22,1,.36,1);
+}
+</style>
+</head>
+<body>
+
+<!-- ══ 1. HERO ═══════════════════════════════════════════ -->
+<div id="hero">
+  <div id="bg"></div>
+  <div id="overlay"></div>
+  <nav id="nav">
+    <div class="nav-top">
+      <img class="brand-logo" src="images/index_1.png" alt="Residenza Verdi8">
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="nav-links">
+        <a class="nav-link" href="#unita">Unità</a>
+        <a class="nav-link" href="#posizione">Posizione</a>
+        <a class="nav-link" href="#valutazione">Valutazione</a>
+        <a class="nav-link" href="#contatti">Contatti</a>
+      </div>
+    </div>
+    <div class="nav-divider">
+      <div class="divider-line"></div>
+      <div class="nav-partners">
+        <span class="partner-label">con</span>
+        <div class="partner-sep"></div>
+        <a href="https://www.edilnordre.it" target="_blank">
+          <span class="logo-wrap"><img src="images/index_2.png" alt="Edilnord RE"></span></a>
+        <div class="partner-sep"></div>
+        <a href="https://www.tecnobriantea.it" target="_blank">
+          <span class="logo-wrap"><img src="images/index_3.png" alt="TecnoBriantea"></span></a>
+      </div>
+    </div>
+  </nav>
+  <div id="hero-title">
+    <div class="title-row">
+      <span class="t-verdi">VERD<span class="t-accent">I</span></span>
+      <span class="t-eight-txt">8</span>
+    </div>
+    <div class="meta">
+      <div class="meta-line"></div>
+      <span class="meta-txt">4 unità · Brugherio (MB)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 2. EXPLORER DESKTOP ═══════════════════════════════ -->
+<section class="units-section" id="unita">
+  <p class="section-num">02</p>
+  <p class="section-eyebrow">Residenza Verdi 8 · Brugherio</p>
+  <h2 class="section-title">Scegli la tua un<em>i</em>tà</h2>
+  <div class="stage-wrap" id="stage">
+    <img class="building-img" id="building" src="images/index_4.jpeg" alt="Residenza Verdi8">
+    <div class="zoom-overlay"></div>
+    <div id="irisOverlay"><div id="irisDot"></div></div>
+    
+    <div class="marker" data-unit="A" data-zx="13%" data-zy="68%" data-zs="3.0" style="left:13%;top:78%">
+      <div class="m-dot"></div>
+      <div class="m-line" style="width:1px;height:44px;bottom:calc(100% - 7px);left:7px;"></div>
+      <div class="m-label" style="position:absolute;bottom:calc(100% + 48px);left:0;">
+        <span class="m-label-name">Appartamento A</span>
+        <span class="m-label-sub">4 locali · giardino</span>
+      </div>
+    </div>
+    <div class="marker" data-unit="ATT" data-zx="44%" data-zy="16%" data-zs="2.8" style="left:42%;top:20%">
+      <div class="m-dot"></div>
+      <div class="m-line" style="width:1px;height:44px;bottom:calc(100% - 7px);left:7px;"></div>
+      <div class="m-label" style="position:absolute;bottom:calc(100% + 48px);left:50%;transform:translateX(-50%);">
+        <span class="m-label-name">Attico</span>
+        <span class="m-label-sub">4 locali · terrazzo 100m²</span>
+      </div>
+    </div>
+    <div class="marker" data-unit="B" data-zx="58%" data-zy="46%" data-zs="3.2" style="left:55%;top:50%">
+      <div class="m-dot"></div>
+      <div class="m-line" style="width:1px;height:44px;bottom:calc(100% - 7px);left:7px;"></div>
+      <div class="m-label" style="position:absolute;bottom:calc(100% + 48px);right:0;">
+        <span class="m-label-name">Appartamento B</span>
+        <span class="m-label-sub">4 locali · terrazzo</span>
+      </div>
+    </div>
+    <div class="marker" data-unit="C" data-zx="84%" data-zy="52%" data-zs="3.0" style="left:83%;top:50%">
+      <div class="m-dot"></div>
+      <div class="m-line" style="width:1px;height:44px;bottom:calc(100% - 7px);left:7px;"></div>
+      <div class="m-label" style="position:absolute;bottom:calc(100% + 48px);left:50%;transform:translateX(-50%);white-space:nowrap;">
+        <span class="m-label-name">Villa C</span>
+        <span class="m-label-sub">indipendente · giardino · terrazzo</span>
+      </div>
+    </div>
+  </div>
+  <p class="stage-hint" id="stageHint">clicca su un'unità per esplorarla</p>
+</section>
+
+
+<section class="mob-explorer" id="mob-units">
+  <!-- Render con pin -->
+  <div class="mob-render">
+    <img class="mob-render-img" src="images/index_4.jpeg" alt="Residenza Verdi8">
+    <div class="mob-render-ov"></div>
+    
+      <div class="mob-pin" data-unit="A" style="left:14%;top:73%">
+        <div class="mob-pin-ring"></div>
+        <div class="mob-pin-tip">App. A</div>
+        <div class="mob-pin-dot"></div>
+      </div>
+      <div class="mob-pin" data-unit="ATT" style="left:43%;top:22%">
+        <div class="mob-pin-ring"></div>
+        <div class="mob-pin-tip">Attico</div>
+        <div class="mob-pin-dot"></div>
+      </div>
+      <div class="mob-pin" data-unit="B" style="left:52%;top:48%">
+        <div class="mob-pin-ring"></div>
+        <div class="mob-pin-tip">App. B</div>
+        <div class="mob-pin-dot"></div>
+      </div>
+      <div class="mob-pin" data-unit="C" style="left:83%;top:52%">
+        <div class="mob-pin-ring"></div>
+        <div class="mob-pin-tip">Villa C</div>
+        <div class="mob-pin-dot"></div>
+      </div>
+  </div>
+
+  <!-- Cards orizzontali -->
+  <div class="mob-cards-wrap">
+    <div class="mob-cards-label">Unità disponibili</div>
+    <div class="mob-cards" id="mobCards">
+      
+      <div class="mob-card active" data-unit="A">
+        <div class="mc-tag">App. A</div>
+        <div class="mc-name">4 locali<br>con Giardino</div>
+        <div class="mc-mq">95 m²</div>
+        <div class="mc-sub">Giardino</div>
+      </div>
+      <div class="mob-card" data-unit="ATT">
+        <div class="mc-tag">Attico</div>
+        <div class="mc-name">Ultimo<br>Piano</div>
+        <div class="mc-mq">110 m²</div>
+        <div class="mc-sub">100m² terrazzo</div>
+      </div>
+      <div class="mob-card" data-unit="B">
+        <div class="mc-tag">App. B</div>
+        <div class="mc-name">4 locali<br>con Terrazzo</div>
+        <div class="mc-mq">80 m²</div>
+        <div class="mc-sub">Terrazzo</div>
+      </div>
+      <div class="mob-card" data-unit="C">
+        <div class="mc-tag">Villa C</div>
+        <div class="mc-name">Villa<br>Indipendente</div>
+        <div class="mc-mq">88 m²</div>
+        <div class="mc-sub">Giar.+Terrazzo</div>
+      </div>
+    </div>
+    <div class="mob-dots" id="mobDots"><div class="mob-dot active"></div><div class="mob-dot"></div><div class="mob-dot"></div><div class="mob-dot"></div></div>
+  </div>
+
+</section>
+<!-- ══ 3. TRACKING SHOT MOBILE ════════════════════════════ -->
+<div class="tracking-section" id="trackingSection">
+  <div class="tracking-panel" id="trackingPanel">
+    <div class="track-progress"><div class="track-progress-fill" id="trackFill"></div></div>
+    <span class="track-section-label">Residenza Verdi8 · Brugherio</span>
+
+    <div class="tracking-img-wrap" id="trackImgWrap">
+      <img class="tracking-img" id="trackImg" src="images/index_4.jpeg" alt="Residenza Verdi8">
+    </div>
+    <div class="tracking-vignette"></div>
+
+    
+    <span id="unita-a" style="position:absolute;top:-80px;"></span><div class="track-card" id="tcardA"
+         data-start="0.0" data-end="0.32">
+      <div class="tc-label">Appartamento A</div>
+      <h2 class="tc-name">4 locali<br>con Giardino</h2>
+      <div class="tc-specs">
+        <div class="tc-spec"><span class="tc-val">95 m²</span><span class="tc-lbl">Superficie</span></div>
+        <div class="tc-divider"></div>
+        <div class="tc-spec"><span class="tc-val">4</span><span class="tc-lbl">Locali</span></div>
+        <div class="tc-divider"></div>
+        <div class="tc-spec"><span class="tc-val-sm">Giardino</span><span class="tc-lbl">Outdoor</span></div>
+      </div>
+      <a class="tc-cta" href="app-a.html">Scopri
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+    </div>
+    <span id="attico" style="position:absolute;top:-80px;"></span><div class="track-card" id="tcardATT"
+         data-start="0.22" data-end="0.52">
+      <div class="tc-label">Attico</div>
+      <h2 class="tc-name">Ultimo<br>Piano</h2>
+      <div class="tc-specs">
+        <div class="tc-spec"><span class="tc-val">110 m²</span><span class="tc-lbl">Superficie</span></div>
+        <div class="tc-divider"></div>
+        <div class="tc-spec"><span class="tc-val">4</span><span class="tc-lbl">Locali</span></div>
+        <div class="tc-divider"></div>
+        <div class="tc-spec"><span class="tc-val-sm">Terrazzo 100m²</span><span class="tc-lbl">Outdoor</span></div>
+      </div>
+      <a class="tc-cta" href="attico.html">Scopri
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+    </div>
+    <span id="unita-b" style="position:absolute;top:-80px;"></span><div class="track-card" id="tcardB"
+         data-start="0.44" data-end="0.72">
+      <div class="tc-label">Appartamento B</div>
+      <h2 class="tc-name">4 locali<br>con Terrazzo</h2>
+      <div class="tc-specs">
+        <div class="tc-spec"><span class="tc-val">80 m²</span><span class="tc-lbl">Superficie</span></div>
+        <div class="tc-divider"></div>
+        <div class="tc-spec"><span class="tc-val">4</span><span class="tc-lbl">Locali</span></div>
+        <div class="tc-divider"></div>
+        <div class="tc-spec"><span class="tc-val-sm">Terrazzo</span><span class="tc-lbl">Outdoor</span></div>
+      </div>
+      <a class="tc-cta" href="app-b.html">Scopri
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+    </div>
+    <span id="unita-c" style="position:absolute;top:-80px;"></span><div class="track-card" id="tcardC"
+         data-start="0.65" data-end="1.0">
+      <div class="tc-label">Villa C</div>
+      <h2 class="tc-name">Villa<br>Indipendente</h2>
+      <div class="tc-specs">
+        <div class="tc-spec"><span class="tc-val">88 m²</span><span class="tc-lbl">Superficie</span></div>
+        <div class="tc-divider"></div>
+        <div class="tc-spec"><span class="tc-val">4</span><span class="tc-lbl">Locali</span></div>
+        <div class="tc-divider"></div>
+        <div class="tc-spec"><span class="tc-val-sm">Giar. + Terrazzo</span><span class="tc-lbl">Outdoor</span></div>
+      </div>
+      <a class="tc-cta" href="villa-c.html">Scopri
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+    </div>
+
+    <div class="track-dots" id="trackDots">
+      <div class="track-dot" data-i="0"></div>
+      <div class="track-dot" data-i="1"></div>
+      <div class="track-dot" data-i="2"></div>
+      <div class="track-dot" data-i="3"></div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ══ 4. BRUGHERIO ══════════════════════════════════════ -->
+<section class="brg-section" id="brugherio">
+  <div class="brg-left" id="brgL">
+    <p class="section-num" style="text-align:left;margin-bottom:4px;">04</p>
+    <p class="brg-eyebrow">Il territorio</p>
+    <h2 class="brg-title">Brughe<em>r</em>io<br>MB</h2>
+    <p class="brg-text">Comune di 35.000 abitanti nella Provincia di Monza e Brianza, Brugherio è a pochi minuti a nord-est di Milano. Centro di storia millenaria, custodisce le reliquie dei Magi e la Villa Sormani, da cui fu effettuato il primo volo in mongolfiera in Italia. Il Parco Increa e il Parco Media Valle del Lambro circondano un territorio verde e vivibile.</p>
+    <div class="brg-stats">
+      <div><div class="brg-stat-n">35k</div><div class="brg-stat-l">Abitanti</div></div>
+      <div><div class="brg-stat-n">~15'</div><div class="brg-stat-l">da Milano</div></div>
+      <div><div class="brg-stat-n">MB</div><div class="brg-stat-l">Provincia</div></div>
+    </div>
+  </div>
+  <div class="brg-right" id="brgR">
+    <img class="brg-img" src="images/index_7.jpeg" alt="Brugherio">
+    <div class="brg-img-overlay"></div>
+    <span class="brg-caption">Piazza San Bartolomeo · Brugherio</span>
+  </div>
+</section>
+
+<!-- ══ 5. MAPPA ═══════════════════════════════════════════ -->
+<section class="loc-section" id="posizione">
+
+  <div class="loc-header">
+    <p class="loc-eyebrow">05 · Posizione</p>
+    <h2 class="loc-title">
+      <span class="loc-t-line"><span class="loc-t-inner">Dove si trova</span></span>
+      <span class="loc-t-line"><span class="loc-t-inner">la Res<em>i</em>denza</span></span>
+    </h2>
+    <div class="loc-address">
+      Via Giuseppe Verdi 8<br>
+      20861 Brugherio (MB)<br>
+      Brianza · Milano Sud
+    </div>
+  </div>
+
+  <div class="loc-map-wrap">
+    <iframe
+      src="https://www.openstreetmap.org/export/embed.html?bbox=9.2846%2C45.5627%2C9.2946%2C45.5707&layer=mapnik&marker=45.5667%2C9.2896"
+      allowfullscreen loading="lazy" title="Mappa Residenza Verdi8" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    <a class="loc-map-badge" href="https://maps.google.com/?q=Via+Giuseppe+Verdi+8,+Brugherio+MB" target="_blank">
+      Apri in Google Maps
+    </a>
+  </div>
+
+    <div class="loc-pois">
+    <div class="loc-poi">
+      <div class="loc-poi-icon anim-train">🚉</div>
+      <div class="loc-poi-name">Cologno Nord FS</div>
+      <div class="loc-poi-time"><span class="loc-count" data-target="8">0</span><span class="loc-apo">′</span></div>
+      <div class="loc-poi-mode">in auto</div>
+    </div>
+    <div class="loc-poi">
+      <div class="loc-poi-icon anim-metro">🚇</div>
+      <div class="loc-poi-name">MM2 Cologno</div>
+      <div class="loc-poi-time"><span class="loc-count" data-target="10">0</span><span class="loc-apo">′</span></div>
+      <div class="loc-poi-mode">in auto</div>
+    </div>
+    <div class="loc-poi">
+      <div class="loc-poi-icon anim-city">🏙️</div>
+      <div class="loc-poi-name">Milano Centro</div>
+      <div class="loc-poi-time"><span class="loc-count" data-target="20">0</span><span class="loc-apo">′</span></div>
+      <div class="loc-poi-mode">in auto</div>
+    </div>
+    <div class="loc-poi">
+      <div class="loc-poi-icon anim-monument">🏛️</div>
+      <div class="loc-poi-name">Monza</div>
+      <div class="loc-poi-time"><span class="loc-count" data-target="10">0</span><span class="loc-apo">′</span></div>
+      <div class="loc-poi-mode">in auto</div>
+    </div>
+    <div class="loc-poi">
+      <div class="loc-poi-icon anim-plane">✈️</div>
+      <div class="loc-poi-name">Linate</div>
+      <div class="loc-poi-time"><span class="loc-count" data-target="18">0</span><span class="loc-apo">′</span></div>
+      <div class="loc-poi-mode">in auto</div>
+    </div>
+    <div class="loc-poi">
+      <div class="loc-poi-icon anim-tree">🌳</div>
+      <div class="loc-poi-name">Parco Increa</div>
+      <div class="loc-poi-time"><span class="loc-count" data-target="8">0</span><span class="loc-apo">′</span></div>
+      <div class="loc-poi-mode">in auto</div>
+    </div>
+    <div class="loc-poi">
+      <div class="loc-poi-icon anim-heart">🏥</div>
+      <div class="loc-poi-name">S. Gerardo</div>
+      <div class="loc-poi-time"><span class="loc-count" data-target="15">0</span><span class="loc-apo">′</span></div>
+      <div class="loc-poi-mode">in auto</div>
+    </div>
+    <div class="loc-poi">
+      <div class="loc-poi-icon anim-school">🏫</div>
+      <div class="loc-poi-name">Scuole</div>
+      <div class="loc-poi-time"><span class="loc-count" data-target="5">0</span><span class="loc-apo">′</span></div>
+      <div class="loc-poi-mode">a piedi</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- Unit overlay desktop -->
+<div class="unit-overlay" id="unitOverlay">
+  <div class="unit-backdrop" id="unitBackdrop"></div>
+  <div class="unit-panel">
+    <button class="unit-close" id="unitClose">✕</button>
+    <p class="unit-tag" id="uTag"></p>
+    <h3 class="unit-name" id="uName"></h3>
+    <p class="unit-desc" id="uDesc"></p>
+    <div class="unit-specs">
+      <div class="unit-spec-item"><span class="unit-spec-val" id="uMq"></span><span class="unit-spec-lbl">Superficie</span></div>
+      <div class="unit-spec-item"><span class="unit-spec-val" id="uLocali"></span><span class="unit-spec-lbl">Locali</span></div>
+      <div class="unit-spec-item"><span class="unit-spec-val" id="uExtra"></span><span class="unit-spec-lbl">Outdoor</span></div>
+    </div>
+    <a class="unit-cta" id="uLink" href="#">Scopri questa unità
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+    </a>
+  </div>
+</div>
+
+
+<div id="menuOverlay"><button class="menu-close-btn" onclick="closeMenu()" aria-label="Chiudi menu">✕</button>
+  <a class="mob-nav-link" href="#unita" onclick="closeMenu()">Unità</a>
+  <a class="mob-nav-link" href="#brugherio" onclick="closeMenu()">Brugherio</a>
+  <a class="mob-nav-link" href="#posizione" onclick="closeMenu()">Posizione</a>
+  <a class="mob-nav-link" href="#contatti" onclick="closeMenu()">Contatti</a>
+</div>
+
+
+<div id="stickyCta">
+  <a class="cta-main" href="#contatti">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+    Richiedi informazioni
+  </a>
+  <a class="cta-icon" href="tel:+39XXXXXXXXXX" title="Chiama">📞</a>
+  <a class="cta-icon" href="mailto:info@tecnobriantea.it" title="Email">✉️</a>
+</div>
+
+<script>
+/* ══ IntersectionObserver (Brugherio + Maps) ══ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
+    else e.target.classList.remove('visible');
+  });
+}, {threshold: 0.05, rootMargin: '0px 0px -50px 0px'});
+['brgL','brgR','mapsHdr','mapsL','mapsR','ctLeft'].forEach(id => {
+  const el = document.getElementById(id); if(el) io.observe(el);
+});
+
+/* ══ HERO parallax ══ */
+const bgEl = document.getElementById('bg');
+window.addEventListener('scroll', () => {
+  bgEl.style.transform = 'translateY(' + (window.scrollY * 0.32) + 'px)';
+}, {passive:true});
+
+/* ══ TRACKING SHOT (mobile) ══ */
+const trackSection = document.getElementById('trackingSection');
+const trackFill    = document.getElementById('trackFill');
+const trackImgWrap = document.getElementById('trackImgWrap');
+const trackImg     = document.getElementById('trackImg');
+const trackDots    = document.querySelectorAll('.track-dot');
+const trackCards   = document.querySelectorAll('.track-card');
+
+/* Attende che l'immagine sia caricata per leggerne la larghezza */
+trackImg.addEventListener('load', initTracking);
+if(trackImg.complete) initTracking();
+
+function initTracking() {
+  function onScroll() {
+    if(window.innerWidth > 768) return;
+    const r = trackSection.getBoundingClientRect();
+    const total = trackSection.offsetHeight - window.innerHeight;
+    if(total <= 0) return;
+    const p = Math.max(0, Math.min(1, -r.top / total));
+
+    /* Pan orizzontale: immagine larga, si sposta da 0 a -(imgW - vw) */
+    const imgW = trackImg.naturalWidth * (window.innerHeight / trackImg.naturalHeight);
+    const maxPan = Math.max(0, imgW - window.innerWidth);
+    trackImgWrap.style.transform = `translateX(${-p * maxPan}px)`;
+    trackFill.style.width = (p * 100) + '%';
+
+    /* Attiva card e dot in base al progresso */
+    trackCards.forEach((card, i) => {
+      const start = parseFloat(card.dataset.start);
+      const end   = parseFloat(card.dataset.end);
+      const active = p >= start && p <= end;
+      card.classList.toggle('active', active);
+    });
+    trackDots.forEach((dot, i) => {
+      const card = trackCards[i];
+      if(!card) return;
+      const start = parseFloat(card.dataset.start);
+      const end   = parseFloat(card.dataset.end);
+      dot.classList.toggle('active', p >= start && p <= end);
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+}
+
+/* ══ Desktop: Explorer ══ */
+const units = {"A": {"tag": "Appartamento A", "name": "4 locali con Giardino", "mq": "95 m\u00b2", "locali": "4", "extra": "Giardino", "link": "app-a.html", "desc": "Informazioni dettagliate disponibili nella scheda unit\u00e0."}, "ATT": {"tag": "Attico", "name": "Ultimo Piano", "mq": "110 m\u00b2", "locali": "4", "extra": "Terrazzo 100m\u00b2", "link": "attico.html", "desc": "Informazioni dettagliate disponibili nella scheda unit\u00e0."}, "B": {"tag": "Appartamento B", "name": "4 locali con Terrazzo", "mq": "80 m\u00b2", "locali": "4", "extra": "Terrazzo", "link": "app-b.html", "desc": "Informazioni dettagliate disponibili nella scheda unit\u00e0."}, "C": {"tag": "Villa C", "name": "Villa Indipendente", "mq": "88 m\u00b2", "locali": "4", "extra": "Giar. + Terrazzo", "link": "villa-c.html", "desc": "Informazioni dettagliate disponibili nella scheda unit\u00e0."}};
+const stage    = document.getElementById('stage');
+const building = document.getElementById('building');
+const hint = document.getElementById('stageHint');
+let zoomed = false;
+/* Parallax on mousemove */
+stage.addEventListener('mousemove', e => {
+  if(zoomed) return;
+  const r = stage.getBoundingClientRect();
+  const mx = (e.clientX - r.left) / r.width  - 0.5;
+  const my = (e.clientY - r.top)  / r.height - 0.5;
+  building.style.transform = `scale(1.04) translate(${mx*14}px,${my*8}px)`;
+});
+stage.addEventListener('mouseleave', () => {
+  if(!zoomed) building.style.transform = '';
+});
+
+const irisDot = document.getElementById('irisDot');
+const irisOv  = document.getElementById('irisOverlay');
+
+document.querySelectorAll('.marker').forEach(m => {
+  m.addEventListener('click', e => {
+    e.stopPropagation();
+    if(zoomed) return;
+    const link = units[m.dataset.unit]?.link;
+    if(!link) return;
+
+    /* 1. Calculate click position relative to stage for iris origin */
+    const r = stage.getBoundingClientRect();
+    const ox = e.clientX - r.left;
+    const oy = e.clientY - r.top;
+    irisDot.style.left = ox + 'px';
+    irisDot.style.top  = oy + 'px';
+    irisDot.style.width  = '0';
+    irisDot.style.height = '0';
+
+    /* 2. Zoom building image toward unit zone */
+    building.style.setProperty('--zx', m.dataset.zx);
+    building.style.setProperty('--zy', m.dataset.zy);
+    building.style.setProperty('--zs', m.dataset.zs || '3');
+    building.style.transform = '';
+    stage.classList.add('zoomed');
+    hint.classList.add('hidden');
+    zoomed = true;
+
+    /* 3. After 550ms — iris closes */
+    setTimeout(() => {
+      irisOv.classList.add('closing');
+    }, 550);
+
+    /* 4. Navigate after iris is full */
+    setTimeout(() => {
+      window.location.href = link;
+    }, 1280);
+  });
+});
+
+stage.addEventListener('click', e => {
+  if(zoomed && e.target === stage){
+    building.style.setProperty('--zs','1');
+    building.style.transform = '';
+    stage.classList.remove('zoomed');
+    hint.classList.remove('hidden');
+    irisOv.classList.remove('closing');
+    zoomed = false;
+  }
+});
+
+/* ── Hamburger ── */
+const hamburger   = document.getElementById('hamburger');
+const menuOverlay = document.getElementById('menuOverlay');
+function openMenu()  { hamburger.classList.add('open'); menuOverlay.classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMenu() { hamburger.classList.remove('open'); menuOverlay.classList.remove('open'); document.body.style.overflow=''; }
+hamburger.addEventListener('click', () => { menuOverlay.classList.contains('open') ? closeMenu() : openMenu(); });
+menuOverlay.addEventListener('click', e => { if(e.target===menuOverlay) closeMenu(); });
+
+
+const galleryIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
+    else e.target.classList.remove('visible');
+  });
+}, {threshold:0.08});
+const galleryHdr = document.getElementById('galleryHdr');
+if(galleryHdr) galleryIO.observe(galleryHdr);
+document.querySelectorAll('.gallery-item').forEach(el => galleryIO.observe(el));
+
+/* ── Sticky CTA: nascondi quando contact è visibile ── */
+const stickyCta = document.getElementById('stickyCta');
+const ctaIO = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(stickyCta) stickyCta.style.opacity = e.isIntersecting ? '0' : '1'; });
+});
+const contactEl = document.getElementById('contatti');
+if(contactEl) ctaIO.observe(contactEl);
+
+
+/* ── Mobile Explorer v2 ── */
+(function(){
+  if(window.innerWidth > 768) return;
+  const units = {"A": {"tag": "App. A", "name": "4 locali<em>con Giardino</em>", "mq": "95 m\u00b2", "locali": "4", "extra": "Giardino", "link": "app-a.html"}, "ATT": {"tag": "Attico", "name": "Ultimo<em>Piano</em>", "mq": "110 m\u00b2", "locali": "4", "extra": "100m\u00b2 terrazzo", "link": "attico.html"}, "B": {"tag": "App. B", "name": "4 locali<em>con Terrazzo</em>", "mq": "80 m\u00b2", "locali": "4", "extra": "Terrazzo", "link": "app-b.html"}, "C": {"tag": "Villa C", "name": "Villa<em>Indipendente</em>", "mq": "88 m\u00b2", "locali": "4", "extra": "Giar.+Terrazzo", "link": "villa-c.html"}};
+  const cards   = document.querySelectorAll('.mob-card');
+  const pins    = document.querySelectorAll('.mob-pin');
+  const dots    = document.querySelectorAll('.mob-dot');
+  const tagEl   = document.getElementById('mobTag');
+  const nameEl  = document.getElementById('mobName');
+  const specsEl = document.getElementById('mobSpecs');
+  const ctaEl   = document.getElementById('mobCta');
+
+  const modal   = document.getElementById('mobModal');
+  const mmTag   = document.getElementById('mmTag');
+  const mmName  = document.getElementById('mmName');
+  const mmSpecs = document.getElementById('mmSpecs');
+  const mmCta   = document.getElementById('mmCta');
+  const mmClose = document.getElementById('mmClose');
+
+  function highlightUnit(uid){
+    cards.forEach((c,i)=>{ const a=c.dataset.unit===uid; c.classList.toggle('active',a); dots[i]?.classList.toggle('active',a); });
+    pins.forEach(p=>p.classList.toggle('active',p.dataset.unit===uid));
+    const ac=document.querySelector('.mob-card[data-unit="'+uid+'"]');
+    if(ac) ac.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  }
+  function openModal(uid){
+    const u=units[uid]; if(!u) return;
+    highlightUnit(uid);
+    if(mmTag)  mmTag.textContent=u.tag;
+    if(mmName) mmName.innerHTML=u.name;
+    if(mmCta){
+      mmCta.href=u.link;
+      mmCta.onclick=function(e){
+        e.preventDefault();
+        closeModal();
+        setTimeout(()=>{ window.location.hash=u.link; },200);
+      };
+    }
+    if(mmSpecs) mmSpecs.innerHTML=`
+      <div class="mm-spec"><div class="mm-sv">${u.mq}</div><div class="mm-sl">superficie</div></div>
+      <div class="mm-spec"><div class="mm-sv">${u.locali}</div><div class="mm-sl">locali</div></div>
+      <div class="mm-spec"><div class="mm-sv" style="font-size:13px">${u.extra}</div><div class="mm-sl">outdoor</div></div>`;
+    modal?.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(){
+    modal?.classList.remove('open');
+    document.body.style.overflow='';
+  }
+  mmClose?.addEventListener('click', closeModal);
+  document.getElementById('mobModalBdp')?.addEventListener('click', closeModal);
+
+  cards.forEach(c=>c.addEventListener('click',()=>window.location.href=units[c.dataset.unit].link));
+  pins.forEach(p=>p.addEventListener('click',e=>{e.stopPropagation();window.location.href=units[p.dataset.unit].link;}));
+  highlightUnit('A');
+})();
+
+/* ═══ ANIMAZIONI ENTRATA — si ripetono ad ogni scroll ═══════════════ */
+(function(){
+  function heroIn(){
+    const els = {
+      ht: document.getElementById('hero-title'),
+      tv: document.querySelector('.t-verdi'),
+      t8: document.querySelector('.t-eight-txt'),
+      mt: document.querySelector('.meta')
+    };
+    Object.values(els).forEach(el => {
+      if(!el) return;
+      el.classList.remove('hero-in');
+      void el.offsetWidth; /* force reflow */
+      el.classList.add('hero-in');
+    });
+  }
+  function heroOut(){
+    ['#hero-title','.t-verdi','.t-eight-txt','.meta'].forEach(sel => {
+      document.querySelector(sel)?.classList.remove('hero-in');
+    });
+    document.querySelector('.nav-divider')?.classList.remove('nav-in');
+  }
+
+  /* Avvia subito al caricamento */
+  if(document.readyState === 'complete') { setTimeout(heroIn,100); setTimeout(()=>document.querySelector('.nav-divider')?.classList.add('nav-in'),400); }
+  else window.addEventListener('load', ()=>{ setTimeout(heroIn,100); setTimeout(()=>document.querySelector('.nav-divider')?.classList.add('nav-in'),400); });
+
+  /* Ri-avvia ogni volta che il hero è visibile */
+  const heroIO = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ setTimeout(heroIn,80); setTimeout(()=>document.querySelector('.nav-divider')?.classList.add('nav-in'),380); }
+      else heroOut();
+    });
+  },{threshold:0.15});
+  const heroEl = document.getElementById('hero');
+  if(heroEl) heroIO.observe(heroEl);
+})();
+
+/* ═══ SEZIONE POSIZIONE: observer ══════════════════════════════════════ */
+(function(){
+  const locSec = document.getElementById('posizione');
+  if(!locSec) return;
+  const locIO = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) locSec.classList.add('loc-in');
+      else locSec.classList.remove('loc-in');
+    });
+  },{threshold:0, rootMargin:'0px 0px -60px 0px'});
+  locIO.observe(locSec);
+  /* fallback se già visibile al load */
+  window.addEventListener('load',()=>{
+    const r=locSec.getBoundingClientRect();
+    if(r.top < window.innerHeight && r.bottom > 0) locSec.classList.add('loc-in');
+  });
+})();
+
+
+/* ═══ POI COUNTER ANIMATION ════════════════════════════════════════════ */
+(function(){
+  let counterTimers = [];
+  function startCounters(){
+    clearCounters();
+    document.querySelectorAll('.loc-count').forEach(el=>{
+      const target = parseInt(el.dataset.target,10);
+      const dur = 900 + target * 30; /* più lungo = numeri grandi */
+      const start = performance.now();
+      const tick = now => {
+        const p = Math.min((now-start)/dur, 1);
+        /* easing out-quart */
+        const eased = 1 - Math.pow(1-p, 4);
+        el.textContent = Math.round(eased * target);
+        if(p < 1) counterTimers.push(requestAnimationFrame(tick));
+        else el.textContent = target;
+      };
+      counterTimers.push(requestAnimationFrame(tick));
+    });
+  }
+  function clearCounters(){
+    counterTimers.forEach(id=>cancelAnimationFrame(id));
+    counterTimers=[];
+    document.querySelectorAll('.loc-count').forEach(el=>el.textContent='0');
+  }
+  /* Aggancia al MutationObserver sulla loc-section */
+  const locSec = document.getElementById('posizione');
+  if(!locSec) return;
+  new MutationObserver(()=>{
+    if(locSec.classList.contains('loc-in')) startCounters();
+    else clearCounters();
+  }).observe(locSec,{attributes:true,attributeFilter:['class']});
+})();
+
+
+/* ══ SLIDER RENDERING ══ */
+(function(){
+  const slides  = document.querySelectorAll('#photoSlider .sl-slide');
+  const dots    = document.querySelectorAll('#slDots .sl-dot');
+  const fill    = document.getElementById('slProgressFill');
+  const counter = document.getElementById('slCounter');
+  if(!slides.length) return;
+  let cur = 0, timer;
+  function goTo(n) {
+    slides[cur].classList.remove('sl-active');
+    dots[cur]?.classList.remove('sl-dot-active');
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('sl-active');
+    dots[cur]?.classList.add('sl-dot-active');
+    if(fill)    fill.style.width = ((cur+1)/slides.length*100)+'%';
+    if(counter) counter.innerHTML = String(cur+1).padStart(2,'0')+' <span class="sl-sep">&#8212;</span> '+String(slides.length).padStart(2,'0');
+    clearInterval(timer);
+    timer = setInterval(()=>goTo(cur+1), 5000);
+  }
+  document.getElementById('slPrev')?.addEventListener('click', ()=>goTo(cur-1));
+  document.getElementById('slNext')?.addEventListener('click', ()=>goTo(cur+1));
+  dots.forEach((d,i)=>d.addEventListener('click',()=>goTo(i)));
+  let tx=0;
+  const wrap = document.getElementById('photoSlider');
+  wrap?.addEventListener('touchstart', e=>tx=e.touches[0].clientX, {passive:true});
+  wrap?.addEventListener('touchend', e=>{ const dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>40) goTo(dx<0?cur+1:cur-1); });
+  document.addEventListener('keydown',e=>{ if(e.key==='ArrowRight')goTo(cur+1); if(e.key==='ArrowLeft')goTo(cur-1); });
+  wrap?.addEventListener('mouseenter',()=>clearInterval(timer));
+  wrap?.addEventListener('mouseleave',()=>{ timer=setInterval(()=>goTo(cur+1),5000); });
+  goTo(0);
+})();
+
+</script>
+
+<!-- Mobile popup modal -->
+<div id="mobModal">
+  <div id="mobModalBdp"></div>
+  <div id="mobModalPanel">
+    <button class="mm-close" id="mmClose">✕</button>
+    <p class="mm-tag" id="mmTag">App. A</p>
+    <h2 class="mm-name" id="mmName">4 locali<em>con Giardino</em></h2>
+    <div class="mm-specs" id="mmSpecs">
+      <div class="mm-spec"><div class="mm-sv">95 m²</div><div class="mm-sl">superficie</div></div>
+      <div class="mm-spec"><div class="mm-sv">4</div><div class="mm-sl">locali</div></div>
+      <div class="mm-spec"><div class="mm-sv" style="font-size:13px">Giardino</div><div class="mm-sl">outdoor</div></div>
+    </div>
+    <div class="mm-actions">
+      <a class="mm-cta" id="mmCta" href="#">
+        Vai alla scheda
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+      <a class="mm-icon" href="tel:+39XXXXXXXXXX">📞</a>
+      <a class="mm-icon" href="mailto:info@tecnobriantea.it">✉️</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ GALLERIA + DESCRIZIONE PROGETTO ══════════════════ -->
+<section id="gallery" style="background:var(--bg);padding:100px 0 0;">
+  <div style="width:92vw;max-width:1200px;margin:0 auto 48px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+      <!-- Descrizione -->
+      <div>
+        <p class="brg-eyebrow" id="galHdr">06 · Il progetto</p>
+        <h2 class="brg-title" style="margin-bottom:20px;">Nuova costruzione<br>di pre<em>g</em>io</h2>
+        <p style="font-size:15px;color:rgba(240,236,228,.72);line-height:1.9;margin-bottom:20px;">Quattro unità di nuova costruzione a Brugherio, nel cuore della Brianza. Tre appartamenti da quattro locali e una villa indipendente, progettati per chi sceglie con cura dove vivere.</p>
+        <p style="font-size:14px;color:rgba(240,236,228,.55);line-height:1.85;margin-bottom:28px;">Edificio a struttura W4HOUSE, sistema antisismico con pannelli isolanti ad alta densità e getto in CLS. Classe energetica A certificata, impianto fotovoltaico dedicato per ogni unità, pompa di calore aria-aria indipendente, VMC con recupero di calore.</p>
+        <div style="display:flex;gap:32px;flex-wrap:wrap;">
+          <div><div style="font-family:'Anton',sans-serif;font-size:32px;color:#f0ece4;">4</div><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9dc0aa;">Unità</div></div>
+          <div><div style="font-family:'Anton',sans-serif;font-size:32px;color:#f0ece4;">A</div><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9dc0aa;">Classe energetica</div></div>
+          <div><div style="font-family:'Anton',sans-serif;font-size:32px;color:#f0ece4;">2027</div><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9dc0aa;">Consegna estate</div></div>
+        </div>
+      </div>
+      <!-- Quote architetto -->
+      <div style="background:rgba(157,192,170,.05);border:.5px solid rgba(157,192,170,.15);border-radius:12px;padding:32px;">
+        <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#9dc0aa;margin-bottom:16px;">Il progettista</div>
+        <blockquote style="font-size:15px;font-style:italic;color:rgba(240,236,228,.8);line-height:1.85;margin-bottom:20px;border-left:2px solid #3a7a52;padding-left:18px;">"Un progetto non è solo estetica. È la comprensione di come le persone vivono gli spazi, dei materiali che invecchiano bene, della luce in ogni stagione. Verdi8 nasce da questa lettura del territorio."</blockquote>
+        <div style="font-size:12px;font-weight:600;color:#f0ece4;">Arch. Francesco Schiro</div>
+        <div style="font-size:10px;color:rgba(240,236,228,.45);margin-top:3px;">Architetto radicato a Brugherio e in Brianza</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sl-wrap" id="photoSlider"><div class="sl-track">
+<div class="sl-slide sl-active" data-idx="0"><img src="images/Via Verdi_1.jpg" alt="Residenza Verdi8 — rendering 1" loading="eager" decoding="async"></div>
+<div class="sl-slide" data-idx="1"><img src="images/Via Verdi_2.jpg" alt="Residenza Verdi8 — rendering 2" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="2"><img src="images/Via Verdi_4.jpg" alt="Residenza Verdi8 — rendering 3" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="3"><img src="images/Via Verdi_5.jpg" alt="Residenza Verdi8 — rendering 4" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="4"><img src="images/Via Verdi_6.jpg" alt="Residenza Verdi8 — rendering 5" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="5"><img src="images/Via Verdi_7.jpg" alt="Residenza Verdi8 — rendering 6" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="6"><img src="images/Via Verdi_8.jpg" alt="Residenza Verdi8 — rendering 7" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="7"><img src="images/Via Verdi_9.jpg" alt="Residenza Verdi8 — rendering 8" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="8"><img src="images/Via Verdi_10.jpg" alt="Residenza Verdi8 — rendering 9" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="9"><img src="images/Via Verdi_12.jpg" alt="Residenza Verdi8 — rendering 10" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="10"><img src="images/Via Verdi_15.jpg" alt="Residenza Verdi8 — rendering 11" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="11"><img src="images/Varianti_3.jpg" alt="Residenza Verdi8 — rendering 12" loading="lazy" decoding="async"></div>
+</div><div class="sl-ui"><button class="sl-btn" id="slPrev">&#8592;</button><button class="sl-btn" id="slNext">&#8594;</button></div><div class="sl-progress"><div class="sl-progress-fill" id="slProgressFill"></div></div><div class="sl-counter" id="slCounter">01 <span class="sl-sep">&#8212;</span> 12</div><div class="sl-dots" id="slDots"><div class="sl-dot sl-dot-active" data-i="0"></div><div class="sl-dot" data-i="1"></div><div class="sl-dot" data-i="2"></div><div class="sl-dot" data-i="3"></div><div class="sl-dot" data-i="4"></div><div class="sl-dot" data-i="5"></div><div class="sl-dot" data-i="6"></div><div class="sl-dot" data-i="7"></div><div class="sl-dot" data-i="8"></div><div class="sl-dot" data-i="9"></div><div class="sl-dot" data-i="10"></div><div class="sl-dot" data-i="11"></div></div></div>
+</section>
+
+<!-- ══ 05 CONTATTI ══════════════════════════════════════ -->
+<section class="brg-section" id="contatti" style="background:#0e0e0e;min-height:auto;">
+  <div class="brg-left visible" id="ctLeft" style="padding:60px 48px 60px 64px;">
+    <p class="brg-eyebrow">05 · Contatti</p>
+    <h2 class="brg-title">Scrivici<br>sub<em>i</em>to</h2>
+    <form id="ctForm" onsubmit="return submitForm(event)">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+        <div>
+          <div class="ct-fl">Nome</div>
+          <input class="ct-inp" type="text" name="nome" placeholder="Mario Rossi" required>
+        </div>
+        <div>
+          <div class="ct-fl">Telefono</div>
+          <input class="ct-inp" type="tel" name="tel" placeholder="+39 333…">
+        </div>
+      </div>
+      <div class="ct-fl">Email</div>
+      <input class="ct-inp" type="email" name="email" placeholder="mario@email.it" required style="margin-bottom:10px;">
+      <div class="ct-fl">Unità di interesse</div>
+      <select class="ct-inp" name="unita" style="margin-bottom:10px;">
+        <option value="">Seleziona…</option>
+        <option>Appartamento 1 — 4 locali con Giardino · € 461.000</option>
+        <option>Appartamento 2 — 4 locali con Terrazzo · € 462.000</option>
+        <option>Appartamento 3 — Ultimo Piano · € 420.000</option>
+        <option>Villa Indipendente — Giardino e Terrazzo · € 645.000</option>
+        <option>Informazioni generali</option>
+      </select>
+      <div class="ct-fl">Messaggio</div>
+      <textarea class="ct-inp" name="msg" rows="3" placeholder="Vorrei ricevere informazioni su…" style="resize:none;margin-bottom:8px;"></textarea>
+      <div class="ct-priv">Acconsento al trattamento dei dati personali ai sensi del Reg. UE 2016/679. La richiesta verrà gestita da Tecnobriantea Immobiliare Srl.</div>
+      <button type="submit" class="ct-btn" id="ctSubmit">
+        <span id="ctBtnText">Invia richiesta →</span>
+      </button>
+      <div id="ctSuccess" style="display:none;margin-top:12px;padding:12px 14px;background:rgba(58,122,82,.15);border:.5px solid rgba(58,122,82,.3);border-radius:7px;font-size:12px;color:#9dc0aa;">
+        ✓ Messaggio inviato. Ti contatteremo entro 24 ore.
+      </div>
+    </form>
+  </div>
+  <div class="brg-right" id="ctRight" style="display:flex!important;flex-direction:column;justify-content:center;transform:none!important;opacity:1!important;padding:60px 48px;background:#070707;">
+    <p class="brg-eyebrow">La commercializzazione esclusiva</p>
+    <h2 class="brg-title" style="margin-bottom:18px;">Due<br>pro<em>f</em>essionisti</h2>
+    <p style="font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:24px;">La vendita di Residenza Verdi8 è curata in esclusiva da due realtà del territorio brianzolo, ognuna con un ruolo definito.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0;">
+    <div class="ct-cocard">
+      <img src="images/index_2.png" alt="Edilnord RE" class="co-logo">
+      <div class="co-role">Consulenza immobiliare esclusiva</div>
+      <div class="co-desc">Cura la comunicazione, la valorizzazione e la consulenza strategica del progetto. Non raccoglie proposte d'acquisto.</div>
+    </div>
+    <div class="ct-cocard">
+      <img src="images/index_3.png" alt="TecnoBriantea" class="co-logo" style="filter:grayscale(1) brightness(2.5);">
+      <div class="co-role">Agenzia immobiliare · Raccoglie proposte d'acquisto</div>
+      <div class="co-desc">Gestisce trattative, raccoglie proposte e accompagna il cliente fino al rogito. Iscritta REA MB n. [placeholder].</div>
+    </div>
+    </div><!-- /grid cocards -->
+    <div class="ct-disc">Edilnord RE non è un'agenzia immobiliare ai sensi della L. 39/89 e non raccoglie proposte d'acquisto. P.IVA Edilnord RE: [placeholder] · Tel: +39 389 0107445 · Via Tre Re 8, 20861 Brugherio (MB)</div>
+  </div>
+</section>
+
+<!-- ══ 06 VALUTAZIONE ══════════════════════════════════ -->
+<section id="valutazione" style="background:var(--bg);padding:80px 0 0;">
+  <div style="width:92vw;max-width:1200px;margin:0 auto;">
+    <!-- Header -->
+    <div style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:40px;margin-bottom:0;">
+      <div>
+        <p class="brg-eyebrow">06 · Valutazione gratuita</p>
+        <h2 class="brg-title" style="margin-bottom:16px;">Scopri quanto<br>vale il tuo immo<em>b</em>ile</h2>
+        <p style="font-size:14px;color:var(--t2);line-height:1.8;max-width:500px;margin-bottom:20px;">Valutiamo il tuo immobile con intelligenza artificiale. Analisi del mercato di Brugherio e Brianza in tempo reale. Stima immediata e gratuita — nessuna registrazione richiesta.</p>
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(157,192,170,.06);border:.5px solid rgba(157,192,170,.15);border-radius:5px;padding:6px 14px;font-size:9px;color:rgba(157,192,170,.8);letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px;">
+          ✦ Tecnologia <strong style="color:#9dc0aa;margin-left:4px;">Edilnord RE</strong>&nbsp;·&nbsp;Consulenti immobiliari dal 2000
+        </div>
+      </div>
+      <img src="images/index_2.png" alt="Edilnord RE" style="height:40px;opacity:.6;filter:brightness(2);flex-shrink:0;">
+    </div>
+  </div>
+  <!-- Steps bar -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.5px;background:rgba(255,255,255,.05);margin-top:40px;">
+    <div class="val-step"><div class="val-step-n">01</div><div class="val-step-t">Inserisci i dati</div><div class="val-step-d">Indirizzo, tipologia, mq, anno</div></div>
+    <div class="val-step"><div class="val-step-n">02</div><div class="val-step-t">Analisi AI</div><div class="val-step-d">Confronto mercato Brianza real-time</div></div>
+    <div class="val-step"><div class="val-step-n">03</div><div class="val-step-t">Stima immediata</div><div class="val-step-d">Valore min / medio / max</div></div>
+    <div class="val-step"><div class="val-step-n">04</div><div class="val-step-t">Parla con un esperto</div><div class="val-step-d">Consulenza gratuita opzionale</div></div>
+  </div>
+  <!-- CTA footer -->
+  <div style="background:#0e0e0e;padding:20px 5vw;display:flex;align-items:center;justify-content:space-between;gap:24px;border-top:.5px solid rgba(255,255,255,.06);">
+    <div style="font-size:11px;color:rgba(240,236,228,.4);">Powered by <strong style="color:#9dc0aa;">Edilnord RE</strong> · Consulenti immobiliari esclusivi · edilnordre.it</div>
+    <a href="https://edilnordre.it/valutazione-immobile-gratuita-brugherio/" target="_blank" class="val-cta-btn">
+      Avvia la valutazione gratuita →
+    </a>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════════════ -->
+<footer style="background:#050505;border-top:.5px solid rgba(255,255,255,.06);padding:32px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+  <div style="display:flex;align-items:center;gap:20px;">
+    <img src="images/index_20.png" alt="Edilnord RE" style="height:20px;opacity:.45;filter:brightness(2);">
+    <img src="images/index_3.png" alt="TecnoBriantea" style="height:20px;opacity:.4;filter:grayscale(1) brightness(2);">
+  </div>
+  <p style="font-size:9px;color:rgba(240,236,228,.18);line-height:1.6;max-width:600px;">Residenza Verdi8 · Via Giuseppe Verdi 8, 20861 Brugherio (MB) · Classe A · W4HOUSE · Fotovoltaico · VMC · Consegna estate 2027 · Edilnord RE non è un'agenzia immobiliare ai sensi della L. 39/89 e non raccoglie proposte d'acquisto. Tecnobriantea Immobiliare, Agente Iscritto REA MB n. [placeholder]</p>
+</footer>
+
+</body>
+</html>
