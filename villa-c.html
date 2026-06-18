@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
 <meta charset="UTF-8">
@@ -201,12 +201,57 @@ footer{background:#050505;border-top:.5px solid rgba(255,255,255,.05);
 .sl-dot{width:5px;height:5px;border-radius:50%;background:rgba(240,236,228,.2);cursor:pointer;transition:background .3s,width .3s;}
 .sl-dot.sl-dot-active{width:14px;border-radius:2.5px;background:#9dc0aa;}
 </style></style>
-</head>
+
+<style>
+/* ── LIGHT MODE ── */
+body.light{--bg:#f0ece4;--t:#0d0d0d;--t2:rgba(13,13,13,.6);--accent:#3a7a52;}
+body.light nav{background:rgba(240,236,228,.97)!important;border-bottom:.5px solid rgba(0,0,0,.08)!important;}
+body.light .hero-overlay{background:linear-gradient(to right,rgba(240,236,228,.88) 36%,rgba(240,236,228,.28))!important;}
+body.light .specs-bar{background:#e8e3d9!important;}
+body.light .spec-item{border-right:.5px solid rgba(0,0,0,.07)!important;border-bottom:.5px solid rgba(0,0,0,.06)!important;}
+body.light .plan-col{background:#ede8df!important;border-right:.5px solid rgba(0,0,0,.06)!important;}
+body.light .info-col{background:#f0ece4!important;}
+body.light .feat-item{border-bottom:.5px solid rgba(0,0,0,.07)!important;color:#0d0d0d!important;}
+body.light .cta-block{background:rgba(58,122,82,.07)!important;border:.5px solid rgba(58,122,82,.2)!important;}
+body.light .cta-btn{background:#3a7a52!important;color:#f0ece4!important;}
+body.light .other-units{background:#e8e3d9!important;}
+body.light .other-card{background:#ddd8ce!important;border:.5px solid rgba(0,0,0,.08)!important;}
+body.light footer{background:#e0dbd1!important;border-top:.5px solid rgba(0,0,0,.07)!important;}
+body.light .footer-note{color:rgba(13,13,13,.35)!important;}
+body.light .nav-brand{color:#0d0d0d!important;}
+body.light .nav-back{background:rgba(58,122,82,.1)!important;border-color:rgba(58,122,82,.3)!important;color:#0d0d0d!important;}
+body.light .spec-val{color:#0d0d0d!important;}
+body.light .spec-lbl{color:rgba(13,13,13,.55)!important;}
+body.light .info-title{color:#0d0d0d!important;}
+body.light .info-eyebrow{color:#3a7a52!important;}
+body.light .hero-tag{color:#3a7a52!important;}
+body.light .hero-tag::before{background:#3a7a52!important;}
+body.light .cta-note{color:rgba(13,13,13,.55)!important;}
+body.light .cta-label{color:rgba(13,13,13,.55)!important;}
+body.light .plan-label{color:rgba(13,13,13,.45)!important;}
+body.light .other-card-sub{color:rgba(13,13,13,.55)!important;}
+body.light .footer-brand{color:#0d0d0d!important;}
+/* ── THEME BUTTON ── */
+#themeBtn{
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(157,192,170,.12);
+  border:.5px solid rgba(157,192,170,.3);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--t);font-size:15px;
+  transition:background .2s,border-color .2s;flex-shrink:0;padding:0;
+}
+#themeBtn:hover{background:rgba(157,192,170,.25);}
+body.light #themeBtn{background:rgba(58,122,82,.1);border-color:rgba(58,122,82,.28);}
+/* ── FEAT LIST 2 COLONNE ── */
+.feat-list{display:grid!important;grid-template-columns:1fr 1fr!important;gap:0!important;margin-bottom:32px!important;}
+.feat-item{padding:10px 0!important;font-size:12px!important;}
+@media(max-width:600px){.feat-list{grid-template-columns:1fr!important;}}
+</style></head>
 <body>
 <nav>
   <a class="nav-brand" href="index.html">VERD<em>I</em>8</a>
-  <a class="nav-back" href="index.html#unita">Tutte le unità</a>
-</nav>
+  <div style="display:flex;align-items:center;gap:10px;"><button id="themeBtn" onclick="toggleTheme()" aria-label="Tema"><span id="themeIcon">&#9788;</span></button><a class="nav-back" href="index.html#unita">Tutte le unità</a>
+</nav></div></nav>
 
 <div class="hero">
   <div class="hero-bg" id="heroBg" style="background-image:url('images/villa-c_1.jpeg')"></div>
@@ -245,47 +290,6 @@ footer{background:#050505;border-top:.5px solid rgba(255,255,255,.05);
     </div>
   </div>
 </div>
-
-
-<section class="unit-gallery-section">
-  <h3 class="unit-gallery-title">I render<em>i</em>ng</h3>
-  <div class="unit-gallery-grid">
-    <div class="unit-gallery-item" data-src="images/villa-c_2.jpeg"><img src="images/villa-c_2.jpeg" alt="Rendering 1" loading="lazy"></div><div class="unit-gallery-item" data-src="images/villa-c_4.jpeg"><img src="images/villa-c_4.jpeg" alt="Rendering 2" loading="lazy"></div><div class="unit-gallery-item" data-src="images/villa-c_6.jpeg"><img src="images/villa-c_6.jpeg" alt="Rendering 3" loading="lazy"></div><div class="unit-gallery-item" data-src="images/villa-c_8.jpeg"><img src="images/villa-c_8.jpeg" alt="Rendering 4" loading="lazy"></div><div class="unit-gallery-item" data-src="images/villa-c_10.jpeg"><img src="images/villa-c_10.jpeg" alt="Rendering 5" loading="lazy"></div><div class="unit-gallery-item" data-src="images/villa-c_12.jpeg"><img src="images/villa-c_12.jpeg" alt="Rendering 6" loading="lazy"></div><div class="unit-gallery-item" data-src="images/villa-c_14.jpeg"><img src="images/villa-c_14.jpeg" alt="Rendering 7" loading="lazy"></div><div class="unit-gallery-item" data-src="images/villa-c_16.jpeg"><img src="images/villa-c_16.jpeg" alt="Rendering 8" loading="lazy"></div><div class="unit-gallery-item" data-src="images/villa-c_18.jpeg"><img src="images/villa-c_18.jpeg" alt="Rendering 9" loading="lazy"></div>
-  </div>
-</section>
-
-
-<!-- ══ GALLERY RENDERS ════════════════════════════════ -->
-<section style="background:#060606;padding:0;">
-  <div style="padding:48px 5vw 16px;text-align:center;">
-    <p style="font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:#9dc0aa;margin-bottom:8px;">Il progetto</p>
-    <h3 style="font-family:'Anton',sans-serif;font-size:clamp(22px,3vw,38px);color:#f0ece4;letter-spacing:-.01em;">Rend<em style="color:#9dc0aa;font-style:normal">i</em>ngs</h3>
-  </div>
-  <div class="sl-wrap" id="photoSlider" style="height:55vh;min-height:320px;">
-    <div class="sl-track">
-      <div class="sl-slide sl-active"><img src="images/Via Verdi_1.jpg" alt="Residenza Verdi8 — rendering" loading="eager" decoding="async"></div>
-      <div class="sl-slide"><img src="images/Via Verdi_2.jpg" alt="Residenza Verdi8 — rendering" loading="lazy" decoding="async"></div>
-      <div class="sl-slide"><img src="images/Via Verdi_4.jpg" alt="Residenza Verdi8 — rendering" loading="lazy" decoding="async"></div>
-      <div class="sl-slide"><img src="images/Via Verdi_5.jpg" alt="Residenza Verdi8 — rendering" loading="lazy" decoding="async"></div>
-      <div class="sl-slide"><img src="images/Via Verdi_6.jpg" alt="Residenza Verdi8 — rendering" loading="lazy" decoding="async"></div>
-      <div class="sl-slide"><img src="images/Via Verdi_7.jpg" alt="Residenza Verdi8 — rendering" loading="lazy" decoding="async"></div>
-      <div class="sl-slide"><img src="images/Via Verdi_8.jpg" alt="Residenza Verdi8 — rendering" loading="lazy" decoding="async"></div>
-      <div class="sl-slide"><img src="images/Via Verdi_9.jpg" alt="Residenza Verdi8 — rendering" loading="lazy" decoding="async"></div>
-      <div class="sl-slide"><img src="images/Via Verdi_10.jpg" alt="Residenza Verdi8 — rendering" loading="lazy" decoding="async"></div>
-      <div class="sl-slide"><img src="images/Via Verdi_12.jpg" alt="Residenza Verdi8 — rendering" loading="lazy" decoding="async"></div>
-      <div class="sl-slide"><img src="images/Via Verdi_15.jpg" alt="Residenza Verdi8 — rendering" loading="lazy" decoding="async"></div>
-      <div class="sl-slide"><img src="images/Varianti_3.jpg" alt="Residenza Verdi8 — rendering" loading="lazy" decoding="async"></div>
-
-    </div>
-    <div class="sl-ui">
-      <button class="sl-btn" id="slPrev">&#8592;</button>
-      <button class="sl-btn" id="slNext">&#8594;</button>
-    </div>
-    <div class="sl-progress"><div class="sl-progress-fill" id="slProgressFill"></div></div>
-    <div class="sl-counter" id="slCounter">01 <span class="sl-sep">&#8212;</span> 12</div>
-    <div class="sl-dots" id="slDots"><div class="sl-dot sl-dot-active" data-i="0"></div><div class="sl-dot" data-i="1"></div><div class="sl-dot" data-i="2"></div><div class="sl-dot" data-i="3"></div><div class="sl-dot" data-i="4"></div><div class="sl-dot" data-i="5"></div><div class="sl-dot" data-i="6"></div><div class="sl-dot" data-i="7"></div><div class="sl-dot" data-i="8"></div><div class="sl-dot" data-i="9"></div><div class="sl-dot" data-i="10"></div><div class="sl-dot" data-i="11"></div></div>
-  </div>
-</section>
 <div class="other-units">
   <h3 class="other-title">Le altre un<em style="color:var(--accent);font-style:normal">i</em>tà</h3>
   <div class="other-grid">
@@ -384,5 +388,22 @@ document.getElementById('heroBg').classList.add('loaded');
   goTo(0);
 })();
 </script>
-</body>
+
+<script>
+function toggleTheme(){
+  var l=document.body.classList.toggle('light');
+  try{localStorage.setItem('v8t',l?'1':'');}catch(e){}
+  var i=document.getElementById('themeIcon');
+  if(i)i.textContent=l?String.fromCharCode(9685):'☀';
+}
+(function(){
+  try{
+    if(localStorage.getItem('v8t')==='1'){
+      document.body.classList.add('light');
+      var i=document.getElementById('themeIcon');
+      if(i)i.textContent=String.fromCharCode(9685);
+    }
+  }catch(e){}
+})();
+</script></body>
 </html>

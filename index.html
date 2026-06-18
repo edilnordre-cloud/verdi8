@@ -1414,6 +1414,63 @@ footer .footer-logo{height:24px!important;width:auto!important;opacity:.55!impor
   top:0;animation:scanln .9s ease-in-out;
 }
 
+/* ══ LIGHT MODE — index ══ */
+body.light{--bg:#f0ece4;--t:#0d0d0d;--t2:rgba(13,13,13,.6);--accent:#3a7a52;--v:#3a7a52;}
+body.light #hero{background:#e8e3d8;}
+body.light #overlay{background:rgba(240,236,228,.48);}
+body.light #nav{background:linear-gradient(to bottom,rgba(240,236,228,.92),transparent);}
+body.light .nav-link{color:#0d0d0d!important;opacity:.8!important;}
+body.light .nav-link:hover{color:#3a7a52!important;opacity:1!important;}
+body.light .divider-line{background:#3a7a52!important;opacity:.35!important;}
+body.light .t-verdi,.body.light .t-accent{color:#0d0d0d!important;}
+body.light .t-accent{color:#3a7a52!important;}
+body.light .meta-txt{color:rgba(13,13,13,.5)!important;}
+body.light .meta-line{background:#3a7a52!important;}
+body.light .section-eyebrow,.body.light .section-num{color:#3a7a52!important;}
+body.light .section-title{color:#0d0d0d!important;}
+body.light .stage-wrap{box-shadow:0 32px 80px rgba(0,0,0,.2)!important;}
+body.light .stage-hint{color:rgba(13,13,13,.28)!important;}
+body.light .m-label{background:rgba(240,236,228,.92)!important;border-color:rgba(58,122,82,.3)!important;}
+body.light .m-label-name{color:#0d0d0d!important;}
+body.light .brg-section{background:#ede8df!important;}
+body.light .brg-left{background:transparent!important;}
+body.light .brg-right{background:transparent!important;}
+body.light .brg-title{color:#0d0d0d!important;}
+body.light .brg-text{color:rgba(13,13,13,.7)!important;}
+body.light .brg-stat-n{color:#0d0d0d!important;}
+body.light .gallery-section{background:#f0ece4!important;}
+body.light .gallery-title{color:#0d0d0d!important;}
+body.light .gl-item{filter:none;}
+body.light .loc-section{background:#e8e3d8!important;}
+body.light .loc-title{color:#0d0d0d!important;}
+body.light .loc-t-inner{color:#0d0d0d!important;}
+body.light .loc-pois{background:rgba(0,0,0,.04)!important;border-top:.5px solid rgba(0,0,0,.08)!important;}
+body.light .loc-poi-time{color:#0d0d0d!important;}
+body.light .loc-poi-name{color:rgba(13,13,13,.7)!important;}
+body.light .unit-panel{background:linear-gradient(160deg,#f0ece4,#e8e3d8)!important;border-color:rgba(58,122,82,.2)!important;}
+body.light .unit-name,.body.light .unit-spec-val{color:#0d0d0d!important;}
+body.light #menuOverlay{background:rgba(240,236,228,.97)!important;}
+body.light .mob-nav-link{color:rgba(13,13,13,.6)!important;}
+body.light .mob-nav-link:hover{color:#3a7a52!important;}
+body.light footer{background:#e0dbd1!important;border-top:.5px solid rgba(0,0,0,.07)!important;}
+body.light footer p{color:rgba(13,13,13,.3)!important;}
+body.light .sl-wrap{background:#e8e3d8!important;}
+body.light .shb-name{color:#0d0d0d!important;}
+/* ── THEME BUTTON index ── */
+#themeBtn{
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(157,192,170,.1);
+  border:.5px solid rgba(157,192,170,.3);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--t);font-size:15px;
+  transition:background .2s,border-color .2s;flex-shrink:0;padding:0;
+}
+#themeBtn:hover{background:rgba(157,192,170,.25);}
+body.light #themeBtn{background:rgba(58,122,82,.1);border-color:rgba(58,122,82,.28);}
+@media(max-width:768px){
+  #themeBtn{width:30px;height:30px;font-size:13px;}
+}
+
 /* ══ BRG STATS — stagger reveal ══ */
 .brg-stats>div{
   opacity:0;transform:translateY(18px);
@@ -1444,6 +1501,7 @@ footer .footer-logo{height:24px!important;width:auto!important;opacity:.55!impor
     <div class="nav-top">
       <img class="brand-logo" src="images/index_1.png" alt="Residenza Verdi8">
       <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <button id="themeBtn" onclick="toggleTheme()" aria-label="Tema"><span id="themeIcon">&#9788;</span></button>
       <div class="nav-links">
         <a class="nav-link" href="#unita">Unità</a>
         <a class="nav-link" href="#posizione">Posizione</a>
@@ -1891,6 +1949,23 @@ footer .footer-logo{height:24px!important;width:auto!important;opacity:.55!impor
     });
   },{threshold:0.3});
   brgIO.observe(brgLeft);
+})();
+
+/* ══ LIGHT/DARK TOGGLE ══ */
+function toggleTheme(){
+  var l=document.body.classList.toggle('light');
+  try{localStorage.setItem('v8t',l?'1':'');}catch(e){}
+  var i=document.getElementById('themeIcon');
+  if(i)i.textContent=l?'◑':'☀';
+}
+(function(){
+  try{
+    if(localStorage.getItem('v8t')==='1'){
+      document.body.classList.add('light');
+      var i=document.getElementById('themeIcon');
+      if(i)i.textContent='◑';
+    }
+  }catch(e){}
 })();
 
 /* ══ IntersectionObserver (Brugherio + Maps) ══ */
