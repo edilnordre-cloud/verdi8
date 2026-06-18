@@ -55,7 +55,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;
 .spec-lbl{font-size:9px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--t2);margin-top:4px;}
 /* LAYOUT */
-.content{display:grid;grid-template-columns:1fr 1fr;min-height:80vh;}
+.content{display:grid;grid-template-columns:1fr 1fr;}
 .plan-col{background:#0a0a0a;padding:60px;display:flex;flex-direction:column;
   justify-content:center;align-items:center;border-right:.5px solid rgba(255,255,255,.05);}
 .plan-col img{max-width:100%;max-height:600px;object-fit:contain;
@@ -203,45 +203,6 @@ footer{background:#050505;border-top:.5px solid rgba(255,255,255,.05);
 </style></style>
 
 <style>
-/* ── LIGHT MODE ── */
-body.light{--bg:#f0ece4;--t:#0d0d0d;--t2:rgba(13,13,13,.6);--accent:#3a7a52;}
-body.light nav{background:rgba(240,236,228,.97)!important;border-bottom:.5px solid rgba(0,0,0,.08)!important;}
-body.light .hero-overlay{background:linear-gradient(to right,rgba(240,236,228,.88) 36%,rgba(240,236,228,.28))!important;}
-body.light .specs-bar{background:#e8e3d9!important;}
-body.light .spec-item{border-right:.5px solid rgba(0,0,0,.07)!important;border-bottom:.5px solid rgba(0,0,0,.06)!important;}
-body.light .plan-col{background:#ede8df!important;border-right:.5px solid rgba(0,0,0,.06)!important;}
-body.light .info-col{background:#f0ece4!important;}
-body.light .feat-item{border-bottom:.5px solid rgba(0,0,0,.07)!important;color:#0d0d0d!important;}
-body.light .cta-block{background:rgba(58,122,82,.07)!important;border:.5px solid rgba(58,122,82,.2)!important;}
-body.light .cta-btn{background:#3a7a52!important;color:#f0ece4!important;}
-body.light .other-units{background:#e8e3d9!important;}
-body.light .other-card{background:#ddd8ce!important;border:.5px solid rgba(0,0,0,.08)!important;}
-body.light footer{background:#e0dbd1!important;border-top:.5px solid rgba(0,0,0,.07)!important;}
-body.light .footer-note{color:rgba(13,13,13,.35)!important;}
-body.light .nav-brand{color:#0d0d0d!important;}
-body.light .nav-back{background:rgba(58,122,82,.1)!important;border-color:rgba(58,122,82,.3)!important;color:#0d0d0d!important;}
-body.light .spec-val{color:#0d0d0d!important;}
-body.light .spec-lbl{color:rgba(13,13,13,.55)!important;}
-body.light .info-title{color:#0d0d0d!important;}
-body.light .info-eyebrow{color:#3a7a52!important;}
-body.light .hero-tag{color:#3a7a52!important;}
-body.light .hero-tag::before{background:#3a7a52!important;}
-body.light .cta-note{color:rgba(13,13,13,.55)!important;}
-body.light .cta-label{color:rgba(13,13,13,.55)!important;}
-body.light .plan-label{color:rgba(13,13,13,.45)!important;}
-body.light .other-card-sub{color:rgba(13,13,13,.55)!important;}
-body.light .footer-brand{color:#0d0d0d!important;}
-/* ── THEME BUTTON ── */
-#themeBtn{
-  width:34px;height:34px;border-radius:50%;
-  background:rgba(157,192,170,.12);
-  border:.5px solid rgba(157,192,170,.3);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;color:var(--t);font-size:15px;
-  transition:background .2s,border-color .2s;flex-shrink:0;padding:0;
-}
-#themeBtn:hover{background:rgba(157,192,170,.25);}
-body.light #themeBtn{background:rgba(58,122,82,.1);border-color:rgba(58,122,82,.28);}
 /* ── FEAT LIST 2 COLONNE ── */
 .feat-list{display:grid!important;grid-template-columns:1fr 1fr!important;gap:0!important;margin-bottom:32px!important;}
 .feat-item{padding:10px 0!important;font-size:12px!important;}
@@ -262,8 +223,8 @@ body.light #themeBtn{background:rgba(58,122,82,.1);border-color:rgba(58,122,82,.
 <div id="irisOpen"></div>
 <nav>
   <a class="nav-brand" href="index.html">VERD<em>I</em>8</a>
-  <div style="display:flex;align-items:center;gap:10px;"><button id="themeBtn" onclick="toggleTheme()" aria-label="Tema"><span id="themeIcon">&#9788;</span></button><a class="nav-back" href="index.html#unita">Tutte le unità</a>
-</nav></div></nav>
+  <a class="nav-back" href="index.html#unita">Tutte le unit&agrave;</a>
+</nav>
 
 <div class="hero">
   <div class="hero-bg" id="heroBg" style="background-image:url('images/villa-c_1.jpeg')"></div>
@@ -401,23 +362,7 @@ document.getElementById('heroBg').classList.add('loaded');
 })();
 </script>
 
-<script>
-function toggleTheme(){
-  var l=document.body.classList.toggle('light');
-  try{localStorage.setItem('v8t',l?'1':'');}catch(e){}
-  var i=document.getElementById('themeIcon');
-  if(i)i.textContent=l?String.fromCharCode(9685):'☀';
-}
-(function(){
-  try{
-    if(localStorage.getItem('v8t')==='1'){
-      document.body.classList.add('light');
-      var i=document.getElementById('themeIcon');
-      if(i)i.textContent=String.fromCharCode(9685);
-    }
-  }catch(e){}
-})();
-</script>
+
 <script>
 (function(){
   var el=document.getElementById('irisOpen');
