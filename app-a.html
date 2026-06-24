@@ -1,12 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>App. A — Residenza Verdi8</title>
-<meta name="description" content="4 locali con Giardino — Residenza Verdi8, Via Giuseppe Verdi 8, Brugherio (MB). Nuova costruzione di pregio in Brianza.">
+<title>4 locali con giardino privato — Residenza Verdi8</title>
+<meta name="description" content="4 locali con giardino privato, 147 m² commerciali — Residenza Verdi8, Via Giuseppe Verdi 8, Brugherio (MB). Nuova costruzione di pregio in Brianza.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="images/app-a_24.jpeg" fetchpriority="high">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -42,7 +44,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;align-items:center;gap:10px;}
 .hero-tag::before{content:'';display:block;width:24px;height:.5px;background:var(--accent);}
 .hero-title{font-family:'Anton',sans-serif;
-  font-size:clamp(48px,8vw,100px);line-height:.9;
+  font-size:clamp(30px,4.6vw,56px);line-height:1.0;
   letter-spacing:-.02em;margin-bottom:8px;}
 .hero-sub{font-size:14px;color:var(--t2);letter-spacing:.04em;}
 /* SPECS BAR */
@@ -54,8 +56,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;
 .spec-val{font-family:'Anton',sans-serif;font-size:32px;color:var(--t);}
 .spec-lbl{font-size:9px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--t2);margin-top:4px;}
+/* PRICE BAR */
+.price-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  background:linear-gradient(135deg,#1c3a2a,#142b1f);
+  padding:24px 40px;border-bottom:.5px solid rgba(255,255,255,.07);}
+.price-lbl{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+.price-val{font-family:'Anton',sans-serif;font-size:clamp(34px,5vw,46px);color:#fff;line-height:1;}
+.price-note{font-size:12px;color:rgba(240,236,228,.7);line-height:1.6;text-align:right;}
+@media(max-width:768px){.price-bar{padding:20px 24px;}.price-note{text-align:left;}}
 /* LAYOUT */
-.content{display:grid;grid-template-columns:1fr 1fr;}
+.content{display:grid;grid-template-columns:1fr 1fr;min-height:80vh;}
 .plan-col{background:#0a0a0a;padding:60px;display:flex;flex-direction:column;
   justify-content:center;align-items:center;border-right:.5px solid rgba(255,255,255,.05);}
 .plan-col img{max-width:100%;max-height:600px;object-fit:contain;
@@ -116,141 +126,47 @@ footer{background:#050505;border-top:.5px solid rgba(255,255,255,.05);
   .other-grid{grid-template-columns:1fr;}
   footer{padding:20px;}
 }
-
-/* ── GALLERY RENDERS ── */
-.unit-gallery-section{background:#0a0a0a;padding:60px 5vw;}
-.unit-gallery-title{font-family:'Anton',sans-serif;font-size:clamp(24px,3vw,40px);
-  margin-bottom:28px;color:#f0ece4;}
-.unit-gallery-title em{color:#9dc0aa;font-style:normal;}
-.unit-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
-.unit-gallery-item{aspect-ratio:16/10;overflow:hidden;cursor:zoom-in;position:relative;}
-.unit-gallery-item:first-child{grid-column:span 2;aspect-ratio:16/9;}
-.unit-gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
-.unit-gallery-item:hover img{transform:scale(1.05);}
-/* ── LIGHTBOX ── */
-#unitLightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);
-  z-index:1000;align-items:center;justify-content:center;flex-direction:column;}
-#unitLightbox.open{display:flex;}
-#unitLightbox img{max-width:92vw;max-height:86vh;object-fit:contain;border-radius:2px;}
-#lbClose{position:absolute;top:20px;right:24px;color:#fff;font-size:32px;
-  background:none;border:none;cursor:pointer;opacity:.7;transition:opacity .2s;}
-#lbClose:hover{opacity:1;}
-#lbPrev,#lbNext{position:absolute;top:50%;transform:translateY(-50%);
-  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
-  color:#fff;font-size:24px;padding:14px 18px;cursor:pointer;border-radius:4px;
-  transition:background .2s;}
-#lbPrev:hover,#lbNext:hover{background:rgba(255,255,255,.25);}
-#lbPrev{left:20px;} #lbNext{right:20px;}
-#lbCounter{position:absolute;bottom:20px;color:rgba(255,255,255,.5);
-  font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.1em;}
-/* ── PLAN ZOOM ── */
-.plan-col{cursor:zoom-in;}
-.plan-col img:hover{transform:scale(1.04);box-shadow:0 20px 60px rgba(0,0,0,.4);}
-/* ── NAV BACK più visibile ── */
-.nav-back{
-  background:rgba(157,192,170,.12);
-  border:.5px solid rgba(157,192,170,.35);
-  border-radius:20px;
-  padding:7px 16px;
-  font-size:11px;letter-spacing:.14em;
-  text-transform:uppercase;color:#f0ece4;
-  text-decoration:none;display:flex;align-items:center;gap:8px;
-  transition:background .2s,border-color .2s;
-}
-.nav-back:hover{background:rgba(157,192,170,.25);border-color:rgba(157,192,170,.7);color:#fff;}
-.nav-back::before{content:'←';font-size:16px;}
-/* ── MOBILE ── */
-@media(max-width:768px){
-  nav{padding:12px 16px;flex-wrap:wrap;gap:8px;}
-  .nav-brand{font-size:18px;}
-  .nav-back{font-size:10px;padding:6px 12px;}
-  .hero{height:55vh;}
-  .hero-content{bottom:24px;left:20px;right:20px;}
-  .hero-title{font-size:clamp(36px,10vw,60px);}
-  .specs-bar{flex-wrap:wrap;}
-  .spec-item{min-width:50%;flex:0 0 50%;border-bottom:.5px solid rgba(255,255,255,.06);}
-  .content{grid-template-columns:1fr;}
-  .plan-col{padding:32px 20px;}
-  .info-col{padding:32px 20px;}
-  .cta-block{padding:20px;}
-  .unit-gallery-grid{grid-template-columns:1fr 1fr;gap:4px;}
-  .unit-gallery-item:first-child{grid-column:span 2;}
-  .other-grid{grid-template-columns:1fr;}
-  footer{padding:20px 16px;flex-direction:column;gap:8px;}
-  #lbPrev{left:8px;padding:10px 12px;font-size:18px;}
-  #lbNext{right:8px;padding:10px 12px;font-size:18px;}
-}
-
-<style>
-.sl-wrap{position:relative;width:100%;height:70vh;min-height:400px;overflow:hidden;background:#0d0d0d;cursor:grab;}
-.sl-wrap:active{cursor:grabbing;}
-.sl-track{position:absolute;inset:0;}
-.sl-slide{position:absolute;inset:0;opacity:0;transition:opacity .8s cubic-bezier(.22,1,.36,1);pointer-events:none;}
-.sl-slide.sl-active{opacity:1;pointer-events:all;}
-.sl-slide img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.06);transition:transform 7s ease-out;}
-.sl-slide.sl-active img{transform:scale(1);}
-.sl-track::after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(to right,rgba(0,0,0,.4) 0%,transparent 18%,transparent 82%,rgba(0,0,0,.4) 100%),linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 30%);pointer-events:none;}
-.sl-ui{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:0 28px;pointer-events:none;}
-.sl-btn{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#f0ece4;font-size:22px;cursor:pointer;pointer-events:all;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;backdrop-filter:blur(6px);}
-.sl-btn:hover{background:rgba(58,122,82,.75);transform:scale(1.08);}
-.sl-progress{position:absolute;bottom:52px;left:28px;right:28px;height:1.5px;background:rgba(255,255,255,.1);z-index:5;}
-.sl-progress-fill{height:100%;background:#9dc0aa;transition:width .6s ease;}
-.sl-counter{position:absolute;bottom:28px;left:28px;font-family:'Anton',sans-serif;font-size:13px;color:rgba(240,236,228,.45);z-index:5;letter-spacing:.05em;}
-.sl-sep{opacity:.4;}
-.sl-dots{position:absolute;bottom:28px;right:28px;display:flex;gap:6px;z-index:5;}
-.sl-dot{width:5px;height:5px;border-radius:50%;background:rgba(240,236,228,.2);cursor:pointer;transition:background .3s,width .3s;}
-.sl-dot.sl-dot-active{width:14px;border-radius:2.5px;background:#9dc0aa;}
-</style></style>
-
-<style>
-/* ── FEAT LIST 2 COLONNE ── */
-.feat-list{display:grid!important;grid-template-columns:1fr 1fr!important;gap:0!important;margin-bottom:32px!important;}
-.feat-item{padding:10px 0!important;font-size:12px!important;}
-@media(max-width:600px){.feat-list{grid-template-columns:1fr!important;}}
 </style>
-<style>
-/* ══ IRIS OPEN — entrata cinematic ══ */
-#irisOpen{
-  position:fixed;inset:0;z-index:9999;pointer-events:none;
-  background:rgba(10,10,10,.97);
-  clip-path:circle(120% at 50% 38%);
-  transition:clip-path 1.05s cubic-bezier(.22,1,.36,1) .05s;
-  will-change:clip-path;
-}
-#irisOpen.open{clip-path:circle(0% at 50% 38%);}
-</style></head>
+</head>
 <body>
-<div id="irisOpen"></div>
 <nav>
   <a class="nav-brand" href="index.html">VERD<em>I</em>8</a>
-  <a class="nav-back" href="index.html#unita">Tutte le unit&agrave;</a>
+  <a class="nav-back" href="index.html#unita">Tutte le unità</a>
 </nav>
 
 <div class="hero">
-  <div class="hero-bg" id="heroBg" style="background-image:url('images/app-a_1.jpeg')"></div>
+  <div class="hero-bg" id="heroBg" style="background-image:url('images/app-a_24.jpeg')"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <p class="hero-tag">Appartamento A · Piano Terra</p>
-    <h1 class="hero-title">App. A</h1>
-    <p class="hero-sub">4 locali con Giardino</p>
+    <h1 class="hero-title">4 locali con giardino privato</h1>
+    <p class="hero-sub">Piano terra · ingresso indipendente · giardino 129,9 m² · 147 m² commerciali</p>
   </div>
 </div>
 
 <div class="specs-bar">
-<div class="spec-item"><div class="spec-val">95 m²</div><div class="spec-lbl">Superficie</div></div><div class="spec-item"><div class="spec-val">4</div><div class="spec-lbl">Locali</div></div><div class="spec-item"><div class="spec-val">Giardino</div><div class="spec-lbl">Outdoor</div></div><div class="spec-item"><div class="spec-val">A</div><div class="spec-lbl">Classe Energ.</div></div>
+<div class="spec-item"><div class="spec-val">147 m²</div><div class="spec-lbl">Sup. commerciale</div></div><div class="spec-item"><div class="spec-val">4</div><div class="spec-lbl">Locali</div></div><div class="spec-item"><div class="spec-val">129,9 m²</div><div class="spec-lbl">Giardino</div></div><div class="spec-item"><div class="spec-val">A</div><div class="spec-lbl">Classe Energ.</div></div>
+</div>
+
+<div class="price-bar">
+  <div>
+    <div class="price-lbl">Prezzo</div>
+    <div class="price-val">€ 461.000</div>
+  </div>
+  <div class="price-note">compresi 2 posti auto</div>
 </div>
 
 <div class="content">
   <div class="plan-col">
-    <img src="images/app-a_1.png" alt="Planimetria App. A" loading="lazy">
-    <p class="plan-label" style="margin-top:12px;font-size:10px;opacity:.5;">🔍 Clicca per ingrandire · Planimetria — App. A</p>
+    <img src="images/app-a_23.png" alt="Planimetria App. A" loading="lazy">
+    <p class="plan-label">Planimetria — App. A</p>
   </div>
   <div class="info-col">
     <p class="info-eyebrow">Residenza Verdi8 · Brugherio</p>
-    <h2 class="info-title">App. A<br><span style="color:var(--accent)">4 locali con Giardino</span></h2>
+    <h2 class="info-title">App. A<br><span style="color:var(--accent)">4 locali con giardino privato</span></h2>
     <p class="info-desc">Una delle quattro unità esclusive di Residenza Verdi8, nel cuore residenziale di Brugherio. Nuova costruzione di pregio con finiture di alto livello, classe energetica A e tecnologie W4HOUSE, fotovoltaico e VMC.</p>
     <div class="feat-list">
-      <div class="feat-item">4 locali + doppi servizi</div>      <div class="feat-item">Ampio giardino privato</div>      <div class="feat-item">Cucina abitabile</div>      <div class="feat-item">Parquet in rovere</div>      <div class="feat-item">Classe energetica A</div>      <div class="feat-item">Impianto fotovoltaico</div>      <div class="feat-item">Ventilazione meccanica VMC</div>      <div class="feat-item">Posto auto privato</div>
+      <div class="feat-item">4 locali + doppi servizi</div>      <div class="feat-item">Ampio giardino privato</div>      <div class="feat-item">Cucina abitabile</div>      <div class="feat-item">Pavimenti in gres porcellanato</div>      <div class="feat-item">Struttura antisismica W4HOUSE · Classe A</div>      <div class="feat-item">Pompa di calore aria-aria indipendente</div>      <div class="feat-item">Fotovoltaico 1,20 kWp + VMC con recupero</div>      <div class="feat-item">Serramenti PVC 68 mm triplo vetro</div>      <div class="feat-item">2 posti auto inclusi nel prezzo</div>
     </div>
     <div class="cta-block">
       <p class="cta-label">Richiedi informazioni</p>
@@ -263,12 +179,13 @@ footer{background:#050505;border-top:.5px solid rgba(255,255,255,.05);
     </div>
   </div>
 </div>
+
 <div class="other-units">
   <h3 class="other-title">Le altre un<em style="color:var(--accent);font-style:normal">i</em>tà</h3>
   <div class="other-grid">
-    <a class="other-card" href="app-b.html"><div class="other-card-tag">Appartamento B</div><div class="other-card-name">App. B</div><div class="other-card-sub">4 locali · Terrazzo · 80 m²</div></a>
-    <a class="other-card" href="villa-c.html"><div class="other-card-tag">Villa C</div><div class="other-card-name">Villa C</div><div class="other-card-sub">Indipendente · Giardino · 88 m²</div></a>
-    <a class="other-card" href="attico.html"><div class="other-card-tag">Attico</div><div class="other-card-name">Attico</div><div class="other-card-sub">4 locali · Terrazzo 100m² · 110 m²</div></a>
+    <a class="other-card" href="app-b.html"><div class="other-card-tag">Appartamento B</div><div class="other-card-name">App. B</div><div class="other-card-sub">4 locali · Balconi e terrazzo · 154 m²</div></a>
+    <a class="other-card" href="villa-c.html"><div class="other-card-tag">Villa C</div><div class="other-card-name">Villa C</div><div class="other-card-sub">Villa indip. · Giardino + Terrazzo · 158 m²</div></a>
+    <a class="other-card" href="attico.html"><div class="other-card-tag">Attico</div><div class="other-card-name">Attico</div><div class="other-card-sub">4 locali · Ultimo piano · 134 m²</div></a>
   </div>
 </div>
 
@@ -277,102 +194,8 @@ footer{background:#050505;border-top:.5px solid rgba(255,255,255,.05);
   <p class="footer-note">Residenza Verdi8 · Via Giuseppe Verdi 8, 20861 Brugherio (MB) · Nuova costruzione · Classe A · Consegna estate 2027 · Edilnord RE non è un'agenzia immobiliare ai sensi della L. 39/89. Le proposte d'acquisto sono gestite da Tecnobriantea Immobiliare.</p>
 </footer>
 
-
-<!-- Lightbox -->
-<div id="unitLightbox">
-  <button id="lbClose">✕</button>
-  <button id="lbPrev">&#8592;</button>
-  <img id="lbImg" src="" alt="">
-  <button id="lbNext">&#8594;</button>
-  <div id="lbCounter"></div>
-</div>
-
 <script>
 document.getElementById('heroBg').classList.add('loaded');
-
-<script>
-/* ── Lightbox galleria ── */
-(function(){
-  const lb    = document.getElementById('unitLightbox');
-  const lbImg = document.getElementById('lbImg');
-  const lbCnt = document.getElementById('lbCounter');
-  const lbCls = document.getElementById('lbClose');
-  const lbPrv = document.getElementById('lbPrev');
-  const lbNxt = document.getElementById('lbNext');
-  let srcs=[], cur=0;
-
-  document.querySelectorAll('.unit-gallery-item, .plan-col').forEach(el=>{
-    const img = el.querySelector('img');
-    if(img) srcs.push(img.src);
-    el.addEventListener('click',()=>{
-      cur = srcs.indexOf(img?.src||'');
-      if(cur<0) cur=0;
-      open(cur);
-    });
-  });
-
-  function open(i){
-    cur=i;
-    lbImg.src=srcs[cur];
-    lbCnt.textContent=(cur+1)+' / '+srcs.length;
-    lb.classList.add('open');
-    document.body.style.overflow='hidden';
-  }
-  function close(){ lb.classList.remove('open'); document.body.style.overflow=''; lbImg.src=''; }
-  lbCls.addEventListener('click',close);
-  lb.addEventListener('click',e=>{ if(e.target===lb) close(); });
-  lbPrv.addEventListener('click',e=>{ e.stopPropagation(); open((cur-1+srcs.length)%srcs.length); });
-  lbNxt.addEventListener('click',e=>{ e.stopPropagation(); open((cur+1)%srcs.length); });
-  document.addEventListener('keydown',e=>{
-    if(!lb.classList.contains('open')) return;
-    if(e.key==='Escape') close();
-    if(e.key==='ArrowRight') open((cur+1)%srcs.length);
-    if(e.key==='ArrowLeft') open((cur-1+srcs.length)%srcs.length);
-  });
-})();
 </script>
-
-<script>
-(function(){
-  const slides  = document.querySelectorAll('#photoSlider .sl-slide');
-  const dots    = document.querySelectorAll('#slDots .sl-dot');
-  const fill    = document.getElementById('slProgressFill');
-  const counter = document.getElementById('slCounter');
-  if(!slides.length) return;
-  let cur = 0, timer;
-  function goTo(n) {
-    slides[cur].classList.remove('sl-active');
-    dots[cur]?.classList.remove('sl-dot-active');
-    cur = (n + slides.length) % slides.length;
-    slides[cur].classList.add('sl-active');
-    dots[cur]?.classList.add('sl-dot-active');
-    if(fill)    fill.style.width = ((cur+1)/slides.length*100)+'%';
-    if(counter) counter.innerHTML = String(cur+1).padStart(2,'0')+' <span class="sl-sep">&#8212;</span> '+String(slides.length).padStart(2,'0');
-    clearInterval(timer);
-    timer = setInterval(()=>goTo(cur+1), 5000);
-  }
-  document.getElementById('slPrev')?.addEventListener('click', ()=>goTo(cur-1));
-  document.getElementById('slNext')?.addEventListener('click', ()=>goTo(cur+1));
-  dots.forEach((d,i)=>d.addEventListener('click',()=>goTo(i)));
-  let tx=0;
-  const wrap = document.getElementById('photoSlider');
-  wrap?.addEventListener('touchstart', e=>tx=e.touches[0].clientX, {passive:true});
-  wrap?.addEventListener('touchend', e=>{ const dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>40) goTo(dx<0?cur+1:cur-1); });
-  goTo(0);
-})();
-</script>
-
-
-<script>
-(function(){
-  var el=document.getElementById('irisOpen');
-  if(!el)return;
-  requestAnimationFrame(function(){
-    requestAnimationFrame(function(){
-      el.classList.add('open');
-      el.addEventListener('transitionend',function(){el.remove();},{once:true});
-    });
-  });
-})();
-</script></body>
+</body>
 </html>
