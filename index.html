@@ -1086,7 +1086,7 @@ footer .footer-logo{height:24px!important;width:auto!important;opacity:.55!impor
 /* ═══ SEZIONE POSIZIONE REDESIGN ══════════════════════════════════════ */
 .loc-section{
   background:#060606;
-  padding:0 0 24px;
+  padding:0 0 0;
   overflow:hidden;
 }
 .loc-header{
@@ -2243,7 +2243,7 @@ if(contactEl) ctaIO.observe(contactEl);
 
 
 /* ══ SLIDER RENDERING — wipe + ken burns ══ */
-(function(){
+document.addEventListener('DOMContentLoaded', function(){
   const slides  = document.querySelectorAll('#photoSlider .sl-slide');
   const dots    = document.querySelectorAll('#slDots .sl-dot');
   const fill    = document.getElementById('slProgressFill');
@@ -2297,7 +2297,7 @@ if(contactEl) ctaIO.observe(contactEl);
   if(counter) counter.innerHTML = '01 <span class="sl-sep">&#8212;</span> '+String(slides.length).padStart(2,'0');
   dots[0]?.classList.add('sl-dot-active');
   timer = setInterval(()=>goTo(cur+1,1), 5800);
-})();
+});
 
 </script>
 
@@ -2326,7 +2326,7 @@ if(contactEl) ctaIO.observe(contactEl);
 
 
 <!-- ══ GALLERIA + DESCRIZIONE PROGETTO ══════════════════ -->
-<section id="gallery" style="background:var(--bg);padding:40px 0 0;">
+<section id="gallery" style="background:var(--bg);padding:0 0 0;">
   <div style="width:92vw;max-width:1200px;margin:0 auto 48px;">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
       <!-- Descrizione -->
