@@ -47,6 +47,40 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;
   font-size:clamp(30px,4.6vw,56px);line-height:1.0;
   letter-spacing:-.02em;margin-bottom:8px;}
 .hero-sub{font-size:14px;color:var(--t2);letter-spacing:.04em;}
+/* PHOTO SLIDER */
+.sl-wrap{position:relative;width:100%;height:70vh;min-height:480px;overflow:hidden;background:#0d0d0d;cursor:grab;}
+.sl-wrap:active{cursor:grabbing;}
+.sl-track{position:absolute;inset:0;}
+.sl-slide{position:absolute;inset:0;opacity:0;transition:opacity .8s var(--e);pointer-events:none;}
+.sl-slide.sl-active{opacity:1;pointer-events:all;}
+.sl-slide img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.06);transition:transform 7s ease-out;}
+.sl-slide.sl-active img{transform:scale(1);}
+.sl-veil{position:absolute;inset:0;z-index:2;pointer-events:none;transition:background .9s var(--e);background:linear-gradient(to right,rgba(8,8,8,.88) 40%,rgba(8,8,8,.30)),linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 32%);}
+.sl-wrap.sl-bright .sl-veil{background:linear-gradient(to top,rgba(0,0,0,.42) 0%,transparent 30%);}
+.sl-ui{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:0 28px;pointer-events:none;}
+.sl-btn{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#f0ece4;font-size:22px;cursor:pointer;pointer-events:all;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+.sl-btn:hover{background:rgba(58,122,82,.75);transform:scale(1.1);}
+.sl-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,.08);z-index:6;}
+.sl-progress-fill{height:100%;background:var(--accent);width:0%;transition:width .7s;}
+.sl-counter{position:absolute;top:22px;right:28px;z-index:6;font-family:'Anton',sans-serif;font-size:14px;color:rgba(240,236,228,.55);letter-spacing:.06em;}
+.sl-sep{margin:0 8px;color:rgba(157,192,170,.35);}
+.sl-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:6;display:flex;gap:6px;flex-wrap:wrap;max-width:62%;justify-content:center;}
+.sl-dot{width:5px;height:5px;border-radius:50%;background:rgba(240,236,228,.22);cursor:pointer;transition:background .3s,width .3s;}
+.sl-dot.sl-dot-active{background:var(--accent);width:18px;border-radius:3px;}
+@keyframes kb-1{0%{transform:scale(1.09) translate(1.6%,.9%)}100%{transform:scale(1.0) translate(0,0)}}
+@keyframes kb-2{0%{transform:scale(1.09) translate(-1.8%,.7%)}100%{transform:scale(1.0) translate(0,0)}}
+@keyframes kb-3{0%{transform:scale(1.08) translate(.9%,-1.3%)}100%{transform:scale(1.0) translate(0,0)}}
+@keyframes kb-4{0%{transform:scale(1.09) translate(-1.1%,-.9%)}100%{transform:scale(1.0) translate(0,0)}}
+@keyframes wipeR{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0% 0 0)}}
+@keyframes wipeL{from{clip-path:inset(0 0% 0 100%)}to{clip-path:inset(0 0% 0 0%)}}
+.sl-slide img{transition:none;transform:scale(1.09);}
+.sl-slide.sl-active.kb-1 img{animation:kb-1 6.5s ease-out forwards;}
+.sl-slide.sl-active.kb-2 img{animation:kb-2 7s ease-out forwards;}
+.sl-slide.sl-active.kb-3 img{animation:kb-3 6s ease-out forwards;}
+.sl-slide.sl-active.kb-4 img{animation:kb-4 6.8s ease-out forwards;}
+.sl-slide.sl-active.sl-wipe-r{animation:wipeR .68s cubic-bezier(.22,1,.36,1) forwards;}
+.sl-slide.sl-active.sl-wipe-l{animation:wipeL .68s cubic-bezier(.22,1,.36,1) forwards;}
+@media(max-width:768px){.sl-wrap{height:62vw;min-height:300px;}.sl-btn{width:38px;height:38px;font-size:17px;}.sl-counter{font-size:11px;top:14px;right:16px;}.sl-dots{bottom:12px;}}
 /* SPECS BAR */
 .specs-bar{display:flex;background:#0e0e0e;
   border-bottom:.5px solid rgba(255,255,255,.07);}
@@ -134,10 +168,29 @@ footer{background:#050505;border-top:.5px solid rgba(255,255,255,.05);
   <a class="nav-back" href="index.html#unita">Tutte le unità</a>
 </nav>
 
-<div class="hero">
-  <div class="hero-bg" id="heroBg" style="background-image:url('images/app-a_24.jpeg')"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
+<div class="sl-wrap" id="photoSlider"><div class="sl-track">
+<div class="sl-slide sl-active" data-idx="0"><img src="images/app-a_24.jpeg" alt="Appartamento A — rendering 1" loading="eager" decoding="async"></div>
+<div class="sl-slide" data-idx="1"><img src="images/app-a_1.jpeg" alt="Appartamento A — rendering 2" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="2"><img src="images/app-a_2.jpeg" alt="Appartamento A — rendering 3" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="3"><img src="images/app-a_3.jpeg" alt="Appartamento A — rendering 4" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="4"><img src="images/app-a_4.jpeg" alt="Appartamento A — rendering 5" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="5"><img src="images/app-a_5.jpeg" alt="Appartamento A — rendering 6" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="6"><img src="images/app-a_6.jpeg" alt="Appartamento A — rendering 7" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="7"><img src="images/app-a_7.jpeg" alt="Appartamento A — rendering 8" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="8"><img src="images/app-a_8.jpeg" alt="Appartamento A — rendering 9" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="9"><img src="images/app-a_9.jpeg" alt="Appartamento A — rendering 10" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="10"><img src="images/app-a_10.jpeg" alt="Appartamento A — rendering 11" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="11"><img src="images/app-a_11.jpeg" alt="Appartamento A — rendering 12" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="12"><img src="images/app-a_12.jpeg" alt="Appartamento A — rendering 13" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="13"><img src="images/app-a_13.jpeg" alt="Appartamento A — rendering 14" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="14"><img src="images/app-a_14.jpeg" alt="Appartamento A — rendering 15" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="15"><img src="images/app-a_15.jpeg" alt="Appartamento A — rendering 16" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="16"><img src="images/app-a_16.jpeg" alt="Appartamento A — rendering 17" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="17"><img src="images/app-a_17.jpeg" alt="Appartamento A — rendering 18" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="18"><img src="images/app-a_18.jpeg" alt="Appartamento A — rendering 19" loading="lazy" decoding="async"></div>
+<div class="sl-slide" data-idx="19"><img src="images/app-a_19.jpeg" alt="Appartamento A — rendering 20" loading="lazy" decoding="async"></div>
+</div><div class="sl-veil"></div><div class="sl-ui"><button class="sl-btn" id="slPrev" aria-label="Precedente">&#8592;</button><button class="sl-btn" id="slNext" aria-label="Successivo">&#8594;</button></div><div class="sl-progress"><div class="sl-progress-fill" id="slProgressFill"></div></div><div class="sl-counter" id="slCounter">01 <span class="sl-sep">&#8212;</span> 20</div><div class="sl-dots" id="slDots"><div class="sl-dot sl-dot-active" data-i="0"></div><div class="sl-dot" data-i="1"></div><div class="sl-dot" data-i="2"></div><div class="sl-dot" data-i="3"></div><div class="sl-dot" data-i="4"></div><div class="sl-dot" data-i="5"></div><div class="sl-dot" data-i="6"></div><div class="sl-dot" data-i="7"></div><div class="sl-dot" data-i="8"></div><div class="sl-dot" data-i="9"></div><div class="sl-dot" data-i="10"></div><div class="sl-dot" data-i="11"></div><div class="sl-dot" data-i="12"></div><div class="sl-dot" data-i="13"></div><div class="sl-dot" data-i="14"></div><div class="sl-dot" data-i="15"></div><div class="sl-dot" data-i="16"></div><div class="sl-dot" data-i="17"></div><div class="sl-dot" data-i="18"></div><div class="sl-dot" data-i="19"></div></div>
+<div class="hero-content" style="z-index:5;pointer-events:none;">
     <p class="hero-tag">Appartamento A · Piano Terra</p>
     <h1 class="hero-title">4 locali con giardino privato</h1>
     <p class="hero-sub">Piano terra · ingresso indipendente · giardino 129,9 m² · 147 m² commerciali</p>
@@ -172,7 +225,7 @@ footer{background:#050505;border-top:.5px solid rgba(255,255,255,.05);
       <p class="cta-label">Richiedi informazioni</p>
       <p class="cta-title">Prenota una<br>visita privata</p>
       <a class="cta-btn" href="https://www.edilnordre.it" target="_blank">
-        Contatta Edilnord RE
+        Contatta
         <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
       </a>
       <p class="cta-note">Progetto, render e comunicazione a cura di <strong>Edilnord RE</strong> · edilnordre.it<br><span style="opacity:.5">Le proposte d'acquisto sono raccolte da Tecnobriantea Immobiliare — mediazione ai sensi della L. 39/89.</span></p>
@@ -195,7 +248,51 @@ footer{background:#050505;border-top:.5px solid rgba(255,255,255,.05);
 </footer>
 
 <script>
-document.getElementById('heroBg').classList.add('loaded');
+(function(){
+  const slides  = document.querySelectorAll('#photoSlider .sl-slide');
+  const dots    = document.querySelectorAll('#slDots .sl-dot');
+  const fill    = document.getElementById('slProgressFill');
+  const counter = document.getElementById('slCounter');
+  if(!slides.length) return;
+  let cur = 0, timer;
+  const kbCycle = ['kb-1','kb-2','kb-3','kb-4'];
+  let kbIdx = 0;
+  function goTo(n, dir){
+    const prev = cur;
+    cur = (n + slides.length) % slides.length;
+    if(prev === cur) return;
+    const forward = dir === undefined ? (n > prev || (prev === slides.length-1 && n === 0)) : dir >= 0;
+    var wrapEl=document.getElementById('photoSlider'); if(wrapEl) wrapEl.classList.toggle('sl-bright', cur!==0);
+    slides[prev].classList.remove('sl-active','sl-wipe-r','sl-wipe-l');
+    ['kb-1','kb-2','kb-3','kb-4'].forEach(k=>slides[prev].classList.remove(k));
+    if(dots[prev]) dots[prev].classList.remove('sl-dot-active');
+    const kb = kbCycle[kbIdx % 4]; kbIdx++;
+    slides[cur].classList.remove('sl-wipe-r','sl-wipe-l','kb-1','kb-2','kb-3','kb-4');
+    void slides[cur].offsetWidth;
+    slides[cur].classList.add('sl-active', forward ? 'sl-wipe-r' : 'sl-wipe-l', kb);
+    if(dots[cur]) dots[cur].classList.add('sl-dot-active');
+    if(fill) fill.style.width = ((cur+1)/slides.length*100)+'%';
+    if(counter) counter.innerHTML = String(cur+1).padStart(2,'0')+' <span class="sl-sep">&#8212;</span> '+String(slides.length).padStart(2,'0');
+    clearInterval(timer);
+    timer = setInterval(()=>goTo(cur+1,1),5800);
+  }
+  const pv=document.getElementById('slPrev'); if(pv) pv.addEventListener('click',()=>goTo(cur-1,-1));
+  const nx=document.getElementById('slNext'); if(nx) nx.addEventListener('click',()=>goTo(cur+1,1));
+  dots.forEach((d,i)=>d.addEventListener('click',()=>goTo(i, i>cur?1:-1)));
+  let tx=0; const wrap=document.getElementById('photoSlider');
+  if(wrap){
+    wrap.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+    wrap.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>40) goTo(dx<0?cur+1:cur-1, dx<0?1:-1);});
+    wrap.addEventListener('mouseenter',()=>clearInterval(timer));
+    wrap.addEventListener('mouseleave',()=>{timer=setInterval(()=>goTo(cur+1,1),5800);});
+  }
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')goTo(cur+1,1); if(e.key==='ArrowLeft')goTo(cur-1,-1);});
+  slides[0].classList.add('sl-active','kb-1'); kbIdx=1;
+  if(fill) fill.style.width=(1/slides.length*100)+'%';
+  if(counter) counter.innerHTML='01 <span class="sl-sep">&#8212;</span> '+String(slides.length).padStart(2,'0');
+  if(dots[0]) dots[0].classList.add('sl-dot-active');
+  timer=setInterval(()=>goTo(cur+1,1),5800);
+})();
 </script>
 </body>
 </html>

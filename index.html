@@ -957,8 +957,11 @@ footer p { font-size:10px !important; line-height:1.7 !important; color:rgba(240
   .brg-stats{gap:24px!important;}
   .brg-stat-n{font-size:28px!important;}
 
-  /* ── Nav divider partner (nasconde su mobile nel nav) ── */
-  .nav-divider{display:none!important;}
+  /* ── Nav divider partner: visibile anche su mobile ── */
+  .nav-divider{display:flex!important;gap:10px!important;margin-top:10px!important;}
+  .nav-partners{gap:9px!important;}
+  .nav-divider .logo-wrap img{height:17px!important;}
+  .partner-label{font-size:7px!important;}
 
   /* ── Sezione hero mobile padding bottom per sticky CTA ── */
   body{padding-bottom:0;}
@@ -1019,7 +1022,7 @@ footer p { font-size:10px !important; line-height:1.7 !important; color:rgba(240
 .logo-wrap img{
   height:22px;
   width:auto;
-  opacity:.68;
+  opacity:.9;
   display:block;
   transition:opacity .2s;
 }
@@ -1158,7 +1161,6 @@ footer .footer-logo{height:24px!important;width:auto!important;opacity:.55!impor
 .loc-map-wrap iframe{
   width:100%;height:100%;
   border:none;
-  filter:invert(.92) hue-rotate(180deg) saturate(.7) brightness(.85);
 }
 .loc-map-badge{
   position:absolute;
@@ -1300,7 +1302,6 @@ footer .footer-logo{height:24px!important;width:auto!important;opacity:.55!impor
   transition:color .2s,transform .2s;
 }
 .menu-close-btn:hover{color:#f0ece4;transform:rotate(90deg);}
-#menuOverlay{position:relative;}
 /* ══ IRIS OVERLAY (fly-into-building) ══════════════════ */
 #irisOverlay{
   position:absolute;inset:0;z-index:20;
@@ -1725,7 +1726,7 @@ footer .footer-logo{height:24px!important;width:auto!important;opacity:.55!impor
 
   <div class="loc-map-wrap">
     <iframe
-      src="https://www.openstreetmap.org/export/embed.html?bbox=9.2846%2C45.5627%2C9.2946%2C45.5707&layer=mapnik&marker=45.5667%2C9.2896"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=9.28803%2C45.55242%2C9.30303%2C45.55942&layer=mapnik&marker=45.55592%2C9.29553"
       allowfullscreen loading="lazy" title="Mappa Residenza Verdi8" referrerpolicy="no-referrer-when-downgrade">
     </iframe>
     <a class="loc-map-badge" href="https://maps.google.com/?q=Via+Giuseppe+Verdi+8,+Brugherio+MB" target="_blank">
@@ -2406,21 +2407,18 @@ document.addEventListener('DOMContentLoaded', function(){
     </form>
   </div>
   <div class="brg-right" id="ctRight" style="display:flex!important;flex-direction:column;justify-content:center;transform:none!important;opacity:1!important;padding:60px 48px;background:#070707;">
-    <p class="brg-eyebrow">La commercializzazione esclusiva</p>
-    <h2 class="brg-title" style="margin-bottom:18px;">Due<br>pro<em>f</em>essionisti</h2>
-    <p style="font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:24px;">La vendita di Residenza Verdi8 è curata in esclusiva da due realtà del territorio brianzolo, ognuna con un ruolo definito.</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0;">
-    <div class="ct-cocard">
+    <p class="brg-eyebrow">Il progetto, una sola regia</p>
+    <h2 class="brg-title" style="margin-bottom:18px;">Firmato<br>Edilnord <em>RE</em></h2>
+    <p style="font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:24px;">Verdi8 nasce da Edilnord RE: ideazione, sviluppo e valorizzazione di un intero progetto, sotto un'unica regia.</p>
+    <div class="ct-cocard" style="margin-bottom:14px;">
       <img src="images/index_2.png" alt="Edilnord RE" class="co-logo">
-      <div class="co-role">Consulenza immobiliare esclusiva</div>
-      <div class="co-desc">Cura la comunicazione, la valorizzazione e la consulenza strategica del progetto. Non raccoglie proposte d'acquisto.</div>
+      <div class="co-role">Ideazione · Sviluppo · Valorizzazione</div>
+      <div class="co-desc">Edilnord RE concepisce, sviluppa e valorizza Verdi8 in ogni sua parte: strategia, immagine e comunicazione. La regia del progetto è affidata alla nostra consulenza.</div>
     </div>
-    <div class="ct-cocard">
-      <img src="images/index_3.png" alt="TecnoBriantea" class="co-logo" style="filter:grayscale(1) brightness(2.5);">
-      <div class="co-role">Agenzia immobiliare · Raccoglie proposte d'acquisto</div>
-      <div class="co-desc">Gestisce trattative, raccoglie proposte e accompagna il cliente fino al rogito. Iscritta REA MB n. [placeholder].</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:0;">
+      <img src="images/index_3.png" alt="TecnoBriantea" style="height:16px;width:auto;filter:grayscale(1) brightness(2.2);opacity:.4;flex-shrink:0;">
+      <p style="font-size:10.5px;color:rgba(240,236,228,.38);line-height:1.55;">Proposte d'acquisto e trattative curate da Tecnobriantea Immobiliare su incarico di Edilnord RE.</p>
     </div>
-    </div><!-- /grid cocards -->
     <div class="ct-disc">Edilnord RE non è un'agenzia immobiliare ai sensi della L. 39/89 e non raccoglie proposte d'acquisto. P.IVA Edilnord RE: [placeholder] · Tel: +39 389 0107445 · Via Tre Re 8, 20861 Brugherio (MB)</div>
   </div>
 </section>
@@ -2460,7 +2458,7 @@ document.addEventListener('DOMContentLoaded', function(){
 <!-- ══ FOOTER ══════════════════════════════════════════ -->
 <footer style="background:#050505;border-top:.5px solid rgba(255,255,255,.06);padding:32px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
   <div style="display:flex;align-items:center;gap:20px;">
-    <img src="images/index_20.png" alt="Edilnord RE" style="height:20px;opacity:.45;filter:brightness(2);">
+    <img src="images/index_20.png" alt="Edilnord RE" style="height:24px;opacity:.92;filter:brightness(2);">
     <img src="images/index_3.png" alt="TecnoBriantea" style="height:20px;opacity:.4;filter:grayscale(1) brightness(2);">
   </div>
   <p style="font-size:9px;color:rgba(240,236,228,.18);line-height:1.6;max-width:600px;">Residenza Verdi8 · Via Giuseppe Verdi 8, 20861 Brugherio (MB) · Classe A · W4HOUSE · Fotovoltaico · VMC · Consegna estate 2027 · Edilnord RE non è un'agenzia immobiliare ai sensi della L. 39/89 e non raccoglie proposte d'acquisto. Tecnobriantea Immobiliare, Agente Iscritto REA MB n. [placeholder]</p>
