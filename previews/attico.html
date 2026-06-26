@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>4 locali attico — Residenza Verdi8</title>
+<meta name="description" content="4 locali attico, 134 m² commerciali — Residenza Verdi8, Via Giuseppe Verdi 8, Brugherio (MB).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="../images/attico_28.jpeg" fetchpriority="high">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#080808;--bg2:#0b0b0b;--bg3:#050505;--t:#f0ece4;--t2:rgba(240,236,228,.58);--t3:rgba(240,236,228,.3);
+  --accent:#9dc0aa;--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.04);--green-grad:linear-gradient(135deg,#1c3a2a,#142b1f);
+  --e:cubic-bezier(.22,1,.36,1);--e-expo:cubic-bezier(.16,1,.3,1);}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--t);font-family:'Montserrat',sans-serif;overflow-x:hidden;line-height:1.5;-webkit-font-smoothing:antialiased;}
+::selection{background:var(--accent);color:#080808;}
+a{color:inherit;text-decoration:none;} img{display:block;}
+html.js .reveal{opacity:0;transform:translateY(26px);}
+html.js .reveal.in{opacity:1;transform:none;transition:opacity .9s var(--e-expo),transform 1s var(--e-expo);}
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%);mix-blend-mode:difference;}
+.cursor-dot{width:7px;height:7px;background:#fff;}
+.cursor-ring{width:38px;height:38px;border:1px solid rgba(255,255,255,.6);transition:width .3s var(--e),height .3s var(--e),background .3s,border-color .3s;}
+.cursor-ring.grow{width:74px;height:74px;background:rgba(157,192,170,.16);border-color:transparent;mix-blend-mode:normal;}
+@media(hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none;}}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;
+  transition:background .45s var(--e),padding .45s,border-color .45s;border-bottom:.5px solid transparent;}
+nav.scrolled{background:rgba(8,8,8,.74);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding-top:13px;padding-bottom:13px;border-bottom-color:var(--line);}
+.brand{font-family:'Anton',sans-serif;font-size:22px;display:flex;align-items:center;gap:1px;} .brand em{color:var(--accent);font-style:normal;}
+.back{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--t2);display:flex;align-items:center;gap:8px;transition:color .25s,gap .25s;}
+.back::before{content:'←';font-size:14px;transition:transform .25s var(--e);} .back:hover{color:var(--t);gap:11px;} .back:hover::before{transform:translateX(-3px);}
+
+/* MEDIA STAGE */
+.ustage{position:relative;height:88svh;min-height:560px;overflow:hidden;background:#0d0d0d;}
+.media{position:absolute;inset:0;}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .9s var(--e);pointer-events:none;}
+.slide.on{opacity:1;pointer-events:auto;}
+.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);}
+.slide.on img{animation:kb 7s ease-out forwards;}
+@keyframes kb{to{transform:scale(1);}}
+.plan-view{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:clamp(80px,12vh,130px) 6vw clamp(40px,8vh,80px);
+  background:#0a0a0a;opacity:0;pointer-events:none;transition:opacity .6s var(--e);}
+.ustage.show-plan .plan-view{opacity:1;pointer-events:auto;}
+.ustage.show-plan .media,.ustage.show-plan .hero-content,.ustage.show-plan .sl-ui,.ustage.show-plan .sl-dots,.ustage.show-plan .sl-count{opacity:0;pointer-events:none;}
+.plan-view img{max-width:100%;max-height:100%;object-fit:contain;border-radius:6px;filter:drop-shadow(0 20px 60px rgba(0,0,0,.6));}
+.veil{position:absolute;inset:0;z-index:2;pointer-events:none;transition:background .8s var(--e),opacity .5s;
+  background:linear-gradient(to right,rgba(8,8,8,.86) 38%,rgba(8,8,8,.25)),linear-gradient(to top,rgba(8,8,8,.6),transparent 34%);}
+.ustage.bright .veil{background:linear-gradient(to top,rgba(8,8,8,.45),transparent 28%);}
+.ustage.bright .hero-content{opacity:0;}
+.ustage.show-plan .veil{opacity:0;}
+
+/* toggle */
+.media-toggle{position:absolute;top:calc(18px + 64px);left:50%;transform:translateX(-50%);z-index:8;display:flex;gap:4px;
+  background:rgba(8,8,8,.55);border:.5px solid var(--line);border-radius:40px;padding:4px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.media-toggle button{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--t2);background:transparent;border:none;padding:9px 20px;border-radius:40px;cursor:pointer;transition:color .3s;position:relative;z-index:1;}
+.media-toggle button.on{color:#080808;}
+.media-toggle .pill{position:absolute;top:4px;left:4px;height:calc(100% - 8px);border-radius:40px;background:var(--accent);transition:transform .4s var(--e),width .4s var(--e);z-index:0;}
+
+.sl-ui{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,3vw,30px);pointer-events:none;transition:opacity .4s;}
+.sl-btn{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#f0ece4;font-size:20px;cursor:pointer;pointer-events:auto;display:flex;align-items:center;justify-content:center;transition:background .25s,transform .2s;backdrop-filter:blur(6px);}
+.sl-btn:hover{background:rgba(58,122,82,.8);transform:scale(1.08);}
+.sl-count{position:absolute;top:calc(18px + 66px);right:clamp(16px,3vw,30px);z-index:6;font-family:'Anton',sans-serif;font-size:14px;color:var(--t2);letter-spacing:.06em;transition:opacity .4s;}
+.sl-count .sep{margin:0 7px;color:rgba(157,192,170,.4);}
+.sl-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,.08);z-index:6;}
+.sl-progress .fill{height:100%;width:0;background:var(--accent);transition:width .7s var(--e);}
+.sl-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:6;display:flex;gap:6px;flex-wrap:wrap;max-width:60%;justify-content:center;transition:opacity .4s;}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(240,236,228,.24);border:none;cursor:pointer;padding:0;transition:background .3s,width .3s;}
+.dot.on{background:var(--accent);width:20px;border-radius:3px;}
+.expand-hint{position:absolute;bottom:34px;right:clamp(16px,3vw,30px);z-index:6;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);display:flex;align-items:center;gap:8px;transition:opacity .4s;}
+.expand-hint svg{width:14px;height:14px;}
+
+.hero-content{position:absolute;left:clamp(20px,5vw,60px);right:clamp(20px,5vw,60px);bottom:clamp(40px,7vh,72px);z-index:4;pointer-events:none;transition:opacity .5s;}
+.hero-tag{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;opacity:0;animation:fadeUp 1s var(--e-expo) .4s forwards;}
+.hero-tag::before{content:'';width:30px;height:.5px;background:var(--accent);}
+.hero-title{font-family:'Anton',sans-serif;font-size:clamp(40px,7vw,96px);line-height:.9;letter-spacing:-.02em;text-wrap:balance;overflow:hidden;}
+.hero-title span{display:block;transform:translateY(106%);animation:lineUp 1.2s var(--e-expo) .55s forwards;}
+.hero-sub{font-size:clamp(13px,1.5vw,16px);color:var(--t2);margin-top:16px;max-width:60ch;opacity:0;animation:fadeUp 1s var(--e-expo) .95s forwards;}
+@keyframes lineUp{to{transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+@media(max-width:768px){.ustage{height:72svh;}.sl-btn{width:40px;height:40px;font-size:16px;}.media-toggle{top:70px;}.sl-count{top:118px;}}
+
+.specs{display:grid;grid-template-columns:repeat(4,1fr);background:var(--bg2);border-bottom:.5px solid var(--line);}
+.spec{padding:clamp(22px,3vw,34px) clamp(18px,2.4vw,32px);border-right:.5px solid var(--line);transition:background .35s;}
+.spec:last-child{border-right:none;} .spec:hover{background:rgba(157,192,170,.05);}
+.spec b{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(26px,3.4vw,38px);display:block;}
+.spec small{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-top:6px;display:block;}
+@media(max-width:680px){.specs{grid-template-columns:1fr 1fr;}.spec:nth-child(2){border-right:none;}.spec:nth-child(1),.spec:nth-child(2){border-bottom:.5px solid var(--line);}}
+
+.price{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;background:var(--green-grad);
+  padding:clamp(22px,3vw,30px) clamp(20px,5vw,60px);position:relative;overflow:hidden;}
+.price::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 12% 50%,rgba(157,192,170,.14),transparent 55%);}
+.price .l{position:relative;} .price .pl{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+.price .pv{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(32px,5vw,48px);color:#fff;line-height:1;}
+.price .pn{position:relative;font-size:12px;color:rgba(240,236,228,.72);text-align:right;}
+@media(max-width:600px){.price .pn{text-align:left;}}
+
+.info{padding:clamp(52px,7vh,96px) clamp(24px,5vw,72px);max-width:1100px;}
+.info-eyebrow{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:22px;}
+.info-eyebrow::before{content:'';width:22px;height:.5px;background:var(--accent);}
+.info-title{font-family:'Anton',sans-serif;font-size:clamp(34px,4.4vw,62px);line-height:.94;letter-spacing:-.01em;margin-bottom:26px;text-wrap:balance;}
+.info-title span{color:var(--accent);}
+.info-desc{font-size:15px;color:var(--t2);line-height:1.95;margin-bottom:46px;max-width:62ch;text-wrap:pretty;}
+.feat-h{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--t3);margin-bottom:18px;}
+.feats{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;margin-bottom:52px;}
+@media(max-width:620px){.feats{grid-template-columns:1fr;}}
+.feat{display:flex;align-items:flex-start;gap:13px;padding:14px 0;border-bottom:.5px solid var(--line2);font-size:13.5px;line-height:1.5;}
+.feat svg{width:14px;height:14px;color:var(--accent);flex-shrink:0;margin-top:3px;}
+.cta{background:rgba(157,192,170,.05);border:.5px solid rgba(157,192,170,.18);border-radius:16px;padding:clamp(26px,3vw,36px);max-width:560px;}
+.cta-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+.cta-title{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(22px,2.4vw,28px);line-height:1.05;margin-bottom:22px;}
+.btn-mag{display:inline-flex;align-items:center;gap:11px;background:var(--accent);color:#080808;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  padding:16px 30px;border-radius:46px;will-change:transform;transition:transform .35s var(--e),background .3s,box-shadow .3s;box-shadow:0 10px 34px -14px rgba(157,192,170,.5);}
+.btn-mag:hover{background:#fff;box-shadow:0 16px 42px -16px rgba(157,192,170,.7);} .btn-mag svg{width:14px;height:14px;}
+.cta-note{font-size:11px;color:var(--t2);margin-top:16px;line-height:1.7;} .cta-note strong{color:var(--t);font-weight:600;}
+
+.other{background:var(--bg2);padding:clamp(56px,8vh,96px) clamp(20px,5vw,60px);border-top:.5px solid var(--line);}
+.other h3{font-family:'Anton',sans-serif;font-size:clamp(28px,4vw,46px);margin-bottom:36px;letter-spacing:-.01em;} .other h3 em{color:var(--accent);font-style:normal;}
+.ogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;} @media(max-width:820px){.ogrid{grid-template-columns:1fr;}}
+.ocard{position:relative;overflow:hidden;border-radius:12px;min-height:250px;display:flex;align-items:flex-end;border:.5px solid var(--line);transition:transform .4s var(--e),border-color .4s;}
+.ocard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.05);transition:transform 1s var(--e-expo);opacity:.6;}
+.ocard::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.92),rgba(8,8,8,.12));}
+.ocard:hover{transform:translateY(-4px);border-color:var(--accent);} .ocard:hover img{transform:scale(1);opacity:.78;}
+.ocard-in{position:relative;padding:24px;z-index:2;}
+.ocard-tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.ocard-name{font-family:'Anton',sans-serif;font-weight:400;font-size:24px;margin-bottom:6px;}
+.ocard-sub{font-size:12px;color:var(--t2);}
+
+.section-tag{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;}
+.section-tag::before{content:'';width:22px;height:.5px;background:var(--accent);}
+.valuta{padding:clamp(64px,11vh,130px) clamp(20px,5vw,64px);text-align:center;position:relative;overflow:hidden;
+  background:radial-gradient(120% 120% at 50% 0,rgba(157,192,170,.12),transparent 55%),var(--bg2);border-top:.5px solid var(--line);border-bottom:.5px solid var(--line);}
+.valuta-in{max-width:760px;margin:0 auto;}
+.valuta h2{font-family:'Anton',sans-serif;font-size:clamp(36px,6vw,80px);line-height:.92;letter-spacing:-.02em;margin:18px 0 22px;text-wrap:balance;}
+.valuta h2 em{color:var(--accent);font-style:normal;}
+.valuta-lead{font-size:clamp(15px,1.8vw,19px);color:var(--t);line-height:1.7;max-width:54ch;margin:0 auto 16px;text-wrap:pretty;}
+.valuta-lead strong{color:var(--accent);font-weight:600;}
+.valuta-body{font-size:14px;color:var(--t2);line-height:1.9;max-width:58ch;margin:0 auto 38px;text-wrap:pretty;}
+.valuta-stats{display:flex;justify-content:center;gap:clamp(28px,6vw,66px);margin-bottom:42px;flex-wrap:wrap;}
+.valuta-stats b{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(28px,4vw,44px);display:block;}
+.valuta-stats small{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-top:5px;display:block;}
+footer{background:#040404;padding:clamp(34px,5vh,52px) clamp(20px,5vw,60px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:.5px solid var(--line2);}
+.foot-brand{font-family:'Anton',sans-serif;font-size:22px;} .foot-brand em{color:var(--accent);font-style:normal;}
+.foot-note{font-size:9.5px;color:rgba(240,236,228,.24);max-width:640px;line-height:1.7;}
+
+/* LIGHTBOX */
+.lb{position:fixed;inset:0;z-index:500;background:rgba(5,5,5,.96);display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .4s var(--e);backdrop-filter:blur(4px);}
+.lb.open{opacity:1;pointer-events:auto;}
+.lb-img{max-width:92vw;max-height:84vh;object-fit:contain;border-radius:4px;transform:scale(.96);transition:transform .4s var(--e);box-shadow:0 30px 90px rgba(0,0,0,.6);}
+.lb.open .lb-img{transform:scale(1);}
+.lb-close{position:absolute;top:24px;right:28px;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .25s;}
+.lb-close:hover{background:rgba(157,192,170,.8);color:#080808;}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .25s,transform .2s;}
+.lb-nav:hover{background:rgba(157,192,170,.8);color:#080808;} .lb-prev{left:24px;} .lb-next{right:24px;}
+.lb-count{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-family:'Anton',sans-serif;font-size:14px;color:var(--t2);letter-spacing:.06em;}
+.lb-count .sep{margin:0 7px;color:rgba(157,192,170,.4);}
+@media(max-width:600px){.lb-nav{width:42px;height:42px;font-size:18px;}.lb-close{width:40px;height:40px;}}
+
+.preview-badge{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:300;background:rgba(157,192,170,.12);border:.5px solid rgba(157,192,170,.4);color:var(--accent);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:8px 16px;border-radius:40px;backdrop-filter:blur(10px);pointer-events:none;}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;transition-duration:.01ms!important;}html.js .reveal{opacity:1!important;transform:none!important;}.slide img{transform:scale(1);}.cursor-dot,.cursor-ring{display:none;}}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+<div class="cursor-dot" id="cDot"></div><div class="cursor-ring" id="cRing"></div>
+
+<nav id="nav">
+  <a class="brand" href="index-redesign.html">VERD<em>I</em>8</a>
+  <a class="back" href="index-redesign.html#unita">Tutte le unità</a>
+</nav>
+
+<header class="ustage" id="ustage">
+  <div class="media" id="media"><div class="slide on" data-i="0"><img src="../images/attico_28.jpeg" alt="Attico — render 1" loading="eager" decoding="async"></div><div class="slide" data-i="1"><img src="../images/attico_1.jpeg" alt="Attico — render 2" loading="eager" decoding="async"></div><div class="slide" data-i="2"><img src="../images/attico_2.jpeg" alt="Attico — render 3" loading="lazy" decoding="async"></div><div class="slide" data-i="3"><img src="../images/attico_3.jpeg" alt="Attico — render 4" loading="lazy" decoding="async"></div><div class="slide" data-i="4"><img src="../images/attico_4.jpeg" alt="Attico — render 5" loading="lazy" decoding="async"></div><div class="slide" data-i="5"><img src="../images/attico_5.jpeg" alt="Attico — render 6" loading="lazy" decoding="async"></div><div class="slide" data-i="6"><img src="../images/attico_6.jpeg" alt="Attico — render 7" loading="lazy" decoding="async"></div><div class="slide" data-i="7"><img src="../images/attico_7.jpeg" alt="Attico — render 8" loading="lazy" decoding="async"></div><div class="slide" data-i="8"><img src="../images/attico_8.jpeg" alt="Attico — render 9" loading="lazy" decoding="async"></div><div class="slide" data-i="9"><img src="../images/attico_9.jpeg" alt="Attico — render 10" loading="lazy" decoding="async"></div><div class="slide" data-i="10"><img src="../images/attico_10.jpeg" alt="Attico — render 11" loading="lazy" decoding="async"></div><div class="slide" data-i="11"><img src="../images/attico_11.jpeg" alt="Attico — render 12" loading="lazy" decoding="async"></div><div class="slide" data-i="12"><img src="../images/attico_12.jpeg" alt="Attico — render 13" loading="lazy" decoding="async"></div><div class="slide" data-i="13"><img src="../images/attico_13.jpeg" alt="Attico — render 14" loading="lazy" decoding="async"></div><div class="slide" data-i="14"><img src="../images/attico_14.jpeg" alt="Attico — render 15" loading="lazy" decoding="async"></div><div class="slide" data-i="15"><img src="../images/attico_15.jpeg" alt="Attico — render 16" loading="lazy" decoding="async"></div><div class="slide" data-i="16"><img src="../images/attico_16.jpeg" alt="Attico — render 17" loading="lazy" decoding="async"></div><div class="slide" data-i="17"><img src="../images/attico_17.jpeg" alt="Attico — render 18" loading="lazy" decoding="async"></div><div class="slide" data-i="18"><img src="../images/attico_18.jpeg" alt="Attico — render 19" loading="lazy" decoding="async"></div><div class="slide" data-i="19"><img src="../images/attico_19.jpeg" alt="Attico — render 20" loading="lazy" decoding="async"></div></div>
+  <div class="plan-view"><img src="../images/attico_27.png" alt="Planimetria — Attico"></div>
+  <div class="veil"></div>
+
+  <div class="media-toggle" id="toggle">
+    <span class="pill" id="pill"></span>
+    <button class="on" data-v="foto">Foto</button>
+    <button data-v="plan">Planimetria</button>
+  </div>
+  <div class="sl-count" id="count">01 <span class="sep">—</span> 20</div>
+  <div class="sl-ui"><button class="sl-btn" id="prev" aria-label="Precedente">←</button><button class="sl-btn" id="next" aria-label="Successivo">→</button></div>
+  <div class="sl-dots" id="dots"><button class="dot on" data-i="0" aria-label="Foto 1"></button><button class="dot" data-i="1" aria-label="Foto 2"></button><button class="dot" data-i="2" aria-label="Foto 3"></button><button class="dot" data-i="3" aria-label="Foto 4"></button><button class="dot" data-i="4" aria-label="Foto 5"></button><button class="dot" data-i="5" aria-label="Foto 6"></button><button class="dot" data-i="6" aria-label="Foto 7"></button><button class="dot" data-i="7" aria-label="Foto 8"></button><button class="dot" data-i="8" aria-label="Foto 9"></button><button class="dot" data-i="9" aria-label="Foto 10"></button><button class="dot" data-i="10" aria-label="Foto 11"></button><button class="dot" data-i="11" aria-label="Foto 12"></button><button class="dot" data-i="12" aria-label="Foto 13"></button><button class="dot" data-i="13" aria-label="Foto 14"></button><button class="dot" data-i="14" aria-label="Foto 15"></button><button class="dot" data-i="15" aria-label="Foto 16"></button><button class="dot" data-i="16" aria-label="Foto 17"></button><button class="dot" data-i="17" aria-label="Foto 18"></button><button class="dot" data-i="18" aria-label="Foto 19"></button><button class="dot" data-i="19" aria-label="Foto 20"></button></div>
+  <div class="expand-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>clicca per ingrandire</div>
+  <div class="sl-progress"><div class="fill" id="fill"></div></div>
+
+  <div class="hero-content">
+    <p class="hero-tag">Attico · Piano Secondo</p>
+    <h1 class="hero-title"><span>4 locali attico</span></h1>
+    <p class="hero-sub">Piano secondo · ultimo piano · balconi ampi 28 m² · 134 m² commerciali</p>
+  </div>
+</header>
+
+<section class="specs"><div class="spec"><b>134 m²</b><small>Sup. commerciale</small></div><div class="spec"><b>4</b><small>Locali</small></div><div class="spec"><b>28 m²</b><small>Balconi / Terrazzo</small></div><div class="spec"><b>A</b><small>Classe Energ.</small></div></section>
+
+<section class="price">
+  <div class="l"><div class="pl">Prezzo</div><div class="pv">€ 420.000</div></div>
+  <div class="pn">+ box € 30.000</div>
+</section>
+
+<section class="info">
+  <p class="info-eyebrow reveal">Residenza Verdi8 · Brugherio</p>
+  <h2 class="info-title reveal">Attico<br><span>4 locali attico</span></h2>
+  <p class="info-desc reveal">Una delle quattro unità esclusive di Residenza Verdi8, nel cuore residenziale di Brugherio. Nuova costruzione di pregio con finiture di alto livello, classe energetica A e tecnologie W4HOUSE, fotovoltaico e VMC.</p>
+  <div class="reveal">
+    <p class="feat-h">Caratteristiche</p>
+    <div class="feats"><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Posizione all’ultimo piano</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Balconi · terrazzo opzionale 28 m²</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Vista panoramica sulla Brianza</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>4 locali + doppi servizi</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Pavimenti in gres porcellanato</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Struttura antisismica W4HOUSE · Classe A</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Pompa di calore aria-aria indipendente</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Fotovoltaico 1,20 kWp + VMC con recupero</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Serramenti PVC 68 mm triplo vetro</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Box auto opzionale (€ 30.000)</div></div>
+  </div>
+  <div class="cta reveal">
+    <p class="cta-label">Richiedi informazioni</p>
+    <p class="cta-title">Prenota una visita privata</p>
+    <a class="btn-mag" href="https://www.edilnordre.it" target="_blank" rel="noopener">Contatta
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
+    <p class="cta-note">Progetto, render e comunicazione a cura di <strong>Edilnord RE</strong> · edilnordre.it. Le proposte d’acquisto sono raccolte da Tecnobriantea Immobiliare — mediazione ai sensi della L. 39/89.</p>
+  </div>
+</section>
+
+<section class="other">
+  <h3>Le altre un<em>i</em>tà</h3>
+  <div class="ogrid"><a class="ocard" href="app-a.html"><img src="../images/app-a_24.jpeg" alt="Appartamento A" loading="lazy"><div class="ocard-in"><div class="ocard-tag">Appartamento A</div><div class="ocard-name">App. A</div><div class="ocard-sub">4 locali · Giardino · 147 m²</div></div></a><a class="ocard" href="app-b.html"><img src="../images/app-b_26.jpeg" alt="Appartamento B" loading="lazy"><div class="ocard-in"><div class="ocard-tag">Appartamento B</div><div class="ocard-name">App. B</div><div class="ocard-sub">4 locali · Balconi e terrazzo · 154 m²</div></div></a><a class="ocard" href="villa-c.html"><img src="../images/villa-c_30.jpeg" alt="Villa C" loading="lazy"><div class="ocard-in"><div class="ocard-tag">Villa C</div><div class="ocard-name">Villa C</div><div class="ocard-sub">Villa indip. · Giardino + Terrazzo · 158 m²</div></div></a></div>
+</section>
+
+<section class="valuta" id="valuta">
+  <div class="valuta-in reveal">
+    <p class="section-tag" style="justify-content:center">Edilnord RE · Servizi</p>
+    <h2>Devi vendere<br>il tuo <em>immobile?</em></h2>
+    <p class="valuta-lead">Scopri quanto vale in 2 minuti. Valutazione professionale <strong>gratuita e senza impegno</strong>, con dati OMI 2026.</p>
+    <p class="valuta-body">Da oltre vent'anni a Brugherio e nella Monza-Brianza: due consulenti che conoscono ogni via. Ti accompagniamo nella vendita, nell'acquisto, nella locazione e nella gestione del tuo patrimonio — con chiarezza e cura in ogni passo.</p>
+    <div class="valuta-stats">
+      <div><b><span class="count" data-target="20">0</span>+</b><small>Anni di esperienza</small></div>
+      <div><b><span class="count" data-target="8">0</span></b><small>Comuni serviti</small></div>
+      <div><b>2 min</b><small>Per la stima</small></div>
+    </div>
+    <a class="btn-mag" href="https://edilnordre.it/valutazione-immobile-gratuita-brugherio/" target="_blank" rel="noopener">Valutazione gratuita
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-brand">VERD<em>I</em>8</div>
+  <p class="foot-note">Residenza Verdi8 · Via Giuseppe Verdi 8, 20861 Brugherio (MB) · Nuova costruzione · Classe A · Consegna estate 2027 · Edilnord RE non è un’agenzia immobiliare ai sensi della L. 39/89. Le proposte d’acquisto sono gestite da Tecnobriantea Immobiliare.</p>
+</footer>
+
+<div class="lb" id="lb">
+  <button class="lb-close" id="lbClose" aria-label="Chiudi">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Precedente">←</button>
+  <img class="lb-img" id="lbImg" alt="">
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Successivo">→</button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<div class="preview-badge">Anteprima redesign · non pubblicata</div>
+
+<script>
+/* cursor */
+(function(){var dot=document.getElementById('cDot'),ring=document.getElementById('cRing');
+  if(matchMedia('(pointer:coarse)').matches)return;var mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+  addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.transform='translate('+mx+'px,'+my+'px) translate(-50%,-50%)';});
+  (function raf(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';requestAnimationFrame(raf);})();
+  document.querySelectorAll('a,button,.ocard,.slide,.spec').forEach(function(el){el.addEventListener('mouseenter',function(){ring.classList.add('grow');});el.addEventListener('mouseleave',function(){ring.classList.remove('grow');});});
+})();
+/* nav */
+var nav=document.getElementById('nav');
+addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>40);},{passive:true});
+/* reveals */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+addEventListener('load',function(){setTimeout(function(){document.querySelectorAll('.reveal:not(.in)').forEach(function(el){el.classList.add('in');});},1800);});
+/* counters */
+var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var el=e.target,t=+el.dataset.target,n=0,step=Math.max(1,t/40);(function tick(){n+=step;if(n>=t){el.textContent=t;}else{el.textContent=Math.floor(n);requestAnimationFrame(tick);}})();cio.unobserve(el);});},{threshold:.6});
+document.querySelectorAll('.count').forEach(function(el){cio.observe(el);});
+/* magnetic */
+document.querySelectorAll('.btn-mag').forEach(function(btn){
+  btn.addEventListener('mousemove',function(e){var r=btn.getBoundingClientRect();var x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;btn.style.transform='translate('+(x*.3)+'px,'+(y*.4)+'px)';});
+  btn.addEventListener('mouseleave',function(){btn.style.transform='';});
+});
+/* toggle foto/plan */
+(function(){
+  var stage=document.getElementById('ustage'),pill=document.getElementById('pill'),btns=document.querySelectorAll('#toggle button');
+  function setPill(b){pill.style.width=b.offsetWidth+'px';pill.style.transform='translateX('+(b.offsetLeft-4)+'px)';}
+  setPill(document.querySelector('#toggle button.on'));
+  addEventListener('resize',function(){setPill(document.querySelector('#toggle button.on'));});
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    btns.forEach(function(x){x.classList.remove('on');});b.classList.add('on');setPill(b);
+    stage.classList.toggle('show-plan',b.dataset.v==='plan');
+  });});
+})();
+/* slider */
+var SRC=['../images/attico_28.jpeg','../images/attico_1.jpeg','../images/attico_2.jpeg','../images/attico_3.jpeg','../images/attico_4.jpeg','../images/attico_5.jpeg','../images/attico_6.jpeg','../images/attico_7.jpeg','../images/attico_8.jpeg','../images/attico_9.jpeg','../images/attico_10.jpeg','../images/attico_11.jpeg','../images/attico_12.jpeg','../images/attico_13.jpeg','../images/attico_14.jpeg','../images/attico_15.jpeg','../images/attico_16.jpeg','../images/attico_17.jpeg','../images/attico_18.jpeg','../images/attico_19.jpeg'];
+(function(){
+  var slides=document.querySelectorAll('#media .slide'),dots=document.querySelectorAll('#dots .dot'),
+      fill=document.getElementById('fill'),count=document.getElementById('count');
+  var cur=0,timer,N=slides.length;
+  function go(n){var p=cur;cur=(n+N)%N;if(p===cur)return;
+    slides[p].classList.remove('on');dots[p]&&dots[p].classList.remove('on');
+    void slides[cur].offsetWidth;slides[cur].classList.add('on');dots[cur]&&dots[cur].classList.add('on');
+    document.getElementById('ustage').classList.toggle('bright',cur!==0);
+    fill.style.width=((cur+1)/N*100)+'%';
+    count.innerHTML=String(cur+1).padStart(2,'0')+' <span class="sep">—</span> '+N;
+    if(lbOpen)showLb();
+    restart();
+  }
+  function restart(){clearInterval(timer);timer=setInterval(function(){go(cur+1);},5800);}
+  document.getElementById('prev').addEventListener('click',function(){go(cur-1);});
+  document.getElementById('next').addEventListener('click',function(){go(cur+1);});
+  dots.forEach(function(d,i){d.addEventListener('click',function(){go(i);});});
+  var media=document.getElementById('media');
+  media.addEventListener('mouseenter',function(){clearInterval(timer);});
+  media.addEventListener('mouseleave',restart);
+  /* swipe */
+  var tx=0;media.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
+  media.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)go(dx<0?cur+1:cur-1);});
+  fill.style.width=(1/N*100)+'%';restart();
+  /* lightbox */
+  var lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCount=document.getElementById('lbCount');
+  window.lbOpen=false;
+  window.showLb=function(){lbImg.src=SRC[cur];lbCount.innerHTML=String(cur+1).padStart(2,'0')+' <span class="sep">—</span> '+N;};
+  function open(){lbOpen=true;showLb();lb.classList.add('open');document.body.style.overflow='hidden';}
+  function close(){lbOpen=false;lb.classList.remove('open');document.body.style.overflow='';}
+  media.addEventListener('click',open);
+  document.querySelector('.expand-hint').addEventListener('click',open);
+  document.getElementById('lbClose').addEventListener('click',close);
+  document.getElementById('lbPrev').addEventListener('click',function(e){e.stopPropagation();go(cur-1);});
+  document.getElementById('lbNext').addEventListener('click',function(e){e.stopPropagation();go(cur+1);});
+  lb.addEventListener('click',function(e){if(e.target===lb)close();});
+  addEventListener('keydown',function(e){
+    if(e.key==='Escape')close();
+    if(e.key==='ArrowRight')go(cur+1);
+    if(e.key==='ArrowLeft')go(cur-1);
+  });
+})();
+</script>
+</body>
+</html>
