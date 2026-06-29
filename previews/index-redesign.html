@@ -5,9 +5,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Residenza Verdi8 — Nuova costruzione di pregio · Brugherio (MB)</title>
 <meta name="description" content="Residenza Verdi8 — quattro unità esclusive di nuova costruzione in Classe A, Via Giuseppe Verdi 8, Brugherio (MB). Esplora la residenza unità per unità.">
+<meta name="theme-color" content="#080808">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23080808'/><text x='16' y='24' font-size='20' font-weight='bold' text-anchor='middle' fill='%239dc0aa' font-family='Arial'>8</text></svg>">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Residenza Verdi8 — Nuova costruzione · Brugherio (MB)">
+<meta property="og:description" content="Quattro unità esclusive in Classe A. Esplora la residenza unità per unità.">
+<meta property="og:image" content="https://edilnordre-cloud.github.io/verdi8/images/index_1.jpeg">
+<meta property="og:url" content="https://edilnordre-cloud.github.io/verdi8/">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="../images/index_1.jpeg" fetchpriority="high">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -19,7 +27,7 @@
   --green-grad:linear-gradient(135deg,#1c3a2a,#142b1f);
   --e:cubic-bezier(.22,1,.36,1);--e-expo:cubic-bezier(.16,1,.3,1);
 }
-body{background:var(--bg);color:var(--t);font-family:'Montserrat',sans-serif;overflow-x:hidden;line-height:1.5;-webkit-font-smoothing:antialiased;}
+body{background:var(--bg);color:var(--t);font-family:'Hanken Grotesk',sans-serif;overflow-x:hidden;line-height:1.5;-webkit-font-smoothing:antialiased;}
 ::selection{background:var(--accent);color:#080808;}
 a{color:inherit;text-decoration:none;}
 img{display:block;}
@@ -39,16 +47,16 @@ html.js .reveal.in{opacity:1;transform:none;transition:opacity 1s var(--e-expo),
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px clamp(20px,4vw,48px);
   display:flex;align-items:center;justify-content:space-between;
-  transition:background .45s var(--e),padding .45s,border-color .45s;border-bottom:.5px solid transparent;}
+  transition:background .45s var(--e),border-color .45s;border-bottom:.5px solid transparent;}
 nav.scrolled{background:rgba(8,8,8,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  padding-top:13px;padding-bottom:13px;border-bottom-color:var(--line);}
+  border-bottom-color:var(--line);}
 .brand{font-family:'Anton',sans-serif;font-size:clamp(20px,2vw,25px);line-height:1;display:flex;align-items:center;gap:1px;letter-spacing:.01em;}
 .brand em{color:var(--accent);font-style:normal;}
 .nav-right{display:flex;align-items:center;gap:clamp(18px,2.4vw,32px);}
 .nav-links{display:flex;align-items:center;gap:clamp(18px,2vw,30px);}
 .nav-links a{font-size:11px;line-height:1;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);position:relative;display:inline-flex;align-items:center;transition:color .25s;}
-.nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--accent);transition:width .35s var(--e);}
-.nav-links a:hover{color:var(--t);} .nav-links a:hover::after{width:100%;}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;height:1px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--e);}
+.nav-links a:hover{color:var(--t);} .nav-links a:hover::after{transform:scaleX(1);}
 .nav-cta{border:.5px solid var(--accent);border-radius:40px;padding:9px 18px;color:var(--t)!important;transition:background .25s,color .25s;}
 .nav-cta::after{display:none;} .nav-cta:hover{background:var(--accent);color:#080808!important;}
 .partners{display:flex;align-items:center;gap:9px;opacity:.6;}
@@ -187,9 +195,9 @@ nav.scrolled{background:rgba(8,8,8,.72);backdrop-filter:blur(16px);-webkit-backd
 .distmap .dest:hover .node-bg{fill:rgba(58,122,82,.95);stroke-width:2;}
 .distmap .dest:hover .dm-num{fill:#fff;}
 .dm-num,.dm-apo{font-family:'Anton',sans-serif;fill:var(--accent);transition:fill .25s;}
-.dm-name{font-family:'Montserrat',sans-serif;fill:var(--t);font-weight:600;letter-spacing:.02em;}
+.dm-name{font-family:'Hanken Grotesk',sans-serif;fill:var(--t);font-weight:600;letter-spacing:.02em;}
 .dm-center-label{font-family:'Anton',sans-serif;fill:var(--t);letter-spacing:.01em;}
-.dm-center-sub{font-family:'Montserrat',sans-serif;fill:var(--accent);font-weight:600;}
+.dm-center-sub{font-family:'Hanken Grotesk',sans-serif;fill:var(--accent);font-weight:600;}
 .dm-pulse{fill:var(--accent);}
 .dm-pulse-ring{fill:none;stroke:var(--accent);transform-box:fill-box;transform-origin:center;animation:dmpulse 2.6s var(--e) infinite;}
 @keyframes dmpulse{0%{opacity:.6;transform:scale(.5);}80%{opacity:0;transform:scale(2.6);}100%{opacity:0;transform:scale(2.6);}}
@@ -217,8 +225,8 @@ nav.scrolled{background:rgba(8,8,8,.72);backdrop-filter:blur(16px);-webkit-backd
 .cta p{font-size:15px;color:rgba(240,236,228,.78);line-height:1.8;max-width:52ch;margin:0 auto 38px;}
 .btn-mag{display:inline-flex;align-items:center;gap:12px;background:var(--accent);color:#080808;font-weight:700;font-size:12px;
   letter-spacing:.14em;text-transform:uppercase;padding:18px 38px;border-radius:48px;will-change:transform;
-  transition:transform .35s var(--e),background .3s,box-shadow .3s;box-shadow:0 10px 40px -12px rgba(157,192,170,.5);}
-.btn-mag:hover{background:#fff;box-shadow:0 20px 54px -16px rgba(157,192,170,.7);}
+  transition:transform .35s var(--e),background .3s,box-shadow .3s;box-shadow:0 10px 30px -16px rgba(0,0,0,.7);}
+.btn-mag:hover{background:#fff;box-shadow:0 16px 38px -20px rgba(0,0,0,.7);}
 .btn-mag svg{width:16px;height:16px;}
 .cta-note{font-size:11px;color:rgba(240,236,228,.5);margin-top:26px;line-height:1.7;max-width:56ch;margin:26px auto 0;}
 .cta-note strong{color:var(--accent);font-weight:600;}
@@ -451,7 +459,7 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
       <g class="dest" style="--d:2"><line class="route-bg" x1="500" y1="250" x2="315" y2="430"/><path class="route" pathLength="1" marker-end="url(#dmArrow)" d="M500,250 L332.2,413.3"/><g class="node"><circle class="node-bg" cx="315" cy="430" r="17"/><text class="dm-ico" x="315" y="436" text-anchor="middle" font-size="16">🚇</text></g><g class="nlabel"><text x="315" y="400" text-anchor="middle"><tspan class="dm-num count" data-target="10" font-size="38">0</tspan><tspan class="dm-apo" font-size="38">′</tspan></text><text class="dm-name" x="315" y="468" text-anchor="middle" font-size="13">MM2 Cologno Nord</text></g></g>
       <g class="dest" style="--d:3"><line class="route-bg" x1="500" y1="250" x2="175" y2="290"/><path class="route" pathLength="1" marker-end="url(#dmArrow)" d="M500,250 L198.8,287.1"/><g class="node"><circle class="node-bg" cx="175" cy="290" r="17"/><text class="dm-ico" x="175" y="296" text-anchor="middle" font-size="16">🛣️</text></g><g class="nlabel"><text x="175" y="260" text-anchor="middle"><tspan class="dm-num count" data-target="6" font-size="38">0</tspan><tspan class="dm-apo" font-size="38">′</tspan></text><text class="dm-name" x="175" y="328" text-anchor="middle" font-size="13">Tangenziale Est A51</text></g></g>
       <g class="dest" style="--d:4"><line class="route-bg" x1="500" y1="250" x2="745" y2="355"/><path class="route" pathLength="1" marker-end="url(#dmArrow)" d="M500,250 L722.9,345.5"/><g class="node"><circle class="node-bg" cx="745" cy="355" r="17"/><text class="dm-ico" x="745" y="361" text-anchor="middle" font-size="16">🌳</text></g><g class="nlabel"><text x="745" y="325" text-anchor="middle"><tspan class="dm-num count" data-target="5" font-size="38">0</tspan><tspan class="dm-apo" font-size="38">′</tspan></text><text class="dm-name" x="745" y="393" text-anchor="middle" font-size="13">Parco Increa</text></g></g>
-      <g class="compass"><line x1="930" y1="96" x2="930" y2="56" stroke="rgba(157,192,170,.55)" stroke-width="1.5"/><path d="M924,64 L930,52 L936,64" fill="none" stroke="rgba(157,192,170,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><text x="930" y="116" text-anchor="middle" font-size="12" fill="rgba(240,236,228,.55)" font-family="Montserrat" font-weight="600">N</text></g>
+      <g class="compass"><line x1="930" y1="96" x2="930" y2="56" stroke="rgba(157,192,170,.55)" stroke-width="1.5"/><path d="M924,64 L930,52 L936,64" fill="none" stroke="rgba(157,192,170,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><text x="930" y="116" text-anchor="middle" font-size="12" fill="rgba(240,236,228,.55)" font-family="Hanken Grotesk" font-weight="600">N</text></g>
       <circle class="dm-pulse-ring" cx="500" cy="250" r="13" stroke-width="2"/>
       <circle class="dm-pulse" cx="500" cy="250" r="7"/>
       <text class="dm-center-label" x="500" y="240" text-anchor="middle" font-size="22">RESIDENZA VERDI8</text>
