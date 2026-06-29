@@ -43,11 +43,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px clamp(20px,4vw,
   transition:background .45s var(--e),padding .45s,border-color .45s;border-bottom:.5px solid transparent;}
 nav.scrolled{background:rgba(8,8,8,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   padding-top:13px;padding-bottom:13px;border-bottom-color:var(--line);}
-.brand{font-family:'Anton',sans-serif;font-size:clamp(20px,2vw,25px);display:flex;align-items:center;gap:1px;letter-spacing:.01em;}
+.brand{font-family:'Anton',sans-serif;font-size:clamp(20px,2vw,25px);line-height:1;display:flex;align-items:center;gap:1px;letter-spacing:.01em;}
 .brand em{color:var(--accent);font-style:normal;}
 .nav-right{display:flex;align-items:center;gap:clamp(18px,2.4vw,32px);}
-.nav-links{display:flex;gap:clamp(18px,2vw,30px);}
-.nav-links a{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);position:relative;transition:color .25s;}
+.nav-links{display:flex;align-items:center;gap:clamp(18px,2vw,30px);}
+.nav-links a{font-size:11px;line-height:1;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);position:relative;display:inline-flex;align-items:center;transition:color .25s;}
 .nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--accent);transition:width .35s var(--e);}
 .nav-links a:hover{color:var(--t);} .nav-links a:hover::after{width:100%;}
 .nav-cta{border:.5px solid var(--accent);border-radius:40px;padding:9px 18px;color:var(--t)!important;transition:background .25s,color .25s;}
@@ -66,10 +66,11 @@ nav.scrolled{background:rgba(8,8,8,.72);backdrop-filter:blur(16px);-webkit-backd
 @keyframes heroIn{to{transform:scale(1.02);}}
 .hero-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.92) 2%,rgba(8,8,8,.4) 32%,rgba(8,8,8,.2) 60%,rgba(8,8,8,.55));}
 .hero-inner{position:relative;width:100%;padding:0 clamp(20px,4vw,52px) clamp(38px,6vh,62px);}
-.hero-title{font-family:'Anton',sans-serif;line-height:.82;letter-spacing:-.01em;}
-.hero-title .row{display:block;overflow:hidden;}
-.hero-title .big{font-size:clamp(86px,20vw,300px);}
-.hero-title .word{display:inline-flex;transform:translateY(106%);animation:lineUp 1.25s var(--e-expo) .5s forwards;cursor:pointer;}
+.hero-title{font-family:'Anton',sans-serif;line-height:.92;letter-spacing:-.01em;padding-top:.14em;}
+.hero-title .row{display:block;}
+.hero-title .big{font-size:clamp(78px,17vw,272px);}
+.hero-title .word{display:inline-flex;opacity:0;transform:translateY(40px);animation:wordIn 1.2s var(--e-expo) .4s forwards;cursor:pointer;}
+@keyframes wordIn{to{opacity:1;transform:none;}}
 .hero-title .ltr{display:inline-block;will-change:transform;transition:transform .45s var(--e),color .4s,text-shadow .4s;}
 .hero-title .ltr.accent{color:var(--accent);font-style:normal;}
 .hero-title .word:hover .ltr.accent{color:#fff;text-shadow:0 0 26px rgba(157,192,170,.9),0 0 60px rgba(157,192,170,.45);}
@@ -459,16 +460,18 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
   <div class="distmap reveal" id="distmap">
     <iframe class="mc-map" src="https://www.openstreetmap.org/export/embed.html?bbox=9.28803%2C45.55242%2C9.30303%2C45.55942&layer=mapnik&marker=45.55592%2C9.29553" loading="lazy" title="Mappa Residenza Verdi8" referrerpolicy="no-referrer-when-downgrade"></iframe>
     <div class="mc-scrim"></div>
-    <svg class="mc-svg" viewBox="0 0 1000 540" role="img" aria-label="Distanze da Residenza Verdi8">
-      <g class="dest" style="--d:0"><line class="route-bg" x1="500" y1="250" x2="165" y2="155"/><path class="route" pathLength="1" d="M500,250 L165,155"/><g class="node"><circle class="node-bg" cx="165" cy="155" r="17"/><text class="dm-ico" x="165" y="161" text-anchor="middle" font-size="16">🏙️</text></g><g class="nlabel"><text x="165" y="108" text-anchor="middle"><tspan class="dm-num count" data-target="15" font-size="42">0</tspan><tspan class="dm-apo" font-size="42">′</tspan></text><text class="dm-name" x="165" y="130" text-anchor="middle" font-size="13">Milano centro</text></g></g>
-      <g class="dest" style="--d:1"><line class="route-bg" x1="500" y1="250" x2="835" y2="140"/><path class="route" pathLength="1" d="M500,250 L835,140"/><g class="node"><circle class="node-bg" cx="835" cy="140" r="17"/><text class="dm-ico" x="835" y="146" text-anchor="middle" font-size="16">🌳</text></g><g class="nlabel"><text x="835" y="94" text-anchor="middle"><tspan class="dm-num count" data-target="5" font-size="42">0</tspan><tspan class="dm-apo" font-size="42">′</tspan></text><text class="dm-name" x="835" y="116" text-anchor="middle" font-size="13">Parco Increa</text></g></g>
-      <g class="dest" style="--d:2"><line class="route-bg" x1="500" y1="250" x2="140" y2="395"/><path class="route" pathLength="1" d="M500,250 L140,395"/><g class="node"><circle class="node-bg" cx="140" cy="395" r="17"/><text class="dm-ico" x="140" y="401" text-anchor="middle" font-size="16">🚉</text></g><g class="nlabel"><text x="140" y="349" text-anchor="middle"><tspan class="dm-num count" data-target="8" font-size="42">0</tspan><tspan class="dm-apo" font-size="42">′</tspan></text><text class="dm-name" x="140" y="371" text-anchor="middle" font-size="13">Cologno Nord FS</text></g></g>
-      <g class="dest" style="--d:3"><line class="route-bg" x1="500" y1="250" x2="860" y2="395"/><path class="route" pathLength="1" d="M500,250 L860,395"/><g class="node"><circle class="node-bg" cx="860" cy="395" r="17"/><text class="dm-ico" x="860" y="401" text-anchor="middle" font-size="16">🛣️</text></g><g class="nlabel"><text x="860" y="349" text-anchor="middle"><tspan class="dm-num count" data-target="6" font-size="42">0</tspan><tspan class="dm-apo" font-size="42">′</tspan></text><text class="dm-name" x="860" y="371" text-anchor="middle" font-size="13">Tangenziale Est A51</text></g></g>
-      <g class="dest" style="--d:4"><line class="route-bg" x1="500" y1="250" x2="500" y2="470"/><path class="route" pathLength="1" d="M500,250 L500,470"/><g class="node"><circle class="node-bg" cx="500" cy="470" r="17"/><text class="dm-ico" x="500" y="476" text-anchor="middle" font-size="16">🚇</text></g><g class="nlabel"><text class="dm-name" x="500" y="502" text-anchor="middle" font-size="13">MM2 Cologno Nord</text><text x="500" y="534" text-anchor="middle"><tspan class="dm-num count" data-target="10" font-size="42">0</tspan><tspan class="dm-apo" font-size="42">′</tspan></text></g></g>
+    <svg class="mc-svg" viewBox="0 0 1000 540" role="img" aria-label="Distanze reali da Residenza Verdi8">
+      <defs><marker id="dmArrow" markerWidth="9" markerHeight="9" refX="5" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,1 L6,4 L0,7" fill="none" stroke="#9dc0aa" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+      <g class="dest" style="--d:0"><line class="route-bg" x1="500" y1="250" x2="185" y2="475"/><path class="route" pathLength="1" marker-end="url(#dmArrow)" d="M500,250 L204.5,461.1"/><g class="node"><circle class="node-bg" cx="185" cy="475" r="17"/><text class="dm-ico" x="185" y="481" text-anchor="middle" font-size="16">🏙️</text></g><g class="nlabel"><text x="185" y="445" text-anchor="middle"><tspan class="dm-num count" data-target="15" font-size="38">0</tspan><tspan class="dm-apo" font-size="38">′</tspan></text><text class="dm-name" x="185" y="513" text-anchor="middle" font-size="13">Milano centro</text></g></g>
+      <g class="dest" style="--d:1"><line class="route-bg" x1="500" y1="250" x2="430" y2="410"/><path class="route" pathLength="1" marker-end="url(#dmArrow)" d="M500,250 L439.6,388"/><g class="node"><circle class="node-bg" cx="430" cy="410" r="17"/><text class="dm-ico" x="430" y="416" text-anchor="middle" font-size="16">🚉</text></g><g class="nlabel"><text x="430" y="380" text-anchor="middle"><tspan class="dm-num count" data-target="8" font-size="38">0</tspan><tspan class="dm-apo" font-size="38">′</tspan></text><text class="dm-name" x="430" y="448" text-anchor="middle" font-size="13">Cologno Nord FS</text></g></g>
+      <g class="dest" style="--d:2"><line class="route-bg" x1="500" y1="250" x2="315" y2="430"/><path class="route" pathLength="1" marker-end="url(#dmArrow)" d="M500,250 L332.2,413.3"/><g class="node"><circle class="node-bg" cx="315" cy="430" r="17"/><text class="dm-ico" x="315" y="436" text-anchor="middle" font-size="16">🚇</text></g><g class="nlabel"><text x="315" y="400" text-anchor="middle"><tspan class="dm-num count" data-target="10" font-size="38">0</tspan><tspan class="dm-apo" font-size="38">′</tspan></text><text class="dm-name" x="315" y="468" text-anchor="middle" font-size="13">MM2 Cologno Nord</text></g></g>
+      <g class="dest" style="--d:3"><line class="route-bg" x1="500" y1="250" x2="175" y2="290"/><path class="route" pathLength="1" marker-end="url(#dmArrow)" d="M500,250 L198.8,287.1"/><g class="node"><circle class="node-bg" cx="175" cy="290" r="17"/><text class="dm-ico" x="175" y="296" text-anchor="middle" font-size="16">🛣️</text></g><g class="nlabel"><text x="175" y="260" text-anchor="middle"><tspan class="dm-num count" data-target="6" font-size="38">0</tspan><tspan class="dm-apo" font-size="38">′</tspan></text><text class="dm-name" x="175" y="328" text-anchor="middle" font-size="13">Tangenziale Est A51</text></g></g>
+      <g class="dest" style="--d:4"><line class="route-bg" x1="500" y1="250" x2="745" y2="355"/><path class="route" pathLength="1" marker-end="url(#dmArrow)" d="M500,250 L722.9,345.5"/><g class="node"><circle class="node-bg" cx="745" cy="355" r="17"/><text class="dm-ico" x="745" y="361" text-anchor="middle" font-size="16">🌳</text></g><g class="nlabel"><text x="745" y="325" text-anchor="middle"><tspan class="dm-num count" data-target="5" font-size="38">0</tspan><tspan class="dm-apo" font-size="38">′</tspan></text><text class="dm-name" x="745" y="393" text-anchor="middle" font-size="13">Parco Increa</text></g></g>
+      <g class="compass"><line x1="930" y1="96" x2="930" y2="56" stroke="rgba(157,192,170,.55)" stroke-width="1.5"/><path d="M924,64 L930,52 L936,64" fill="none" stroke="rgba(157,192,170,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><text x="930" y="116" text-anchor="middle" font-size="12" fill="rgba(240,236,228,.55)" font-family="Montserrat" font-weight="600">N</text></g>
       <circle class="dm-pulse-ring" cx="500" cy="250" r="13" stroke-width="2"/>
       <circle class="dm-pulse" cx="500" cy="250" r="7"/>
-      <text class="dm-center-label" x="500" y="292" text-anchor="middle" font-size="22">RESIDENZA VERDI8</text>
-      <text class="dm-center-sub" x="500" y="312" text-anchor="middle" font-size="10" letter-spacing="3">VIA GIUSEPPE VERDI 8 · BRUGHERIO</text>
+      <text class="dm-center-label" x="500" y="240" text-anchor="middle" font-size="22">RESIDENZA VERDI8</text>
+      <text class="dm-center-sub" x="500" y="222" text-anchor="middle" font-size="10" letter-spacing="3">VIA GIUSEPPE VERDI 8 · BRUGHERIO</text>
     </svg>
     <span class="dm-tag">Tempi indicativi in auto</span>
     <a class="loc-map-badge" href="https://maps.google.com/?q=Via+Giuseppe+Verdi+8,+Brugherio+MB" target="_blank" rel="noopener">Apri in Google Maps</a>
@@ -542,7 +545,6 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
   </div>
 </footer>
 
-<div class="preview-badge">Anteprima redesign · non pubblicata</div>
 
 <script>
 /* ---------- custom cursor (lerp) ---------- */
@@ -660,6 +662,14 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
     });
   });
 })();
+</script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+if(window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches && !matchMedia('(pointer: coarse)').matches){
+  var lenis=new Lenis({duration:1.1,smoothWheel:true});
+  function lraf(t){lenis.raf(t);requestAnimationFrame(lraf);}
+  requestAnimationFrame(lraf);
+}
 </script>
 </body>
 </html>
