@@ -19,7 +19,6 @@
   --green-grad:linear-gradient(135deg,#1c3a2a,#142b1f);
   --e:cubic-bezier(.22,1,.36,1);--e-expo:cubic-bezier(.16,1,.3,1);
 }
-html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--t);font-family:'Montserrat',sans-serif;overflow-x:hidden;line-height:1.5;-webkit-font-smoothing:antialiased;}
 ::selection{background:var(--accent);color:#080808;}
 a{color:inherit;text-decoration:none;}
@@ -166,19 +165,8 @@ nav.scrolled{background:rgba(8,8,8,.72);backdrop-filter:blur(16px);-webkit-backd
 .loc h2{font-family:'Anton',sans-serif;font-size:clamp(30px,4.4vw,58px);letter-spacing:-.01em;margin:18px 0 14px;}
 .loc h2 em{color:var(--accent);font-style:normal;}
 .loc-addr{font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:clamp(34px,5vh,54px);}
-.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1100px;margin:0 auto;text-align:left;}
-@media(max-width:820px){.loc-grid{grid-template-columns:1fr;}}
-.loc-map{border-radius:12px;overflow:hidden;border:.5px solid rgba(157,192,170,.18);aspect-ratio:4/3;position:relative;}
-.loc-map iframe{width:100%;height:100%;border:none;display:block;filter:grayscale(.3) contrast(1.05);}
 .loc-map-badge{position:absolute;bottom:14px;right:14px;background:rgba(8,8,8,.85);border:.5px solid var(--accent);
   border-radius:40px;padding:9px 16px;font-size:10px;letter-spacing:.1em;color:var(--accent);backdrop-filter:blur(8px);}
-.poi{display:flex;flex-direction:column;gap:0;}
-.poi-cat{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin:14px 0 6px;padding-bottom:6px;border-bottom:.5px solid rgba(157,192,170,.15);}
-.poi-row{display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:.5px solid var(--line2);}
-.poi-ico{width:34px;height:34px;border-radius:8px;background:rgba(157,192,170,.07);border:.5px solid rgba(157,192,170,.14);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
-.poi-name{flex:1;font-size:13px;font-weight:500;}
-.poi-time{font-family:'Anton',sans-serif;font-size:18px;color:var(--accent);}
-.poi-mode{font-size:8px;letter-spacing:.1em;color:var(--t2);text-transform:uppercase;}
 /* DISTANCE MAP — overlay sulla mappa reale */
 .distmap{position:relative;width:100%;max-width:1100px;margin:0 auto;border:.5px solid var(--line);border-radius:16px;overflow:hidden;background:#0a0c0a;}
 .distmap .mc-map{position:absolute;inset:0;width:100%;height:100%;border:none;pointer-events:none;filter:grayscale(.32) brightness(.72) contrast(1.04);}
@@ -240,7 +228,6 @@ nav.scrolled{background:rgba(8,8,8,.72);backdrop-filter:blur(16px);-webkit-backd
 .cc-logo-tb{height:18px;filter:grayscale(1) brightness(2.4);opacity:.62;}
 .cc-role{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
 .cc-desc{font-size:12px;color:rgba(240,236,228,.8);line-height:1.7;}
-.cta-disc{font-size:10px;color:rgba(240,236,228,.46);margin:22px auto 0;max-width:620px;line-height:1.7;}
 @media(max-width:640px){.cta-cards{grid-template-columns:1fr;}}
 
 /* FOOTER */
@@ -295,9 +282,6 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
   .me-cta{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:#080808;font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:15px;border-radius:46px;}
   .me-cta svg{width:14px;height:14px;}
 }
-.preview-badge{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:300;background:rgba(157,192,170,.12);
-  border:.5px solid rgba(157,192,170,.4);color:var(--accent);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  padding:8px 16px;border-radius:40px;backdrop-filter:blur(10px);pointer-events:none;}
 
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;transition-duration:.01ms!important;}
@@ -331,7 +315,7 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
 
 <!-- HERO -->
 <header class="hero" id="top">
-  <div class="hero-bg" data-parallax="0.16"></div>
+  <div class="hero-bg"></div>
   <div class="hero-grad"></div>
   <div class="hero-inner">
     <h1 class="hero-title">
@@ -446,7 +430,7 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
       <div><b>MB</b><small>Provincia</small></div>
     </div>
   </div>
-  <div class="brg-r" data-parallax="0.06">
+  <div class="brg-r">
     <img src="../images/index_7.jpeg" alt="Piazza San Bartolomeo, Brugherio">
     <span class="brg-cap">Piazza San Bartolomeo · Brugherio</span>
   </div>
@@ -559,18 +543,21 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
   addEventListener('mouseup',()=>ring.classList.remove('click'));
 })();
 
-/* ---------- nav + parallax ---------- */
+/* ---------- nav (rAF-throttled) + smooth anchors ---------- */
 const nav=document.getElementById('nav');
-function onScroll(){
-  nav.classList.toggle('scrolled',scrollY>40);
-  const y=scrollY;
-  document.querySelectorAll('[data-parallax]').forEach(el=>{
-    const s=parseFloat(el.dataset.parallax);
-    const base=el.classList.contains('hero-bg')?1.1:1;
-    el.style.transform=`translateY(${(y- (el.getBoundingClientRect().top+scrollY))*0 + y*s}px) scale(${base})`;
+let navTick=false;
+function navRender(){navTick=false;nav.classList.toggle('scrolled',window.scrollY>40);}
+addEventListener('scroll',function(){if(!navTick){navTick=true;requestAnimationFrame(navRender);}},{passive:true});
+navRender();
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var id=a.getAttribute('href');if(id.length<2)return;
+    var t=document.querySelector(id);if(!t)return;
+    e.preventDefault();
+    if(window.__lenis){window.__lenis.scrollTo(t,{offset:-68,duration:1.2});}
+    else{t.scrollIntoView({behavior:'smooth'});}
   });
-}
-addEventListener('scroll',onScroll,{passive:true});onScroll();
+});
 
 /* ---------- reveals ---------- */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -8% 0px'});
@@ -665,7 +652,8 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <script>
 if(window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches && !matchMedia('(pointer: coarse)').matches){
-  var lenis=new Lenis({duration:1.1,smoothWheel:true});
+  var lenis=new Lenis({lerp:0.085,wheelMultiplier:0.9,smoothWheel:true});
+  window.__lenis=lenis;
   function lraf(t){lenis.raf(t);requestAnimationFrame(lraf);}
   requestAnimationFrame(lraf);
 }
