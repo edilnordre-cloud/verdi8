@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Edilnord RE — Consulenti immobiliari · Brugherio</title>
+<meta name="description" content="Edilnord RE, consulenti immobiliari a Brugherio (MB). Da oltre 15 anni gestione, locazione e compravendita di immobili civili e industriali a Milano, Monza e provincia. Valutazione gratuita.">
+<meta name="theme-color" content="#15110f">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Edilnord RE — Consulenti immobiliari">
+<meta property="og:description" content="Gestione, locazione e compravendita di immobili civili e industriali a Milano, Monza e provincia.">
+<meta property="og:image" content="https://edilnordre-cloud.github.io/verdi8/images/Via%20Verdi_6.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2315110f'/><path d='M8 22V13l8-5 8 5v9' fill='none' stroke='%23c9a98f' stroke-width='2.2'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="../images/Via%20Verdi_6.jpg" fetchpriority="high">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --paper:#f2ede6;--paper2:#e9e2d8;--ink:#1a1614;--ink2:rgba(26,22,20,.62);--ink3:rgba(26,22,20,.34);
+  --night:#15110f;--night2:#1e1916;--cream:#f2ede6;--cream2:rgba(242,237,230,.62);--cream3:rgba(242,237,230,.3);
+  --brown:#6e5649;--sand:#c9a98f;
+  --line:rgba(26,22,20,.14);--line-d:rgba(242,237,230,.12);
+  --serif:'Instrument Serif',Georgia,serif;--sans:'Hanken Grotesk',system-ui,sans-serif;
+  --pad:clamp(16px,4vw,56px);
+}
+html{-webkit-text-size-adjust:100%;}
+html.lenis,html.lenis body{height:auto;}
+.lenis.lenis-smooth{scroll-behavior:auto!important;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.55;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body.loading{overflow:hidden;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+::selection{background:var(--brown);color:var(--cream);}
+.eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;}
+.serif{font-family:var(--serif);font-weight:400;}
+.split-line{overflow:hidden;display:block;padding-bottom:.08em;margin-bottom:-.08em;}
+
+/* ---------- PRELOADER ---------- */
+#loader{position:fixed;inset:0;z-index:1000;pointer-events:none;}
+#loader .panel{position:absolute;left:0;right:0;height:50.5%;background:var(--night);}
+#loader .p-top{top:0;} #loader .p-bot{bottom:0;}
+#loader .l-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;color:var(--cream);}
+.l-logo{font-family:var(--serif);font-size:clamp(54px,9vw,120px);line-height:1;clip-path:inset(0 100% 0 0);white-space:nowrap;}
+.l-logo em{font-style:italic;color:var(--sand);}
+.l-sub{color:var(--cream3);margin-top:-12px;}
+.l-bar{width:min(420px,72vw);height:1px;background:var(--line-d);position:relative;overflow:hidden;}
+.l-bar i{position:absolute;inset:0;background:var(--sand);transform:scaleX(0);transform-origin:left;}
+.l-count{position:absolute;right:var(--pad);bottom:var(--pad);font-family:var(--serif);font-size:clamp(64px,12vw,170px);line-height:.8;color:var(--cream);}
+.l-meta{position:absolute;left:var(--pad);bottom:var(--pad);color:var(--cream3);}
+
+/* ---------- CURSOR ---------- */
+.cursor{position:fixed;top:0;left:0;z-index:999;pointer-events:none;width:10px;height:10px;margin:-5px 0 0 -5px;
+  border-radius:50%;background:var(--sand);mix-blend-mode:difference;}
+.cursor-label{position:fixed;top:0;left:0;z-index:999;pointer-events:none;width:92px;height:92px;margin:-46px 0 0 -46px;border-radius:50%;
+  background:var(--sand);color:var(--night);display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:600;transform:scale(0);}
+@media(hover:none),(pointer:coarse){.cursor,.cursor-label{display:none;}}
+
+/* ---------- NAV ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;padding:18px var(--pad);display:flex;align-items:center;justify-content:space-between;
+  color:var(--cream);mix-blend-mode:difference;}
+.n-logo{font-family:var(--serif);font-size:26px;line-height:1;display:flex;align-items:baseline;gap:6px;}
+.n-logo small{font-family:var(--sans);font-size:9px;letter-spacing:.24em;text-transform:uppercase;opacity:.7;}
+.n-links{display:flex;gap:clamp(18px,2.4vw,34px);}
+.n-links a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;position:relative;}
+.n-links a::after{content:'';position:absolute;left:0;right:0;bottom:-5px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .5s cubic-bezier(.7,0,.2,1);}
+.n-links a:hover::after{transform:scaleX(1);transform-origin:left;}
+.n-burger{display:none;background:none;border:0;color:inherit;font:inherit;font-size:11px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;}
+#menu{position:fixed;inset:0;z-index:290;background:var(--night);color:var(--cream);display:flex;flex-direction:column;justify-content:center;
+  padding:0 var(--pad);gap:6px;clip-path:inset(0 0 100% 0);visibility:hidden;}
+#menu a{font-family:var(--serif);font-size:clamp(44px,12vw,80px);line-height:1.05;}
+#menu .m-foot{margin-top:40px;color:var(--cream2);font-size:14px;}
+@media(max-width:760px){.n-links{display:none;}.n-burger{display:block;}.n-logo{font-size:23px;}.n-logo small{display:none;}}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;height:100svh;min-height:560px;overflow:hidden;background:var(--night);color:var(--cream);}
+.hero-media{position:absolute;inset:0;clip-path:inset(18% 22% 18% 22%);will-change:clip-path;}
+.hero-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.35);will-change:transform;}
+.hero-media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,17,15,.4),rgba(21,17,15,.05) 35%,rgba(21,17,15,.78)),linear-gradient(90deg,rgba(21,17,15,.45),rgba(21,17,15,0) 60%);}
+.hero-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 var(--pad) clamp(28px,6vh,64px);}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(58px,13.2vw,230px);line-height:.86;letter-spacing:-.02em;}
+.hero h1 em{font-style:italic;color:var(--sand);}
+.hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-top:clamp(20px,3vh,36px);flex-wrap:wrap;}
+.hero-row p{max-width:420px;color:var(--cream2);font-size:clamp(14px,1.2vw,16px);}
+.hero-scroll{display:flex;align-items:center;gap:12px;color:var(--cream2);}
+.hero-scroll i{display:block;width:1px;height:46px;background:var(--cream3);position:relative;overflow:hidden;}
+.hero-scroll i::after{content:'';position:absolute;left:0;top:-50%;width:1px;height:50%;background:var(--sand);animation:drip 1.8s cubic-bezier(.7,0,.3,1) infinite;}
+@keyframes drip{to{top:110%;}}
+
+/* ---------- MARQUEE ---------- */
+.marquee{background:var(--night);color:var(--cream);overflow:hidden;padding:clamp(18px,3vw,34px) 0;border-top:1px solid var(--line-d);}
+.mq-track{display:flex;width:max-content;will-change:transform;}
+.mq-track span{font-family:var(--serif);font-size:clamp(34px,6vw,92px);line-height:1;white-space:nowrap;padding-right:.5em;display:flex;align-items:center;gap:.5em;}
+.mq-track span::after{content:'✦';font-size:.35em;color:var(--sand);}
+.mq-track span:nth-child(even){font-style:italic;color:var(--sand);}
+
+/* ---------- INTRO / MANIFESTO ---------- */
+.intro{padding:clamp(90px,16vh,200px) var(--pad);display:grid;grid-template-columns:1fr 3fr;gap:clamp(24px,4vw,64px);}
+.intro .eyebrow{color:var(--brown);padding-top:.9em;}
+.manifesto{font-family:var(--serif);font-size:clamp(30px,4.6vw,74px);line-height:1.08;letter-spacing:-.01em;}
+.manifesto em{font-style:italic;color:var(--brown);}
+.stats{grid-column:2;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,3vw,48px);margin-top:clamp(40px,8vh,90px);}
+.stat{border-top:1px solid var(--line);padding-top:18px;}
+.stat b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(46px,6vw,96px);line-height:.9;}
+.stat>span{display:block;margin-top:10px;color:var(--ink2);font-size:14px;}
+@media(max-width:760px){.intro{grid-template-columns:1fr;}.stats{grid-column:1;grid-template-columns:1fr;}}
+
+/* ---------- SERVIZI (horizontal) ---------- */
+.services{background:var(--night);color:var(--cream);position:relative;overflow:hidden;}
+.sv-head{position:absolute;top:clamp(84px,12vh,120px);left:var(--pad);right:var(--pad);display:flex;justify-content:space-between;align-items:baseline;z-index:2;}
+.sv-head .eyebrow{color:var(--sand);}
+.sv-progress{width:clamp(120px,20vw,280px);height:1px;background:var(--line-d);position:relative;}
+.sv-progress i{position:absolute;inset:0;background:var(--sand);transform:scaleX(0);transform-origin:left;}
+.sv-track{display:flex;height:100svh;align-items:center;gap:clamp(20px,3vw,48px);padding:0 var(--pad);width:max-content;will-change:transform;}
+.sv-card{width:min(78vw,520px);height:min(62svh,560px);flex:none;position:relative;border:1px solid var(--line-d);padding:clamp(22px,2.6vw,36px);
+  display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;background:var(--night2);}
+.sv-card .num{font-family:var(--serif);font-size:clamp(64px,8vw,120px);line-height:.8;color:var(--sand);opacity:.9;}
+.sv-card h3{font-family:var(--serif);font-weight:400;font-size:clamp(34px,3.6vw,54px);line-height:1;margin-bottom:14px;}
+.sv-card p{color:var(--cream2);font-size:15px;max-width:40ch;}
+.sv-card .bg{position:absolute;inset:0;z-index:0;opacity:.0;transition:opacity .6s;}
+.sv-card .bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(.3);}
+.sv-card .bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,17,15,.55),rgba(21,17,15,.92));}
+.sv-card:hover .bg{opacity:1;}
+.sv-card>*:not(.bg){position:relative;z-index:1;}
+.sv-intro{width:min(80vw,540px);flex:none;}
+.sv-intro h2{font-family:var(--serif);font-weight:400;font-size:clamp(46px,6.4vw,104px);line-height:.95;}
+.sv-intro h2 em{font-style:italic;color:var(--sand);}
+
+/* ---------- TIPOLOGIE ---------- */
+.types{padding:clamp(90px,14vh,180px) var(--pad);position:relative;}
+.types-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(36px,6vh,70px);flex-wrap:wrap;}
+.types-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(46px,7vw,112px);line-height:.92;}
+.types-head h2 em{font-style:italic;color:var(--brown);}
+.types-head p{max-width:360px;color:var(--ink2);}
+.t-row{position:relative;display:grid;grid-template-columns:70px 1fr auto;align-items:center;gap:16px;padding:clamp(18px,2.6vw,30px) 0;cursor:pointer;}
+.t-row::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:var(--line);transform:scaleX(var(--s,0));transform-origin:left;}
+.t-row:last-child::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line);}
+.t-row .i{color:var(--ink3);font-size:13px;}
+.t-row h3{font-family:var(--serif);font-weight:400;font-size:clamp(32px,5vw,78px);line-height:1;transition:translate .6s cubic-bezier(.2,.8,.2,1),color .4s;}
+.t-row .tag{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2);text-align:right;}
+.t-row:hover h3{translate:clamp(10px,2vw,34px) 0;color:var(--brown);font-style:italic;}
+.t-float{position:fixed;top:0;left:0;width:clamp(220px,22vw,340px);aspect-ratio:4/5;pointer-events:none;z-index:50;overflow:hidden;
+  border-radius:4px;opacity:0;transform:scale(.6);}
+.t-float img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s;}
+.t-float img.on{opacity:1;}
+@media(max-width:760px){.t-row{grid-template-columns:40px 1fr;}.t-row .i{grid-area:1/1;}.t-row h3{grid-area:1/2;}.t-row .tag{grid-area:2/2;text-align:left;}.t-float{display:none;}}
+
+/* ---------- FEATURE VERDI8 ---------- */
+.feature{position:relative;height:100svh;overflow:hidden;background:var(--paper);}
+.f-media{position:absolute;inset:0;clip-path:inset(22% 30% 22% 30% round 6px);will-change:clip-path;}
+.f-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.25);}
+.f-media::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(21,17,15,.78),rgba(21,17,15,0) 55%);}
+.f-top{position:absolute;top:clamp(80px,12vh,120px);left:var(--pad);right:var(--pad);display:flex;justify-content:space-between;color:var(--ink);z-index:2;}
+.f-title{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;z-index:2;pointer-events:none;}
+.f-title{mix-blend-mode:difference;}
+.f-title h2{font-family:var(--serif);font-weight:400;font-size:clamp(70px,17vw,300px);line-height:.8;letter-spacing:-.03em;color:var(--cream);}
+.f-bottom{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(28px,6vh,60px);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+  color:var(--cream);z-index:3;opacity:0;flex-wrap:wrap;}
+.f-bottom p{max-width:460px;color:var(--cream2);}
+.f-bottom h3{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,52px);line-height:1;margin-bottom:10px;color:var(--cream);}
+.btn{display:inline-flex;align-items:center;gap:12px;border:1px solid currentColor;border-radius:60px;padding:15px 26px;font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;position:relative;overflow:hidden;isolation:isolate;transition:color .5s;}
+.btn::before{content:'';position:absolute;inset:0;background:var(--sand);transform:translateY(101%);border-radius:inherit;z-index:-1;transition:transform .55s cubic-bezier(.7,0,.2,1);}
+.btn:hover{color:var(--night);border-color:var(--sand);}
+.btn:hover::before{transform:none;}
+.btn svg{width:14px;height:14px;}
+
+/* ---------- GALLERY ---------- */
+.gallery{padding:clamp(80px,12vh,160px) var(--pad);display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(12px,1.6vw,24px);align-items:start;}
+.g-item{overflow:hidden;border-radius:4px;position:relative;}
+.g-item img{width:100%;height:118%;object-fit:cover;}
+.g-1{grid-column:1/8;aspect-ratio:16/10;}
+.g-2{grid-column:9/13;aspect-ratio:4/5;margin-top:18vh;}
+.g-3{grid-column:2/6;aspect-ratio:4/5;margin-top:-6vh;}
+.g-4{grid-column:7/13;aspect-ratio:16/10;margin-top:8vh;}
+.g-cap{grid-column:1/13;display:flex;justify-content:space-between;color:var(--ink2);font-size:13px;margin-top:14px;border-top:1px solid var(--line);padding-top:14px;}
+@media(max-width:760px){.g-1,.g-2,.g-3,.g-4{grid-column:1/13;margin-top:0;aspect-ratio:4/3;}}
+
+/* ---------- VALUTAZIONE ---------- */
+.valuation{background:var(--brown);color:var(--cream);padding:clamp(90px,16vh,200px) var(--pad);position:relative;overflow:hidden;}
+.valuation h2{font-family:var(--serif);font-weight:400;font-size:clamp(52px,10vw,176px);line-height:.88;letter-spacing:-.02em;}
+.valuation h2 em{font-style:italic;color:var(--night);}
+.v-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,4vw,64px);margin-top:clamp(40px,7vh,80px);align-items:end;}
+.v-grid p{color:rgba(242,237,230,.8);font-size:clamp(15px,1.3vw,18px);max-width:48ch;}
+.v-steps{list-style:none;display:grid;gap:0;}
+.v-steps li{display:flex;gap:18px;padding:16px 0;border-top:1px solid rgba(242,237,230,.22);}
+.v-steps li b{font-family:var(--serif);font-weight:400;font-size:22px;color:var(--night);min-width:28px;}
+.magnetic{display:inline-flex;margin-top:34px;}
+.v-cta{width:clamp(150px,15vw,200px);aspect-ratio:1;border-radius:50%;background:var(--night);color:var(--cream);display:flex;align-items:center;justify-content:center;
+  text-align:center;font-size:12px;letter-spacing:.16em;text-transform:uppercase;line-height:1.5;padding:20px;}
+.v-ring{position:absolute;right:-10vw;top:-10vw;width:48vw;aspect-ratio:1;border:1px solid rgba(242,237,230,.18);border-radius:50%;pointer-events:none;}
+.v-ring.r2{width:32vw;right:-2vw;top:-2vw;}
+@media(max-width:760px){.v-grid{grid-template-columns:1fr;}}
+
+/* ---------- CONTATTI ---------- */
+.contact{background:var(--night);color:var(--cream);padding:clamp(90px,14vh,170px) var(--pad) 0;}
+.c-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,48px);}
+.c-grid .eyebrow{color:var(--sand);margin-bottom:16px;display:block;}
+.c-grid p,.c-grid a{color:var(--cream2);display:block;font-size:15px;}
+.c-grid a:hover{color:var(--cream);}
+.c-big{font-family:var(--serif);font-size:clamp(34px,4.4vw,70px);line-height:1;margin-bottom:clamp(50px,9vh,110px);display:block;}
+.c-big a{display:inline;color:var(--cream);background:linear-gradient(var(--sand),var(--sand)) 0 100%/0 1px no-repeat;transition:background-size .7s cubic-bezier(.7,0,.2,1);}
+.c-big a:hover{background-size:100% 1px;}
+.wordmark{margin-top:clamp(60px,10vh,120px);overflow:hidden;border-top:1px solid var(--line-d);}
+.wordmark div{font-family:var(--serif);font-size:clamp(70px,19.5vw,360px);line-height:.82;letter-spacing:-.04em;white-space:nowrap;text-align:center;padding-top:.06em;}
+.wordmark em{font-style:italic;color:var(--sand);}
+.legal{display:flex;justify-content:space-between;gap:16px;padding:22px 0 26px;color:var(--cream3);font-size:12px;flex-wrap:wrap;}
+@media(max-width:900px){.c-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:520px){.c-grid{grid-template-columns:1fr;}}
+
+@media(prefers-reduced-motion:reduce){
+  #loader{display:none;}
+  .hero-media,.f-media{clip-path:none!important;}
+  .hero-media img,.f-media img{transform:none!important;}
+  .f-bottom{opacity:1;}
+}
+</style>
+</head>
+<body class="loading">
+
+<div id="loader" aria-hidden="true">
+  <div class="panel p-top"></div><div class="panel p-bot"></div>
+  <div class="l-inner">
+    <div class="l-logo">Edilnord <em>RE</em></div>
+    <div class="l-sub eyebrow">Consulenti immobiliari</div>
+    <div class="l-bar"><i></i></div>
+  </div>
+  <div class="l-meta eyebrow">Brugherio · MB</div>
+  <div class="l-count"><span id="lc">0</span></div>
+</div>
+
+<div class="cursor"></div>
+<div class="cursor-label">Scopri</div>
+
+<nav>
+  <a href="#top" class="n-logo" aria-label="Edilnord RE — home">Edilnord RE <small>Consulenti immobiliari</small></a>
+  <div class="n-links">
+    <a href="#chi-siamo">Chi siamo</a>
+    <a href="#servizi">Servizi</a>
+    <a href="#immobili">Immobili</a>
+    <a href="#valutazione">Valutazione</a>
+    <a href="#contatti">Contatti</a>
+  </div>
+  <button class="n-burger" aria-expanded="false" aria-controls="menu">Menu</button>
+</nav>
+<div id="menu">
+  <a href="#chi-siamo">Chi siamo</a>
+  <a href="#servizi">Servizi</a>
+  <a href="#immobili">Immobili</a>
+  <a href="#valutazione">Valutazione</a>
+  <a href="#contatti">Contatti</a>
+  <div class="m-foot">Via Tre Re 8 · 20861 Brugherio (MB)<br>edilnordre@gmail.com</div>
+</div>
+
+<main id="top">
+
+<section class="hero">
+  <div class="hero-media"><img src="../images/Via%20Verdi_6.jpg" alt="Residenza Verdi8, Brugherio — rendering della facciata"></div>
+  <div class="hero-content">
+    <h1 class="hero-title"><span class="split-line"><span class="hl">Consulenti</span></span><span class="split-line"><span class="hl"><em>immobiliari</em></span></span></h1>
+    <div class="hero-row">
+      <p class="hero-sub">Gestione, locazione e compravendita di immobili civili e industriali. Milano, Monza e provincia.</p>
+      <div class="hero-scroll eyebrow"><i></i>Scorri</div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="mq-track">
+    <span>Compravendita</span><span>Locazione</span><span>Gestione</span><span>Valutazione gratuita</span><span>Brugherio</span><span>Monza</span><span>Milano</span>
+    <span>Compravendita</span><span>Locazione</span><span>Gestione</span><span>Valutazione gratuita</span><span>Brugherio</span><span>Monza</span><span>Milano</span>
+  </div>
+</div>
+
+<section class="intro" id="chi-siamo">
+  <div class="eyebrow">(01) Chi siamo</div>
+  <div>
+    <p class="manifesto">Da oltre quindici anni Edilnord RE si occupa di <em>consulenza e gestione immobiliare</em>: seguiamo chi cerca, chi vende e chi affitta, su tutto il territorio di Milano e oltre, con un portafoglio aggiornato in tempo reale.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b><span class="count" data-to="15">0</span>+</b><span>anni di esperienza nella gestione immobiliare</span></div>
+    <div class="stat"><b>MI · MB</b><span>Milano, Monza e provincia: il nostro territorio</span></div>
+    <div class="stat"><b><span class="count" data-to="0">0</span>&nbsp;€</b><span>per la valutazione del tuo immobile, senza impegno</span></div>
+  </div>
+</section>
+
+<section class="services" id="servizi">
+  <div class="sv-head"><span class="eyebrow">(02) Servizi</span><div class="sv-progress"><i></i></div></div>
+  <div class="sv-track">
+    <div class="sv-intro"><h2>Un unico <em>interlocutore</em> per ogni esigenza immobiliare.</h2></div>
+    <article class="sv-card">
+      <div class="bg"><img src="../images/Via%20Verdi_1.jpg" alt="" loading="lazy"></div>
+      <span class="num">01</span>
+      <div><h3>Compravendita</h3><p>Accompagniamo acquisto e vendita di case, ville e immobili commerciali, dalla prima visita al rogito.</p></div>
+    </article>
+    <article class="sv-card">
+      <div class="bg"><img src="../images/Via%20Verdi_9.jpg" alt="" loading="lazy"></div>
+      <span class="num">02</span>
+      <div><h3>Locazione</h3><p>Affitti residenziali e commerciali: selezione degli inquilini, contratti e consegna dell’immobile.</p></div>
+    </article>
+    <article class="sv-card">
+      <div class="bg"><img src="../images/attico_5.jpeg" alt="" loading="lazy"></div>
+      <span class="num">03</span>
+      <div><h3>Gestione immobiliare</h3><p>Amministriamo il tuo patrimonio immobiliare civile e industriale, con un solo referente.</p></div>
+    </article>
+    <article class="sv-card">
+      <div class="bg"><img src="../images/Via%20Verdi_12.jpg" alt="" loading="lazy"></div>
+      <span class="num">04</span>
+      <div><h3>Valutazione gratuita</h3><p>Una stima affidabile e senza impegno, basata sulla conoscenza diretta del territorio.</p></div>
+    </article>
+    <article class="sv-card">
+      <div class="bg"><img src="../images/index_1.jpeg" alt="" loading="lazy"></div>
+      <span class="num">05</span>
+      <div><h3>Sviluppo e valorizzazione</h3><p>Ideazione, sviluppo e valorizzazione di nuove residenze, come Verdi8 a Brugherio.</p></div>
+    </article>
+  </div>
+</section>
+
+<section class="types" id="immobili">
+  <div class="types-head">
+    <h2>Cosa <em>cerchi?</em></h2>
+    <p>Appartamenti di ogni taglio, ville e immobili industriali, in vendita e in affitto.</p>
+  </div>
+  <div class="t-list">
+    <a class="t-row" data-img="0" href="https://www.edilnordre.it/immobili-in-vendita-case/"><span class="i">01</span><h3>Monolocali e bilocali</h3><span class="tag">Vendita · Affitto</span></a>
+    <a class="t-row" data-img="1" href="https://www.edilnordre.it/immobili-in-vendita-case/"><span class="i">02</span><h3>Trilocali e quadrilocali</h3><span class="tag">Vendita · Affitto</span></a>
+    <a class="t-row" data-img="2" href="https://www.edilnordre.it/immobili-in-vendita-case/"><span class="i">03</span><h3>Ville</h3><span class="tag">Vendita</span></a>
+    <a class="t-row" data-img="3" href="https://www.edilnordre.it/immobili-in-vendita-case/"><span class="i">04</span><h3>Negozi e uffici</h3><span class="tag">Vendita · Affitto</span></a>
+    <a class="t-row" data-img="4" href="https://www.edilnordre.it/immobili-in-vendita-case/"><span class="i">05</span><h3>Capannoni, magazzini, laboratori</h3><span class="tag">Vendita · Affitto</span></a>
+  </div>
+  <div class="t-float" aria-hidden="true">
+    <img src="../images/app-b_1.jpeg" alt=""><img src="../images/attico_1.jpeg" alt=""><img src="../images/villa-c_1.jpeg" alt=""><img src="../images/index_7.jpeg" alt=""><img src="../images/Via%20Verdi_12.jpg" alt="">
+  </div>
+</section>
+
+<section class="feature" id="verdi8">
+  <div class="f-top"><span class="eyebrow">(03) In evidenza</span><span class="eyebrow">Nuova costruzione · Classe A</span></div>
+  <div class="f-media"><img src="../images/Via%20Verdi_1.jpg" alt="Residenza Verdi8, Via Giuseppe Verdi 8, Brugherio"></div>
+  <div class="f-title"><h2>Verdi8</h2></div>
+  <div class="f-bottom">
+    <div><h3>Residenza Verdi8</h3><p>Quattro unità esclusive in Via Giuseppe Verdi 8, Brugherio: struttura antisismica in Classe A, fotovoltaico, VMC e pompa di calore. Consegna estate 2027.</p></div>
+    <a class="btn" href="../index.html" data-cursor="Entra">Esplora la residenza <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
+
+<section class="gallery" aria-label="Galleria Residenza Verdi8">
+  <div class="g-item g-1"><img src="../images/Via%20Verdi_9.jpg" alt="Terrazza dell’attico" loading="lazy"></div>
+  <div class="g-item g-2"><img src="../images/attico_5.jpeg" alt="Accesso carrabile e giardino" loading="lazy"></div>
+  <div class="g-item g-3"><img src="../images/villa-c_1.jpeg" alt="Facciata principale" loading="lazy"></div>
+  <div class="g-item g-4"><img src="../images/index_1.jpeg" alt="Vialetto d’ingresso" loading="lazy"></div>
+  <div class="g-cap"><span>Residenza Verdi8 — Brugherio (MB)</span><span>Immagini e rendering a scopo illustrativo</span></div>
+</section>
+
+<section class="valuation" id="valutazione">
+  <div class="v-ring"></div><div class="v-ring r2"></div>
+  <span class="eyebrow">(04) Valutazione</span>
+  <h2 class="v-title" style="margin-top:22px"><span class="split-line"><span class="vl">Quanto vale</span></span><span class="split-line"><span class="vl">la tua <em>casa?</em></span></span></h2>
+  <div class="v-grid">
+    <div>
+      <p>Richiedi una valutazione gratuita e senza impegno. Conosciamo Brugherio, Monza e l’hinterland milanese strada per strada: la stima parte da qui.</p>
+      <div class="magnetic"><a class="v-cta" href="https://www.edilnordre.it/valutazione-immobile-gratuita-brugherio/" data-cursor="Vai">Richiedi<br>la stima</a></div>
+    </div>
+    <ol class="v-steps">
+      <li><b>1</b><span>Ci racconti il tuo immobile: posizione, metratura, stato.</span></li>
+      <li><b>2</b><span>Sopralluogo e analisi del mercato di zona.</span></li>
+      <li><b>3</b><span>Ricevi la valutazione e la strategia per vendere o affittare.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="contact" id="contatti">
+  <span class="c-big">Hai un’esigenza immobiliare?<br><a href="mailto:edilnordre@gmail.com">Scrivici.</a></span>
+  <div class="c-grid">
+    <div><span class="eyebrow">Sede</span><p>Via Tre Re 8</p><p>20861 Brugherio (MB)</p></div>
+    <div><span class="eyebrow">Telefono</span><a href="tel:+390392142126">+39 039 214 2126</a><a href="tel:+393890107445">+39 389 010 7445</a></div>
+    <div><span class="eyebrow">Email</span><a href="mailto:edilnordre@gmail.com">edilnordre@gmail.com</a></div>
+    <div><span class="eyebrow">Seguici</span><a href="https://www.facebook.com/CaseBrugherio/" target="_blank" rel="noopener">Facebook</a><a href="https://www.immobiliare.it/agenzie-immobiliari/24118/edilnord-real-estate-brugherio/" target="_blank" rel="noopener">Immobiliare.it</a></div>
+  </div>
+  <div class="wordmark"><div>Edilnord <em>RE</em></div></div>
+  <div class="legal"><span>© Edilnord RE · Via Tre Re 8, 20861 Brugherio (MB)</span><span>Immagini e rendering a scopo illustrativo</span></div>
+</section>
+
+</main>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/SplitText.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const $ = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+
+  // Menu mobile (senza dipendenze da GSAP per restare usabile ovunque)
+  const burger = $('.n-burger'), menu = $('#menu');
+  const toggleMenu = open => {
+    burger.setAttribute('aria-expanded', open);
+    burger.textContent = open ? 'Chiudi' : 'Menu';
+    if (window.gsap) gsap.to(menu, { clipPath: open ? 'inset(0 0 0% 0)' : 'inset(0 0 100% 0)', duration: .8, ease: 'expo.inOut',
+      onStart: () => open && (menu.style.visibility = 'visible'), onComplete: () => !open && (menu.style.visibility = 'hidden') });
+    else menu.style.cssText = open ? 'visibility:visible;clip-path:none' : '';
+  };
+  burger.addEventListener('click', () => toggleMenu(burger.getAttribute('aria-expanded') !== 'true'));
+  $$('#menu a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
+  if (!window.gsap || reduce) { document.body.classList.remove('loading'); $('#loader')?.remove(); return; }
+
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  // Smooth scroll
+  const lenis = new Lenis({ lerp: .09, smoothWheel: true });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(t => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
+  lenis.stop();
+  $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const t = $(a.getAttribute('href')); if (!t) return;
+    e.preventDefault(); lenis.scrollTo(t, { duration: 1.6 });
+  }));
+
+  // ---------- Preloader + hero intro ----------
+  const counter = { v: 0 };
+  gsap.set('.hl', { yPercent: 110 });
+  gsap.set(['.hero-sub', '.hero-scroll', 'nav'], { autoAlpha: 0, y: 20 });
+  gsap.set('.l-sub', { autoAlpha: 0 });
+  const intro = gsap.timeline({ defaults: { ease: 'expo.inOut' } });
+  intro
+    .to('.l-logo', { clipPath: 'inset(0 0% 0 0)', duration: 1.4 }, 0)
+    .to('.l-sub', { autoAlpha: 1, duration: .8, ease: 'power2.out' }, .7)
+    .to('.l-bar i', { scaleX: 1, duration: 2, ease: 'power2.inOut' }, 0)
+    .to(counter, { v: 100, duration: 2, ease: 'power2.inOut', onUpdate: () => $('#lc').textContent = Math.round(counter.v) }, 0)
+    .to(['.l-inner', '.l-count', '.l-meta'], { autoAlpha: 0, y: -30, duration: .6, ease: 'power2.in' }, 2.05)
+    .to('.p-top', { yPercent: -100, duration: 1.2 }, 2.5)
+    .to('.p-bot', { yPercent: 100, duration: 1.2 }, 2.5)
+    .to('.hero-media', { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6 }, 2.55)
+    .to('.hero-media img', { scale: 1.08, duration: 2.2, ease: 'expo.out' }, 2.7)
+    .to('.hl', { yPercent: 0, duration: 1.3, stagger: .12, ease: 'expo.out' }, 3.3)
+    .to(['.hero-sub', '.hero-scroll', 'nav'], { autoAlpha: 1, y: 0, duration: 1, stagger: .08, ease: 'power3.out' }, 3.6)
+    .add(() => { document.body.classList.remove('loading'); $('#loader').remove(); lenis.start(); ScrollTrigger.refresh(); }, 3.8);
+
+  // Hero parallax in uscita
+  gsap.to('.hero-media img', { yPercent: 14, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  gsap.to('.hero-content', { yPercent: -30, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+  // ---------- Marquee con velocità legata allo scroll ----------
+  const track = $('.mq-track');
+  const loop = gsap.to(track, { xPercent: -50, duration: 28, ease: 'none', repeat: -1 });
+  let dir = 1;
+  ScrollTrigger.create({
+    onUpdate: self => {
+      const v = self.getVelocity();
+      if (v) dir = v > 0 ? 1 : -1;
+      gsap.to(loop, { timeScale: dir * gsap.utils.clamp(1, 6, 1 + Math.abs(v) / 400), duration: .3, overwrite: true,
+        onComplete: () => gsap.to(loop, { timeScale: dir, duration: 1.2 }) });
+      gsap.to('.mq-track span', { skewX: gsap.utils.clamp(-12, 12, -v / 180), duration: .4, overwrite: true });
+    }
+  });
+
+  // ---------- Manifesto: parole che si accendono ----------
+  const man = new SplitText('.manifesto', { type: 'words' });
+  gsap.from(man.words, { opacity: .12, stagger: .05, ease: 'none',
+    scrollTrigger: { trigger: '.manifesto', start: 'top 80%', end: 'bottom 45%', scrub: true } });
+
+  // Counters
+  $$('.count').forEach(el => {
+    const to = +el.dataset.to, o = { v: 0 };
+    if (!to) return;
+    gsap.to(o, { v: to, duration: 2, ease: 'power2.out', onUpdate: () => el.textContent = Math.round(o.v),
+      scrollTrigger: { trigger: el, start: 'top 88%' } });
+  });
+  gsap.from('.stat', { y: 60, opacity: 0, duration: 1.2, stagger: .12, ease: 'expo.out', scrollTrigger: { trigger: '.stats', start: 'top 85%' } });
+
+  // ---------- Servizi orizzontali pinnati ----------
+  const svTrack = $('.sv-track');
+  const svDist = () => svTrack.scrollWidth - innerWidth;
+  const svTween = gsap.to(svTrack, { x: () => -svDist(), ease: 'none',
+    scrollTrigger: { trigger: '.services', pin: true, scrub: 1, start: 'top top', end: () => '+=' + svDist(), invalidateOnRefresh: true,
+      onUpdate: s => gsap.set('.sv-progress i', { scaleX: s.progress }) } });
+  $$('.sv-card').forEach(card => {
+    gsap.from(card.querySelector('.num'), { yPercent: 100, opacity: 0, ease: 'expo.out', duration: 1,
+      scrollTrigger: { trigger: card, containerAnimation: svTween, start: 'left 85%' } });
+    gsap.fromTo(card, { rotate: 3, y: 40 }, { rotate: 0, y: 0, ease: 'none',
+      scrollTrigger: { trigger: card, containerAnimation: svTween, start: 'left right', end: 'left 40%', scrub: true } });
+  });
+
+  // ---------- Tipologie ----------
+  const typeTitle = new SplitText('.types-head h2', { type: 'lines,chars', linesClass: 'split-line' });
+  gsap.from(typeTitle.chars, { yPercent: 110, duration: 1, stagger: .025, ease: 'expo.out', scrollTrigger: { trigger: '.types-head', start: 'top 80%' } });
+  $$('.t-row').forEach(row => {
+    gsap.to(row, { '--s': 1, duration: 1.4, ease: 'expo.inOut', scrollTrigger: { trigger: row, start: 'top 90%' } });
+    gsap.from(row.children, { y: 40, opacity: 0, duration: 1, stagger: .06, ease: 'expo.out', scrollTrigger: { trigger: row, start: 'top 90%' } });
+  });
+  if (fine) {
+    const fl = $('.t-float'), imgs = $$('img', fl);
+    const xTo = gsap.quickTo(fl, 'x', { duration: .6, ease: 'power3' }), yTo = gsap.quickTo(fl, 'y', { duration: .6, ease: 'power3' });
+    const rTo = gsap.quickTo(fl, 'rotation', { duration: .8, ease: 'power3' });
+    let lastX = 0;
+    $('.t-list').addEventListener('mousemove', e => {
+      xTo(e.clientX - fl.offsetWidth / 2); yTo(e.clientY - fl.offsetHeight / 2);
+      rTo(gsap.utils.clamp(-10, 10, (e.clientX - lastX) * .6)); lastX = e.clientX;
+    });
+    $$('.t-row').forEach(row => row.addEventListener('mouseenter', () => imgs.forEach((im, i) => im.classList.toggle('on', i == row.dataset.img))));
+    $('.t-list').addEventListener('mouseenter', () => gsap.to(fl, { opacity: 1, scale: 1, duration: .5, ease: 'power3.out' }));
+    $('.t-list').addEventListener('mouseleave', () => gsap.to(fl, { opacity: 0, scale: .6, duration: .4, ease: 'power3.in' }));
+  }
+
+  // ---------- Feature Verdi8: l'immagine si apre a tutto schermo ----------
+  const ft = gsap.timeline({ scrollTrigger: { trigger: '.feature', pin: true, scrub: 1, start: 'top top', end: '+=180%' } });
+  ft.to('.f-media', { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'power2.inOut', duration: 1 }, 0)
+    .to('.f-media img', { scale: 1, ease: 'power2.inOut', duration: 1 }, 0)
+    .to('.f-title h2', { scale: 1.6, opacity: 0, ease: 'power2.in', duration: .7 }, 0)
+    .to('.f-top', { opacity: 0, duration: .3 }, 0)
+    .to('.f-bottom', { opacity: 1, y: 0, duration: .4 }, .8)
+    .from('.f-bottom > *', { y: 50, stagger: .1, duration: .4 }, .8);
+
+  // ---------- Gallery parallax ----------
+  $$('.g-item').forEach((g, i) => {
+    gsap.fromTo(g, { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: 1.4, ease: 'expo.inOut', scrollTrigger: { trigger: g, start: 'top 88%' } });
+    gsap.fromTo(g.querySelector('img'), { yPercent: -12 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: g, start: 'top bottom', end: 'bottom top', scrub: true } });
+    if (innerWidth > 760) gsap.to(g, { y: (i % 2 ? -1 : 1) * 60, ease: 'none', scrollTrigger: { trigger: '.gallery', start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+
+  // ---------- Valutazione ----------
+  gsap.from('.vl', { yPercent: 110, duration: 1.2, stagger: .12, ease: 'expo.out', scrollTrigger: { trigger: '.v-title', start: 'top 80%' } });
+  gsap.from('.v-steps li', { x: 60, opacity: 0, duration: 1, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.v-steps', start: 'top 85%' } });
+  gsap.to('.v-ring', { rotate: 90, scale: 1.2, ease: 'none', scrollTrigger: { trigger: '.valuation', start: 'top bottom', end: 'bottom top', scrub: true } });
+  gsap.from('.valuation', { backgroundColor: '#15110f', ease: 'none', scrollTrigger: { trigger: '.valuation', start: 'top 90%', end: 'top 30%', scrub: true } });
+
+  // Pulsanti magnetici
+  if (fine) $$('.magnetic, .btn').forEach(m => {
+    const xTo = gsap.quickTo(m, 'x', { duration: .6, ease: 'elastic.out(1,.4)' }), yTo = gsap.quickTo(m, 'y', { duration: .6, ease: 'elastic.out(1,.4)' });
+    m.addEventListener('mousemove', e => { const r = m.getBoundingClientRect(); xTo((e.clientX - r.left - r.width / 2) * .35); yTo((e.clientY - r.top - r.height / 2) * .35); });
+    m.addEventListener('mouseleave', () => { xTo(0); yTo(0); });
+  });
+
+  // ---------- Contatti ----------
+  const cBig = new SplitText('.c-big', { type: 'lines', linesClass: 'split-line' });
+  const cInner = new SplitText(cBig.lines, { type: 'lines' });
+  gsap.from(cInner.lines, { yPercent: 110, duration: 1.2, stagger: .12, ease: 'expo.out', scrollTrigger: { trigger: '.c-big', start: 'top 85%' } });
+  gsap.from('.c-grid > div', { y: 40, opacity: 0, duration: 1, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: '.c-grid', start: 'top 90%' } });
+  gsap.from('.wordmark div', { yPercent: 100, ease: 'none', scrollTrigger: { trigger: '.wordmark', start: 'top bottom', end: 'bottom bottom', scrub: true } });
+
+  // ---------- Cursore ----------
+  if (fine) {
+    const c = $('.cursor'), lbl = $('.cursor-label');
+    const cx = gsap.quickTo([c, lbl], 'x', { duration: .25, ease: 'power3' }), cy = gsap.quickTo([c, lbl], 'y', { duration: .25, ease: 'power3' });
+    addEventListener('mousemove', e => { cx(e.clientX); cy(e.clientY); });
+    $$('[data-cursor]').forEach(el => {
+      el.addEventListener('mouseenter', () => { lbl.textContent = el.dataset.cursor; gsap.to(lbl, { scale: 1, duration: .4, ease: 'expo.out' }); gsap.to(c, { scale: 0, duration: .2 }); });
+      el.addEventListener('mouseleave', () => { gsap.to(lbl, { scale: 0, duration: .3 }); gsap.to(c, { scale: 1, duration: .2 }); });
+    });
+    $$('a, button').forEach(el => {
+      if (el.dataset.cursor) return;
+      el.addEventListener('mouseenter', () => gsap.to(c, { scale: 3.2, duration: .3 }));
+      el.addEventListener('mouseleave', () => gsap.to(c, { scale: 1, duration: .3 }));
+    });
+  }
+
+  addEventListener('load', () => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>
