@@ -399,7 +399,12 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
   .intro-scroll{bottom:22px;}
 }
 @media(prefers-reduced-motion:reduce){#intro{display:none;}}
+.no-intro #intro{display:none;}
 </style>
+<script>
+/* intro solo alla prima visita: si salta tornando indietro, con un link a una sezione o se già vista */
+(function(){try{var n=performance.getEntriesByType('navigation')[0];if(location.hash||(n&&n.type==='back_forward')||sessionStorage.getItem('v8intro'))document.documentElement.classList.add('no-intro');}catch(e){}})();
+</script>
 </head>
 <body>
 <script>document.documentElement.classList.add('js');</script>
@@ -1070,7 +1075,8 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
 
   /* ---- PARTE 1: composizione automatica, poi resta in attesa dello scroll ---- */
   function run(){
-    if(reduce||!window.gsap){intro.style.display='none';return;}
+    if(reduce||!window.gsap||document.documentElement.classList.contains('no-intro')){intro.style.display='none';return;}
+    try{sessionStorage.setItem('v8intro','1');}catch(e){}
     lock();
     var tl=gsap.timeline({onComplete:attach});
     tl.to('.intro-mark .ic',{y:0,duration:1.05,ease:'expo.out',stagger:.07},.25)
@@ -1080,6 +1086,29 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
       .to('.intro-scroll',{opacity:1,duration:.8,ease:'power2.out'},'-=.35');
   }
   if(document.readyState==='complete')run();else addEventListener('load',run);
+})();
+</script>
+
+<!-- ===== Posizione: si torna dove si era (indietro) o alla sezione del link (#unita) ===== -->
+<script>
+(function(){
+  var K='v8scroll';
+  try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(e){}
+  function save(){try{sessionStorage.setItem(K,String(window.scrollY));}catch(e){}}
+  addEventListener('pagehide',save);
+  document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('a[href]'))save();},true);
+  function go(y){if(window.ScrollTrigger)ScrollTrigger.refresh();
+    if(window.__lenis)try{window.__lenis.scrollTo(y,{immediate:true,force:true});}catch(e){}
+    window.scrollTo(0,y);}
+  function restore(){
+    var nav=(performance.getEntriesByType('navigation')[0]||{}).type;
+    if(location.hash){var el=null;try{el=document.querySelector(location.hash);}catch(e){}
+      /* su telefono la sezione desktop è nascosta: uso la sua versione mobile (id con -m) */
+      if(el&&!el.getClientRects().length)el=document.getElementById(location.hash.slice(1)+'-m')||el;
+      if(el){if(window.ScrollTrigger)ScrollTrigger.refresh();go(el.getBoundingClientRect().top+window.scrollY);}return;}
+    if(nav==='back_forward'){var y=0;try{y=+sessionStorage.getItem(K)||0;}catch(e){}if(y)go(y);}
+  }
+  addEventListener('load',function(){setTimeout(restore,80);});
 })();
 </script>
 </body>

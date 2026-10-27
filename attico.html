@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>4 locali attico — Residenza Verdi8</title>
+<title>Attico · 4 locali all'ultimo piano — Residenza Verdi8</title>
 <meta name="description" content="4 locali attico, 134 m² commerciali — Residenza Verdi8, Via Giuseppe Verdi 8, Brugherio (MB).">
 <meta name="theme-color" content="#080808">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23080808'/><text x='16' y='24' font-size='20' font-weight='bold' text-anchor='middle' fill='%239dc0aa' font-family='Arial'>8</text></svg>">
 <meta property="og:type" content="website">
-<meta property="og:title" content="4 locali attico — Residenza Verdi8">
+<meta property="og:title" content="Attico · 4 locali all'ultimo piano — Residenza Verdi8">
 <meta property="og:description" content="134 m² commerciali · € 420.000 — Residenza Verdi8, Brugherio (MB).">
 <meta property="og:image" content="https://edilnordre-cloud.github.io/verdi8/images/attico_28.jpeg">
 <meta property="og:url" content="https://edilnordre-cloud.github.io/verdi8/attico.html">
@@ -35,10 +35,22 @@ html.js .reveal.in{opacity:1;transform:none;transition:opacity .9s var(--e-expo)
 
 nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;
   transition:background .45s var(--e),border-color .45s;border-bottom:.5px solid transparent;}
+/* sfumatura dietro la barra: leggibile anche sui render con cielo chiaro */
+nav::before{content:'';position:absolute;left:0;right:0;top:0;height:150%;z-index:-1;pointer-events:none;transition:opacity .45s var(--e);
+  background:linear-gradient(to bottom,rgba(8,8,8,.6),rgba(8,8,8,.3) 45%,rgba(8,8,8,0));}
+nav.scrolled::before{opacity:0;}
 nav.scrolled{background:rgba(8,8,8,.74);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom-color:var(--line);}
 .brand{font-family:'Anton',sans-serif;font-size:22px;display:flex;align-items:center;gap:1px;} .brand em{color:var(--accent);font-style:normal;}
 .back{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--t2);display:flex;align-items:center;gap:8px;transition:color .25s,gap .25s;}
 .back::before{content:'←';font-size:14px;transition:transform .25s var(--e);} .back:hover{color:var(--t);gap:11px;} .back:hover::before{transform:translateX(-3px);}
+
+.nav-r{display:flex;align-items:center;gap:clamp(14px,2.4vw,30px);}
+.unav{display:flex;align-items:center;gap:6px;}
+.unav-btn{width:36px;height:36px;border-radius:50%;border:.5px solid rgba(255,255,255,.24);background:rgba(8,8,8,.3);display:flex;align-items:center;justify-content:center;color:var(--t2);transition:color .25s,border-color .25s,background .25s;}
+.unav-btn svg{width:14px;height:14px;} .unav-btn:hover{color:var(--t);border-color:var(--accent);background:rgba(157,192,170,.1);}
+.unav-btn:focus-visible,.back:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.unav-pos{font-family:'Anton',sans-serif;font-size:13px;letter-spacing:.06em;color:var(--t2);min-width:34px;text-align:center;}
+@media(max-width:420px){.unav-pos{display:none;}.back{font-size:11px;letter-spacing:.12em;}}
 
 /* MEDIA STAGE */
 .ustage{position:relative;height:88svh;min-height:560px;overflow:hidden;background:#0d0d0d;}
@@ -187,7 +199,10 @@ footer{background:#040404;padding:clamp(34px,5vh,52px) clamp(20px,5vw,60px);disp
 
 <nav id="nav">
   <a class="brand" href="index.html">VERD<em>I</em>8</a>
-  <a class="back" href="index.html#unita">Tutte le unità</a>
+  <div class="nav-r">
+    <div class="unav"><a class="unav-btn" href="app-b.html" aria-label="Unità precedente: App. B" title="App. B"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></a><span class="unav-pos">3 / 4</span><a class="unav-btn" href="villa-c.html" aria-label="Unità successiva: Villa C" title="Villa C"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></a></div>
+    <a class="back" href="index.html#unita">Tutte le unità</a>
+  </div>
 </nav>
 
 <header class="ustage" id="ustage">
@@ -358,6 +373,13 @@ if(window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches && !m
   function lraf(t){lenis.raf(t);requestAnimationFrame(lraf);}
   requestAnimationFrame(lraf);
 }
+</script>
+<script>
+/* "Tutte le unità": se si arriva dalla homepage torna indietro (stessa posizione), altrimenti apre la sezione unità */
+(function(){var b=document.querySelector('.back');if(!b)return;b.addEventListener('click',function(e){try{
+  var r=document.referrer?new URL(document.referrer):null;
+  if(r&&r.origin===location.origin&&/\/(index\.html)?$/.test(r.pathname)&&history.length>1){e.preventDefault();history.back();}
+}catch(_){}});})();
 </script>
 </body>
 </html>
