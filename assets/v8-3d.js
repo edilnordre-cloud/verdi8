@@ -63,7 +63,7 @@
     var m=META[id],wd=m.wood,k=ROOM/(wd[3]-wd[1]);
     var W=m.w*k,H=m.h*k,ox=(m.w/2-(wd[0]+wd[2])/2)*k,oz=(m.h/2-(wd[1]+wd[3])/2)*k;
     function X(px){return ox+(px-m.w/2)*k;}function Z(py){return oz+(py-m.h/2)*k;}
-    var g=new T.Group(),u={W:W,H:H,ox:ox,oz:oz,ww:(wd[2]-wd[0])*k,mats:[],ready:false};g.userData=u;
+    var g=new T.Group(),u={W:W,H:H,ox:ox,oz:oz,ww:(wd[2]-wd[0])*k,mats:[],ready:false,X:X,Z:Z};g.userData=u;
     /* pavimento con la pianta a colori */
     var floorMat=new T.MeshStandardMaterial({map:S.tex(id+'-floor.webp'),transparent:true,alphaTest:.4,roughness:.92,metalness:0});
     var floor=new T.Mesh(new T.PlaneGeometry(W,H),floorMat);floor.rotation.x=-Math.PI/2;floor.position.set(ox,.012,oz);floor.receiveShadow=true;g.add(floor);
@@ -261,5 +261,7 @@
     return {show:function(){sizeTo(S,canvas);if(!running){running=true;requestAnimationFrame(loop);}st.rise=0;gsap.to(st,{rise:1,duration:2,ease:'power2.out',delay:.2});},
             hide:function(){running=false;}};
   }
-  window.V8_3D={ok:ok,building:building,floor:floor};
+  window.V8_3D={ok:ok,building:building,floor:floor,
+    /* pezzi per esperienze dedicate (es. esplorazione dell'edificio) */
+    _:{stage:stage,makeFloor:makeFloor,paint:paint,quartiere:quartiere,sizeTo:sizeTo,orbit:orbit,control:control,inertia:inertia,ease:ease,clamp:clamp,WALL:WALL,SLAB:SLAB,BASE:BASE}};
 })();
