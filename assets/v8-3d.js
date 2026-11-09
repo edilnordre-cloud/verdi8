@@ -23,6 +23,8 @@
   function ease(t){t=clamp(t);return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
   var geoCache={};
   function geo(id){return geoCache[id]||(geoCache[id]=fetch(BASE+id+'-geo.json').then(function(r){return r.json();}));}
+  var furCache={};
+  function arredo(id){return furCache[id]||(furCache[id]=fetch(BASE+id+'-mobili.json').then(function(r){return r.json();}));}
 
   /* ---------- scena: luce, ombre, pavimento ---------- */
   function stage(canvas){
@@ -68,7 +70,7 @@
     u.floorMat=floorMat;
     var walls=new T.Group();walls.scale.y=.001;g.add(walls);u.walls=walls;
     var capMat=new T.MeshStandardMaterial({color:0xf2eee6,roughness:.75}),sideMat=new T.MeshStandardMaterial({color:0xd9d4c9,roughness:.92});
-    var slabMat=new T.MeshStandardMaterial({color:0x1c1f1b,roughness:.95}),glassMat=new T.MeshStandardMaterial({color:0x8fc3d8,transparent:true,opacity:.5,roughness:.05,metalness:.35,emissive:0x1d3a44,emissiveIntensity:.35});
+    var slabMat=new T.MeshStandardMaterial({color:0x4b3d35,roughness:.85}),glassMat=new T.MeshStandardMaterial({color:0x8fc3d8,transparent:true,opacity:.5,roughness:.05,metalness:.35,emissive:0x1d3a44,emissiveIntensity:.35});
     u.wallMats=[capMat,sideMat];u.base=[capMat.color.clone(),sideMat.color.clone()];u.glass=glassMat;u.slabMat=slabMat;
     function shape(poly){var s=new T.Shape(poly.o.map(function(p){return new T.Vector2(X(p[0]),-Z(p[1]));}));
       poly.h.forEach(function(h){s.holes.push(new T.Path(h.map(function(p){return new T.Vector2(X(p[0]),-Z(p[1]));})));});return s;}
@@ -85,14 +87,43 @@
         b.position.set(X((f[0]+f[2])/2),.85+.725,Z((f[1]+f[3])/2));walls.add(b);});
       u.ready=true;S.dirty.v=true;
     });
+    /* arredo: ogni mobile disegnato nella tavola cresce dal pavimento con la sua altezza */
+    var furn=new T.Group();g.add(furn);u.furn=[];u.furnMat=new T.MeshStandardMaterial({map:floorMat.map,roughness:.7});
+    var paraMat=new T.MeshStandardMaterial({color:0x2c2826,roughness:.45,metalness:.35,transparent:true,opacity:.92});
+    var roofMat=new T.MeshStandardMaterial({color:0xefebe4,roughness:.85});u.paraMat=paraMat;u.roofMat=roofMat;
+    arredo(id).then(function(F){
+      var x0=ox-W/2,z0=oz-H/2;
+      function uvWorld(gm){var p=gm.attributes.position,uv=new Float32Array(p.count*2);
+        for(var i=0;i<p.count;i++){uv[i*2]=(p.getX(i)-x0)/W;uv[i*2+1]=1-(p.getZ(i)-z0)/H;}gm.setAttribute('uv',new T.BufferAttribute(uv,2));}
+      F.mobili.forEach(function(it){
+        var sh=new T.Shape(it.o.map(function(p){return new T.Vector2(X(p[0]),-Z(p[1]));}));
+        var gm=new T.ExtrudeGeometry(sh,{depth:it.h,bevelEnabled:false,curveSegments:1});gm.rotateX(-Math.PI/2);uvWorld(gm);
+        var me=new T.Mesh(gm,u.furnMat);me.castShadow=true;me.receiveShadow=true;me.position.y=.015;me.scale.y=.001;furn.add(me);u.furn.push(me);
+      });
+      /* parapetti di balconi e terrazzi, scuri come nei render */
+      F.parapetti.forEach(function(run){for(var i=0;i<run.length-1;i++){
+        var ax=X(run[i][0]),az=Z(run[i][1]),bx=X(run[i+1][0]),bz=Z(run[i+1][1]),L=Math.hypot(bx-ax,bz-az);if(L<.05)continue;
+        var b=new T.Mesh(new T.BoxGeometry(L+.06,1.05,.09),paraMat);b.position.set((ax+bx)/2,.525,(az+bz)/2);b.rotation.y=-Math.atan2(bz-az,bx-ax);b.castShadow=true;walls.add(b);}});
+      /* copertura dell'alloggio, per chiudere l'edificio come si vede dall'esterno */
+      if(F.tetto&&F.tetto.length>3){
+        var rs=new T.Shape(F.tetto.map(function(p){return new T.Vector2(X(p[0]),-Z(p[1]));}));
+        var rg=new T.ExtrudeGeometry(rs,{depth:.32,bevelEnabled:false,curveSegments:1});rg.rotateX(-Math.PI/2);
+        var roof=new T.Mesh(rg,[roofMat,slabMat]);roof.castShadow=true;roof.receiveShadow=true;roof.position.y=WALL;roof.visible=false;g.add(roof);u.roof=roof;
+      }
+      S.dirty.v=true;
+    });
     var hit=new T.Mesh(new T.BoxGeometry(u.ww*1.04,WALL+.8,ROOM*1.04),new T.MeshBasicMaterial({visible:false}));hit.position.y=WALL/2;g.add(hit);u.hit=hit;
     return g;
   }
-  function paint(g,vis,dim,rise){
+  function paint(g,vis,dim,rise,fur,roofT){
     var u=g.userData;g.visible=vis>.01;
+    if(u.furn){var n=u.furn.length||1;u.furn.forEach(function(me,i){me.scale.y=Math.max(.001,ease((fur||0)*1.5-i/n*.5));});u.furnMat.color.setScalar(.55+.45*dim);}
+    if(u.roof){var rt=roofT||0;u.roof.visible=rt>.01&&vis>.5;u.roof.position.y=WALL+(1-rt)*9;u.roofMat.transparent=rt<1;u.roofMat.opacity=rt;}
+    if(u.paraMat)u.paraMat.opacity=.92*vis;
     u.floorMat.opacity=vis;u.floorMat.color.setScalar(dim);
-    u.wallMats.forEach(function(m,i){m.color.copy(u.base[i]).multiplyScalar(.35+.65*dim);m.transparent=vis<1;m.opacity=vis;});
-    u.slabMat.transparent=vis<1;u.slabMat.opacity=vis;u.glass.opacity=.5*vis;
+    /* i solidi non diventano trasparenti (darebbero macchie): appaiono crescendo */
+    u.wallMats.forEach(function(m,i){m.color.copy(u.base[i]).multiplyScalar(.35+.65*dim);});
+    u.walls.visible=vis>.35;u.glass.opacity=.5*vis;
     u.walls.scale.y=Math.max(.001,rise);
   }
   function sizeTo(S,c){var w=c.clientWidth,h=c.clientHeight;if(!w||!h)return;S.r.setSize(w,h,false);S.cam.aspect=w/h;S.cam.updateProjectionMatrix();}
@@ -170,16 +201,18 @@
       floors.forEach(function(g,i){
         var vis=i===0?1:clamp((stack-(i-1)*.35)/.4),drop=i===0?0:(1-ease((stack-(i-1)*.35)/.65))*26;
         g.position.y=i*gap+drop+LIFT[i]*1.8+(st.pick>=0&&st.pick<3&&i>st.pick?3.6*st.zoom:0);
-        paint(g,vis,1-.62*DIM[i],i===0?rise0:Math.max(rise0,vis));
+        /* chiuso con la copertura finché non si apre; aprendosi crescono gli arredi */
+        var closed=clamp((stack-.85)/.15)*(1-open);
+        paint(g,vis,1-.62*DIM[i],i===0?rise0:Math.max(rise0,vis),open,i===2?closed:0);
       });
-      villa.position.y=(1-vil)*-6+LIFT[3]*1.8;paint(villa,vil,1-.62*DIM[3],vil);
+      villa.position.y=(1-vil)*-6+LIFT[3]*1.8;paint(villa,vil,1-.62*DIM[3],vil,open,vil*(1-open));
       var az=st.az+(st.user?0:(now-st.t0)*.00004)+p*.9;
       var stackH=2*gap*stack;
       /* quando scegli un piano la telecamera si avvicina a lui */
       var pk=st.pick>=0?all[st.pick]:null,py=pk?pk.position.y+WALL*.5:0,px=pk?pk.position.x+pk.userData.ox*.3:0,pz=pk?pk.position.z:0;
       var base=mob?new T.Vector3(VX*st.focus,stackH*.36*(1-st.focus),VZ*st.focus):new T.Vector3(VX*.45*vil,stackH*.36,VZ*.5*vil);
-      look.copy(base).lerp(v.set(px,py,pz),st.zoom*.55);
-      var dist=mob?(80+stackH*1.3)*(1-.22*st.focus):48+stackH*.9+vil*22;dist*=1-.28*st.zoom;
+      look.copy(base).lerp(v.set(px,py,pz),st.zoom*.35);
+      var dist=mob?(80+stackH*1.3)*(1-.22*st.focus):48+stackH*.9+vil*22;dist*=1-.14*st.zoom;
       /* dall'alto sul quartiere fino al lotto */
       var far=mob?1500:1100;dist=dist+(far-dist)*(1-dive);
       var pol=(st.polar-.2*open)*dive+.04*(1-dive);
@@ -218,7 +251,7 @@
     var S=stage(canvas),scene=S.scene,cam=S.cam,f=makeFloor(S,id);scene.add(f);var u=f.userData;
     var st={az:-.75,vaz:0,polar:.92,user:false,rise:0,t0:performance.now()},look=new T.Vector3(),running=false,v=new T.Vector3();
     function frame(now){var mob=canvas.clientWidth<760;inertia(st);
-      paint(f,1,1,ease(st.rise));
+      paint(f,1,1,ease(st.rise),clamp((st.rise-.45)/.55),0);
       var dist=Math.max(u.W,u.H)*(mob?2.2:1.8);
       look.set(0,WALL*.25,0);orbit(cam,look,dist,st.polar,st.az+(st.user?0:(now-st.t0)*.00006));
       S.sun.target.position.copy(look);S.sun.position.copy(look).add(v.set(-26,44,22));

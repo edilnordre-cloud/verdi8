@@ -1195,11 +1195,13 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
   var mob=document.getElementById('unita-m');if(mob)mob.style.display='none';
   gl=V8_3D.building(document.getElementById('b3dGl'),{labels:[].slice.call(sec.querySelectorAll('.b3d-lab')),onPick:function(i){show(i);}});
   var last=-1;
-  ScrollTrigger.create({trigger:'#b3dPin',start:'top top',end:'+=360%',pin:true,scrub:.7,
+  /* refreshPriority alta: questa sezione viene prima delle altre, che devono contare il suo spazio */
+  ScrollTrigger.create({trigger:'#b3dPin',start:'top top',end:'+=360%',pin:true,scrub:.7,refreshPriority:10,
     onUpdate:function(st){var p=st.progress;gl.set(p);
       var k=p<.16?0:p<.34?1:p<.52?2:p<.68?3:4;if(k!==last){last=k;step.textContent=STEPS[k];}
       var ready=p>.69;sec.classList.toggle('ready',ready);if(ready&&!isReady){isReady=true;gl.pick(cur);}}});
   show(0);gl.set(0);
+  ScrollTrigger.sort();ScrollTrigger.refresh();
   addEventListener('load',function(){gl.resize();ScrollTrigger.refresh();});
 })();
 </script>
