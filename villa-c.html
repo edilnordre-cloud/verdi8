@@ -2,12 +2,11 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Villa C · Villa indipendente — Residenza Verdi8</title>
 <meta name="description" content="Villa indipendente, 158 m² commerciali — Residenza Verdi8, Via Giuseppe Verdi 8, Brugherio (MB).">
 <meta name="theme-color" content="#080808">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23080808'/><text x='16' y='24' font-size='20' font-weight='bold' text-anchor='middle' fill='%239dc0aa' font-family='Arial'>8</text></svg>">
-<meta property="og:type" content="website">
 <meta property="og:title" content="Villa C · Villa indipendente — Residenza Verdi8">
 <meta property="og:description" content="158 m² commerciali · € 645.000 — Residenza Verdi8, Brugherio (MB).">
 <meta property="og:image" content="https://edilnordre-cloud.github.io/verdi8/images/villa-c_30.jpeg">
@@ -15,379 +14,132 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Schibsted+Grotesk:wght@700;800;900&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="images/villa-c_30.webp" fetchpriority="high">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{--bg:#080808;--bg2:#0b0b0b;--bg3:#050505;--t:#f0ece4;--t2:rgba(240,236,228,.72);--t3:rgba(240,236,228,.56);
-  --accent:#9dc0aa;--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.04);--green-grad:linear-gradient(135deg,#1c3a2a,#142b1f);
-  --e:cubic-bezier(.22,1,.36,1);--e-expo:cubic-bezier(.16,1,.3,1);}
-body{background:var(--bg);color:var(--t);font-family:'Hanken Grotesk',sans-serif;overflow-x:hidden;line-height:1.5;-webkit-font-smoothing:antialiased;}
-::selection{background:var(--accent);color:#080808;}
-a{color:inherit;text-decoration:none;} img{display:block;}
-html.js .reveal{opacity:0;transform:translateY(26px);}
-html.js .reveal.in{opacity:1;transform:none;transition:opacity .9s var(--e-expo),transform 1s var(--e-expo);}
-.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%);mix-blend-mode:difference;}
-.cursor-dot{width:7px;height:7px;background:#fff;}
-.cursor-ring{width:38px;height:38px;border:1px solid rgba(255,255,255,.6);transition:width .3s var(--e),height .3s var(--e),background .3s,border-color .3s;}
-.cursor-ring.grow{width:74px;height:74px;background:rgba(157,192,170,.16);border-color:transparent;mix-blend-mode:normal;}
-@media(hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none;}}
-
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;
-  transition:background .45s var(--e),border-color .45s;border-bottom:.5px solid transparent;}
-/* sfumatura dietro la barra: leggibile anche sui render con cielo chiaro */
-nav::before{content:'';position:absolute;left:0;right:0;top:0;height:150%;z-index:-1;pointer-events:none;transition:opacity .45s var(--e);
-  background:linear-gradient(to bottom,rgba(8,8,8,.6),rgba(8,8,8,.3) 45%,rgba(8,8,8,0));}
-nav.scrolled::before{opacity:0;}
-nav.scrolled{background:rgba(8,8,8,.74);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom-color:var(--line);}
-.brand{font-family:'Anton',sans-serif;font-size:22px;display:flex;align-items:center;gap:1px;} .brand em{color:var(--accent);font-style:normal;}
-.back{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--t2);display:flex;align-items:center;gap:8px;transition:color .25s,gap .25s;}
-.back::before{content:'←';font-size:14px;transition:transform .25s var(--e);} .back:hover{color:var(--t);gap:11px;} .back:hover::before{transform:translateX(-3px);}
-
-.nav-r{display:flex;align-items:center;gap:clamp(14px,2.4vw,30px);}
-.unav{display:flex;align-items:center;gap:6px;}
-.unav-btn{width:36px;height:36px;border-radius:50%;border:.5px solid rgba(255,255,255,.24);background:rgba(8,8,8,.3);display:flex;align-items:center;justify-content:center;color:var(--t2);transition:color .25s,border-color .25s,background .25s;}
-.unav-btn svg{width:14px;height:14px;} .unav-btn:hover{color:var(--t);border-color:var(--accent);background:rgba(157,192,170,.1);}
-.unav-btn:focus-visible,.back:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
-.unav-pos{font-family:'Anton',sans-serif;font-size:13px;letter-spacing:.06em;color:var(--t2);min-width:34px;text-align:center;}
-@media(max-width:420px){.unav-pos{display:none;}.back{font-size:11px;letter-spacing:.12em;}}
-
-/* MEDIA STAGE */
-.ustage{position:relative;height:88svh;min-height:560px;overflow:hidden;background:#0d0d0d;}
-.media{position:absolute;inset:0;}
-.slide{position:absolute;inset:0;opacity:0;transition:opacity .9s var(--e);pointer-events:none;}
-.slide.on{opacity:1;pointer-events:auto;}
-.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);}
-.slide.on img{animation:kb 7s ease-out forwards;}
-@keyframes kb{to{transform:scale(1);}}
-.plan-view{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:clamp(80px,12vh,130px) 6vw clamp(40px,8vh,80px);
-  background:radial-gradient(60% 55% at 50% 56%,rgba(157,192,170,.06),transparent 72%),#0c0c0b;opacity:0;pointer-events:none;transition:opacity .6s var(--e);}
-/* griglia da tavola tecnica, sfuma verso i bordi */
-.plan-view::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background-image:linear-gradient(rgba(240,236,228,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(240,236,228,.045) 1px,transparent 1px);background-size:44px 44px;background-position:center;
-  -webkit-mask-image:radial-gradient(ellipse 72% 66% at 50% 56%,#000 25%,transparent 78%);mask-image:radial-gradient(ellipse 72% 66% at 50% 56%,#000 25%,transparent 78%);}
-.ustage.show-plan .plan-view{opacity:1;pointer-events:auto;}
-.ustage.show-plan .media,.ustage.show-plan .hero-content,.ustage.show-plan .sl-ui,.ustage.show-plan .sl-dots,.ustage.show-plan .sl-count{opacity:0;pointer-events:none;}
-.plan-view{gap:clamp(14px,3vw,44px);justify-content:safe center;padding-top:clamp(140px,17vh,160px);}
-.plan-fig{position:relative;height:100%;flex:0 1 auto;min-width:0;display:flex;flex-direction:column;align-items:center;gap:14px;}
-.plan-fig a{height:calc(100% - 30px);max-width:100%;display:flex;justify-content:center;border-radius:6px;}
-.plan-fig a:focus-visible{outline:2px solid var(--accent);outline-offset:4px;}
-.plan-fig img{height:100%;width:auto;max-width:100%;object-fit:contain;cursor:zoom-in;
-  opacity:.95;
-  transform:translateY(14px) scale(.97);transition:transform 1s var(--e-expo);}
-.ustage.show-plan .plan-fig img{transform:none;}
-.plan-fig:nth-child(2) img{transition-delay:.08s;}
-.plan-fig figcaption{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--t2);}
-.ustage.show-plan .expand-hint{opacity:0;pointer-events:none;}
-@media(max-width:768px){.plan-view{overflow-x:auto;scroll-snap-type:x mandatory;padding-top:132px;padding-left:16px;padding-right:16px;}.plan-fig{flex:0 0 auto;max-width:100%;scroll-snap-align:center;}}
-.veil{position:absolute;inset:0;z-index:2;pointer-events:none;transition:background .8s var(--e),opacity .5s;
-  background:linear-gradient(to right,rgba(8,8,8,.45) 0%,rgba(8,8,8,.08) 30%,transparent 48%),linear-gradient(to top,rgba(8,8,8,.5),transparent 28%);}
-.ustage.bright .veil{background:linear-gradient(to top,rgba(8,8,8,.45),transparent 28%);}
-.ustage.bright .hero-content{opacity:0;}
-.ustage.show-plan .veil{opacity:0;}
-
-/* toggle */
-.media-toggle{position:absolute;top:calc(18px + 64px);left:50%;transform:translateX(-50%);z-index:8;display:flex;gap:4px;
-  background:rgba(8,8,8,.55);border:.5px solid var(--line);border-radius:40px;padding:4px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
-.media-toggle button{font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--t2);background:transparent;border:none;padding:9px 20px;border-radius:40px;cursor:pointer;transition:color .3s;position:relative;z-index:1;}
-.media-toggle button.on{color:#080808;}
-.media-toggle .pill{position:absolute;top:4px;left:4px;height:calc(100% - 8px);border-radius:40px;background:var(--accent);transition:transform .4s var(--e),width .4s var(--e);z-index:0;}
-
-.sl-ui{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,3vw,30px);pointer-events:none;transition:opacity .4s;}
-.sl-btn{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#f0ece4;font-size:20px;cursor:pointer;pointer-events:auto;display:flex;align-items:center;justify-content:center;transition:background .25s,transform .2s;backdrop-filter:blur(6px);}
-.sl-btn:hover{background:rgba(58,122,82,.8);transform:scale(1.08);}
-.sl-count{position:absolute;top:calc(18px + 66px);right:clamp(16px,3vw,30px);z-index:6;font-family:'Anton',sans-serif;font-size:14px;color:var(--t2);letter-spacing:.06em;transition:opacity .4s;}
-.sl-count .sep{margin:0 7px;color:rgba(157,192,170,.4);}
-.sl-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,.08);z-index:6;}
-.sl-progress .fill{height:100%;width:0;background:var(--accent);transition:width .7s var(--e);}
-.sl-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:6;display:flex;gap:6px;flex-wrap:wrap;max-width:60%;justify-content:center;transition:opacity .4s;}
-.dot{position:relative;width:22px;height:22px;border-radius:50%;background:none;border:none;cursor:pointer;padding:0;}
-.dot::after{content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;border-radius:3px;transform:translate(-50%,-50%);background:rgba(240,236,228,.32);transition:background .3s,width .3s;}
-.dot.on{width:30px;} .dot.on::after{background:var(--accent);width:20px;}
-.dot:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
-@media(max-width:768px){.sl-dots{display:none;}}
-.expand-hint{position:absolute;bottom:34px;right:clamp(16px,3vw,30px);z-index:6;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);display:flex;align-items:center;gap:8px;transition:opacity .4s;}
-.expand-hint svg{width:14px;height:14px;}
-
-.hero-content{position:absolute;left:clamp(20px,5vw,60px);right:clamp(20px,5vw,60px);bottom:clamp(40px,7vh,72px);z-index:4;pointer-events:none;transition:opacity .5s;}
-.hero-tag{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;opacity:0;animation:fadeUp 1s var(--e-expo) .4s forwards;}
-.hero-tag::before{content:'';width:30px;height:.5px;background:var(--accent);}
-.hero-title{font-family:'Anton',sans-serif;font-size:clamp(40px,7vw,96px);line-height:.96;letter-spacing:-.02em;text-wrap:balance;overflow:hidden;}
-.hero-title span{display:block;transform:translateY(106%);animation:lineUp 1.2s var(--e-expo) .55s forwards;}
-.hero-sub{font-size:clamp(13px,1.5vw,16px);color:var(--t2);margin-top:16px;max-width:60ch;opacity:0;animation:fadeUp 1s var(--e-expo) .95s forwards;}
-@keyframes lineUp{to{transform:translateY(0);}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
-@media(max-width:768px){.ustage{height:72svh;}.hero-title{line-height:1.06;}.sl-btn{width:40px;height:40px;font-size:16px;}.media-toggle{top:70px;}.sl-count{top:118px;}}
-
-.specs{display:grid;grid-template-columns:repeat(4,1fr);background:var(--bg2);border-bottom:.5px solid var(--line);}
-.spec{padding:clamp(22px,3vw,34px) clamp(18px,2.4vw,32px);border-right:.5px solid var(--line);transition:background .35s;}
-.spec:last-child{border-right:none;} .spec:hover{background:rgba(157,192,170,.05);}
-.spec b{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(26px,3.4vw,38px);display:block;}
-.spec small{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-top:6px;display:block;}
-@media(max-width:680px){.specs{grid-template-columns:1fr 1fr;}.spec:nth-child(2){border-right:none;}.spec:nth-child(1),.spec:nth-child(2){border-bottom:.5px solid var(--line);}}
-
-.price{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;background:var(--green-grad);
-  padding:clamp(22px,3vw,30px) clamp(20px,5vw,60px);position:relative;overflow:hidden;}
-.price::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 12% 50%,rgba(157,192,170,.14),transparent 55%);}
-.price .l{position:relative;} .price .pl{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
-.price .pv{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(32px,5vw,48px);color:#fff;line-height:1;}
-.price .pn{position:relative;font-size:12px;color:rgba(240,236,228,.72);text-align:right;}
-@media(max-width:600px){.price .pn{text-align:left;}}
-
-.info{padding:clamp(52px,7vh,96px) clamp(24px,5vw,72px);max-width:1100px;}
-.info-eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:22px;}
-.info-eyebrow::before{content:'';width:22px;height:.5px;background:var(--accent);}
-.info-title{font-family:'Anton',sans-serif;font-size:clamp(34px,4.4vw,62px);line-height:.94;letter-spacing:-.01em;margin-bottom:26px;text-wrap:balance;}
-.info-title span{color:var(--accent);}
-.info-desc{font-size:15px;color:var(--t2);line-height:1.95;margin-bottom:46px;max-width:62ch;text-wrap:pretty;}
-.feat-h{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--t3);margin-bottom:18px;}
-.feats{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;margin-bottom:52px;}
-@media(max-width:620px){.feats{grid-template-columns:1fr;}}
-.feat{display:flex;align-items:flex-start;gap:13px;padding:14px 0;border-bottom:.5px solid var(--line2);font-size:13.5px;line-height:1.5;}
-.feat svg{width:14px;height:14px;color:var(--accent);flex-shrink:0;margin-top:3px;}
-.cta{background:rgba(157,192,170,.05);border:.5px solid rgba(157,192,170,.18);border-radius:16px;padding:clamp(26px,3vw,36px);max-width:560px;}
-.cta-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
-.cta-title{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(22px,2.4vw,28px);line-height:1.05;margin-bottom:22px;}
-.btn-mag{display:inline-flex;align-items:center;gap:11px;background:var(--accent);color:#080808;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  padding:16px 30px;border-radius:46px;will-change:transform;transition:transform .35s var(--e),background .3s,box-shadow .3s;box-shadow:0 10px 30px -16px rgba(0,0,0,.7);}
-.btn-mag:hover{background:#fff;box-shadow:0 16px 38px -20px rgba(0,0,0,.7);} .btn-mag svg{width:14px;height:14px;}
-.cta-note{font-size:11px;color:var(--t2);margin-top:16px;line-height:1.7;} .cta-note strong{color:var(--t);font-weight:600;}
-
-.other{background:var(--bg2);padding:clamp(56px,8vh,96px) clamp(20px,5vw,60px);border-top:.5px solid var(--line);}
-.other h3{font-family:'Anton',sans-serif;font-size:clamp(28px,4vw,46px);margin-bottom:36px;letter-spacing:-.01em;} .other h3 em{color:var(--accent);font-style:normal;}
-.ogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;} @media(max-width:820px){.ogrid{grid-template-columns:1fr;}}
-.ocard{position:relative;overflow:hidden;border-radius:12px;min-height:250px;display:flex;align-items:flex-end;border:.5px solid var(--line);transition:transform .4s var(--e),border-color .4s;}
-.ocard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.05);transition:transform 1s var(--e-expo);opacity:.6;}
-.ocard::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.92),rgba(8,8,8,.12));}
-.ocard:hover{transform:translateY(-4px);border-color:var(--accent);} .ocard:hover img{transform:scale(1);opacity:.78;}
-.ocard-in{position:relative;padding:24px;z-index:2;}
-.ocard-tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
-.ocard-name{font-family:'Anton',sans-serif;font-weight:400;font-size:24px;margin-bottom:6px;}
-.ocard-sub{font-size:12px;color:var(--t2);}
-
-.section-tag{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;}
-.section-tag::before{content:'';width:22px;height:.5px;background:var(--accent);}
-.valuta{padding:clamp(64px,11vh,130px) clamp(20px,5vw,64px);text-align:center;position:relative;overflow:hidden;
-  background:radial-gradient(120% 120% at 50% 0,rgba(157,192,170,.12),transparent 55%),var(--bg2);border-top:.5px solid var(--line);border-bottom:.5px solid var(--line);}
-.valuta-in{max-width:760px;margin:0 auto;}
-.valuta h2{font-family:'Anton',sans-serif;font-size:clamp(36px,6vw,80px);line-height:.92;letter-spacing:-.02em;margin:18px 0 22px;text-wrap:balance;}
-.valuta h2 em{color:var(--accent);font-style:normal;}
-.valuta-lead{font-size:clamp(15px,1.8vw,19px);color:var(--t);line-height:1.7;max-width:54ch;margin:0 auto 16px;text-wrap:pretty;}
-.valuta-lead strong{color:var(--accent);font-weight:600;}
-.valuta-body{font-size:14px;color:var(--t2);line-height:1.9;max-width:58ch;margin:0 auto 38px;text-wrap:pretty;}
-.valuta-stats{display:flex;justify-content:center;gap:clamp(28px,6vw,66px);margin-bottom:42px;flex-wrap:wrap;}
-.valuta-stats b{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(28px,4vw,44px);display:block;}
-.valuta-stats small{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-top:5px;display:block;}
-footer{background:#040404;padding:clamp(34px,5vh,52px) clamp(20px,5vw,60px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:.5px solid var(--line2);}
-.foot-brand{font-family:'Anton',sans-serif;font-size:22px;} .foot-brand em{color:var(--accent);font-style:normal;}
-.foot-note{font-size:11px;color:var(--t3);max-width:640px;line-height:1.7;}
-
-/* LIGHTBOX */
-.lb{position:fixed;inset:0;z-index:500;background:rgba(5,5,5,.96);display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .4s var(--e);backdrop-filter:blur(4px);}
-.lb.open{opacity:1;pointer-events:auto;}
-.lb-img{max-width:92vw;max-height:84vh;object-fit:contain;border-radius:4px;transform:scale(.96);transition:transform .4s var(--e);box-shadow:0 30px 90px rgba(0,0,0,.6);}
-.lb.open .lb-img{transform:scale(1);}
-.lb-close{position:absolute;top:24px;right:28px;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .25s;}
-.lb-close:hover{background:rgba(157,192,170,.8);color:#080808;}
-.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .25s,transform .2s;}
-.lb-nav:hover{background:rgba(157,192,170,.8);color:#080808;} .lb-prev{left:24px;} .lb-next{right:24px;}
-.lb-count{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-family:'Anton',sans-serif;font-size:14px;color:var(--t2);letter-spacing:.06em;}
-.lb-count .sep{margin:0 7px;color:rgba(157,192,170,.4);}
-@media(max-width:600px){.lb-nav{width:42px;height:42px;font-size:18px;}.lb-close{width:40px;height:40px;}}
-
-
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;transition-duration:.01ms!important;}html.js .reveal{opacity:1!important;transform:none!important;}.slide img{transform:scale(1);}.cursor-dot,.cursor-ring{display:none;}}
-</style>
+<link rel="stylesheet" href="assets/v8.css">
+<link rel="stylesheet" href="assets/unita.css">
 </head>
 <body>
 <script>document.documentElement.classList.add('js');</script>
-<div class="cursor-dot" id="cDot"></div><div class="cursor-ring" id="cRing"></div>
 
-<nav id="nav">
-  <a class="brand" href="index.html">VERD<em>I</em>8</a>
-  <div class="nav-r">
-    <div class="unav"><a class="unav-btn" href="attico.html" aria-label="Unità precedente: Attico" title="Attico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></a><span class="unav-pos">4 / 4</span><a class="unav-btn" href="app-a.html" aria-label="Unità successiva: App. A" title="App. A"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></a></div>
-    <a class="back" href="index.html#unita">Tutte le unità</a>
+<header class="top" id="top-bar">
+  <a class="brand" href="index.html" aria-label="Residenza Verdi 8, homepage">VERD<em>I</em>8</a>
+  <span class="by"><span>un progetto</span><img src="images/index_2.png" alt="Edilnord RE"></span>
+  <div class="unav">
+    <a href="attico.html" aria-label="Unità precedente: Attico" title="Attico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></a>
+    <span class="pos">4 / 4</span>
+    <a href="app-a.html" aria-label="Unità successiva: App. A" title="App. A"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></a>
   </div>
+  <a class="all" href="index.html#unita" data-back>Tutte le unità</a>
+  <span class="tb" title="Proposte d'acquisto: Tecnobriantea Immobiliare"><img src="images/index_3.png" alt="Tecnobriantea Immobiliare"></span>
+  <a class="tcta" href="#contatti"><span class="lbl-l">Prenota una visita</span><span class="lbl-s">Visita</span><span class="arr" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+  <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
+</header>
+<nav class="mnav" id="mnav" aria-label="Menu" aria-hidden="true">
+  <a href="index.html#unita" data-back>Tutte le unità</a><a href="app-a.html">App. A</a><a href="app-b.html">App. B</a><a href="attico.html">Attico</a><a href="villa-c.html" aria-current="page">Villa C</a>
+  <span class="mtb">Proposte d'acquisto con <img src="images/index_3.png" alt="Tecnobriantea Immobiliare"></span>
 </nav>
 
-<header class="ustage" id="ustage">
-  <div class="media" id="media"><div class="slide on" data-i="0"><img src="images/villa-c_30.webp" alt="Residenza Verdi 8, Villa C: render 1 di 20" loading="eager" decoding="async"></div><div class="slide" data-i="1"><img src="images/villa-c_1.webp" alt="Residenza Verdi 8, Villa C: render 2 di 20" loading="eager" decoding="async"></div><div class="slide" data-i="2"><img src="images/villa-c_2.webp" alt="Residenza Verdi 8, Villa C: render 3 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="3"><img src="images/villa-c_3.webp" alt="Residenza Verdi 8, Villa C: render 4 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="4"><img src="images/villa-c_4.webp" alt="Residenza Verdi 8, Villa C: render 5 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="5"><img src="images/villa-c_5.webp" alt="Residenza Verdi 8, Villa C: render 6 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="6"><img src="images/villa-c_6.webp" alt="Residenza Verdi 8, Villa C: render 7 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="7"><img src="images/villa-c_7.webp" alt="Residenza Verdi 8, Villa C: render 8 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="8"><img src="images/villa-c_8.webp" alt="Residenza Verdi 8, Villa C: render 9 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="9"><img src="images/villa-c_9.webp" alt="Residenza Verdi 8, Villa C: render 10 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="10"><img src="images/villa-c_10.webp" alt="Residenza Verdi 8, Villa C: render 11 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="11"><img src="images/villa-c_11.webp" alt="Residenza Verdi 8, Villa C: render 12 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="12"><img src="images/villa-c_12.webp" alt="Residenza Verdi 8, Villa C: render 13 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="13"><img src="images/villa-c_13.webp" alt="Residenza Verdi 8, Villa C: render 14 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="14"><img src="images/villa-c_14.webp" alt="Residenza Verdi 8, Villa C: render 15 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="15"><img src="images/villa-c_15.webp" alt="Residenza Verdi 8, Villa C: render 16 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="16"><img src="images/villa-c_16.webp" alt="Residenza Verdi 8, Villa C: render 17 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="17"><img src="images/villa-c_17.webp" alt="Residenza Verdi 8, Villa C: render 18 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="18"><img src="images/villa-c_18.webp" alt="Residenza Verdi 8, Villa C: render 19 di 20" loading="lazy" decoding="async"></div><div class="slide" data-i="19"><img src="images/villa-c_19.webp" alt="Residenza Verdi 8, Villa C: render 20 di 20" loading="lazy" decoding="async"></div></div>
-  <div class="plan-view"><figure class="plan-fig"><a href="images/pianta-villa-c.webp" target="_blank" rel="noopener" aria-label="Apri la planimetria piano terra a piena risoluzione"><img src="images/pianta-villa-c.webp" srcset="images/pianta-villa-c-1000.webp 1000w, images/pianta-villa-c.webp 836w" sizes="(max-width:768px) 90vw, 50vw" width="836" height="1958" alt="Planimetria Villa C, piano terra: soggiorno, cucina, tre camere, due bagni, giardini e posto auto" loading="lazy" decoding="async"></a><figcaption>Piano terra</figcaption></figure><figure class="plan-fig"><a href="images/pianta-villa-c-terrazzo.webp" target="_blank" rel="noopener" aria-label="Apri la planimetria terrazzo a piena risoluzione"><img src="images/pianta-villa-c-terrazzo.webp" srcset="images/pianta-villa-c-terrazzo-1000.webp 1000w, images/pianta-villa-c-terrazzo.webp 951w" sizes="(max-width:768px) 90vw, 50vw" width="951" height="1529" alt="Planimetria Villa C, terrazzo panoramico" loading="lazy" decoding="async"></a><figcaption>Terrazzo</figcaption></figure></div>
-  <div class="veil"></div>
-
-  <div class="media-toggle" id="toggle">
-    <span class="pill" id="pill"></span>
-    <button class="on" data-v="foto">Foto</button>
-    <button data-v="plan">Planimetria</button>
-  </div>
-  <div class="sl-count" id="count">01 <span class="sep">—</span> 20</div>
-  <div class="sl-ui"><button class="sl-btn" id="prev" aria-label="Precedente">←</button><button class="sl-btn" id="next" aria-label="Successivo">→</button></div>
-  <div class="sl-dots" id="dots"><button class="dot on" data-i="0" aria-label="Foto 1"></button><button class="dot" data-i="1" aria-label="Foto 2"></button><button class="dot" data-i="2" aria-label="Foto 3"></button><button class="dot" data-i="3" aria-label="Foto 4"></button><button class="dot" data-i="4" aria-label="Foto 5"></button><button class="dot" data-i="5" aria-label="Foto 6"></button><button class="dot" data-i="6" aria-label="Foto 7"></button><button class="dot" data-i="7" aria-label="Foto 8"></button><button class="dot" data-i="8" aria-label="Foto 9"></button><button class="dot" data-i="9" aria-label="Foto 10"></button><button class="dot" data-i="10" aria-label="Foto 11"></button><button class="dot" data-i="11" aria-label="Foto 12"></button><button class="dot" data-i="12" aria-label="Foto 13"></button><button class="dot" data-i="13" aria-label="Foto 14"></button><button class="dot" data-i="14" aria-label="Foto 15"></button><button class="dot" data-i="15" aria-label="Foto 16"></button><button class="dot" data-i="16" aria-label="Foto 17"></button><button class="dot" data-i="17" aria-label="Foto 18"></button><button class="dot" data-i="18" aria-label="Foto 19"></button><button class="dot" data-i="19" aria-label="Foto 20"></button></div>
-  <div class="expand-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>clicca per ingrandire</div>
-  <div class="sl-progress"><div class="fill" id="fill"></div></div>
-
-  <div class="hero-content">
-    <p class="hero-tag">Villa Indipendente · Piano Terra + Primo</p>
-    <h1 class="hero-title"><span>Villa indipendente</span></h1>
-    <p class="hero-sub">Piano terra · giardino e terrazzo 300 m² · 158 m² commerciali</p>
-  </div>
-</header>
-
-<section class="specs"><div class="spec"><b>158 m²</b><small>Sup. commerciale</small></div><div class="spec"><b>4</b><small>Locali</small></div><div class="spec"><b>300 m²</b><small>Giardino / Terrazzo</small></div><div class="spec"><b>A</b><small>Classe Energ.</small></div></section>
-
-<section class="price">
-  <div class="l"><div class="pl">Prezzo</div><div class="pv">€ 645.000</div></div>
-  <div class="pn">box doppio compreso</div>
-</section>
-
-<section class="info">
-  <p class="info-eyebrow reveal">Residenza Verdi8 · Brugherio</p>
-  <h2 class="info-title reveal">Villa C<br><span>Villa indipendente</span></h2>
-  <p class="info-desc reveal">Una delle quattro unità esclusive di Residenza Verdi8, nel cuore residenziale di Brugherio. Nuova costruzione di pregio con finiture di alto livello, classe energetica A e tecnologie W4HOUSE, fotovoltaico e VMC.</p>
-  <div class="reveal">
-    <p class="feat-h">Caratteristiche</p>
-    <div class="feats"><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Villa completamente indipendente</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Giardino + terrazzo · 300 m²</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Terrazzo panoramico</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Doppi servizi · ingresso autonomo</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Pavimenti in gres porcellanato</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Struttura antisismica W4HOUSE · Classe A</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Pompa di calore aria-aria indipendente</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Fotovoltaico 1,20 kWp + VMC con recupero</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Serramenti PVC 68 mm triplo vetro</div><div class="feat"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3.5 3.5L12 3"/></svg>Box doppio compreso nel prezzo</div></div>
-  </div>
-  <div class="cta reveal">
-    <p class="cta-label">Richiedi informazioni</p>
-    <p class="cta-title">Prenota una visita privata</p>
-    <a class="btn-mag" href="https://www.edilnordre.it" target="_blank" rel="noopener">Contatta
-      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
-    <p class="cta-note">Progetto, render e comunicazione a cura di <strong>Edilnord RE</strong> · edilnordre.it. Le proposte d’acquisto sono raccolte da Tecnobriantea Immobiliare — mediazione ai sensi della L. 39/89.</p>
-  </div>
-</section>
-
-<section class="other">
-  <h3>Le altre un<em>i</em>tà</h3>
-  <div class="ogrid"><a class="ocard" href="app-a.html"><img src="images/app-a_24.webp" alt="Appartamento A" loading="lazy"><div class="ocard-in"><div class="ocard-tag">Appartamento A</div><div class="ocard-name">App. A</div><div class="ocard-sub">4 locali · Giardino · 147 m²</div></div></a><a class="ocard" href="app-b.html"><img src="images/app-b_26.webp" alt="Appartamento B" loading="lazy"><div class="ocard-in"><div class="ocard-tag">Appartamento B</div><div class="ocard-name">App. B</div><div class="ocard-sub">4 locali · Balconi e terrazzo · 154 m²</div></div></a><a class="ocard" href="attico.html"><img src="images/attico_28.webp" alt="Attico" loading="lazy"><div class="ocard-in"><div class="ocard-tag">Attico</div><div class="ocard-name">Attico</div><div class="ocard-sub">4 locali · Ultimo piano · 134 m²</div></div></a></div>
-</section>
-
-<section class="valuta" id="valuta">
-  <div class="valuta-in reveal">
-    <p class="section-tag" style="justify-content:center">Edilnord RE · Servizi</p>
-    <h2>Devi vendere<br>il tuo <em>immobile?</em></h2>
-    <p class="valuta-lead">Scopri quanto vale in 2 minuti. Valutazione professionale <strong>gratuita e senza impegno</strong>, con dati OMI 2026.</p>
-    <p class="valuta-body">Da oltre vent'anni a Brugherio e nella Monza-Brianza: due consulenti che conoscono ogni via. Ti accompagniamo nella vendita, nell'acquisto, nella locazione e nella gestione del tuo patrimonio — con chiarezza e cura in ogni passo.</p>
-    <div class="valuta-stats">
-      <div><b><span class="count" data-target="20">0</span>+</b><small>Anni di esperienza</small></div>
-      <div><b><span class="count" data-target="8">0</span></b><small>Comuni serviti</small></div>
-      <div><b>2 min</b><small>Per la stima</small></div>
+<main class="wrap scheda">
+  <section class="media" aria-label="Foto, planimetria e modello 3D di Villa C">
+    <div class="mbox">
+      <div class="mtabs" role="tablist" aria-label="Cosa vuoi vedere">
+        <span class="pill" aria-hidden="true"></span>
+        <button type="button" role="tab" data-v="foto" aria-selected="true">Foto</button>
+        <button type="button" role="tab" data-v="plan" aria-selected="false">Planimetria</button>
+        <button type="button" role="tab" data-v="3d" aria-selected="false">3D</button>
+      </div>
+      <div class="mview mfoto on" data-v="foto">
+        <div class="track" id="track"><div class="slide on"><img src="images/villa-c_30.webp" alt="Residenza Verdi 8, Villa C: render 1 di 20" loading="eager" decoding="async" fetchpriority="high" style="view-transition-name:hero"></div><div class="slide"><img src="images/villa-c_1.webp" alt="Residenza Verdi 8, Villa C: render 2 di 20" loading="eager" decoding="async"></div><div class="slide"><img src="images/villa-c_2.webp" alt="Residenza Verdi 8, Villa C: render 3 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_3.webp" alt="Residenza Verdi 8, Villa C: render 4 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_4.webp" alt="Residenza Verdi 8, Villa C: render 5 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_5.webp" alt="Residenza Verdi 8, Villa C: render 6 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_6.webp" alt="Residenza Verdi 8, Villa C: render 7 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_7.webp" alt="Residenza Verdi 8, Villa C: render 8 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_8.webp" alt="Residenza Verdi 8, Villa C: render 9 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_9.webp" alt="Residenza Verdi 8, Villa C: render 10 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_10.webp" alt="Residenza Verdi 8, Villa C: render 11 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_11.webp" alt="Residenza Verdi 8, Villa C: render 12 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_12.webp" alt="Residenza Verdi 8, Villa C: render 13 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_13.webp" alt="Residenza Verdi 8, Villa C: render 14 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_14.webp" alt="Residenza Verdi 8, Villa C: render 15 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_15.webp" alt="Residenza Verdi 8, Villa C: render 16 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_16.webp" alt="Residenza Verdi 8, Villa C: render 17 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_17.webp" alt="Residenza Verdi 8, Villa C: render 18 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_18.webp" alt="Residenza Verdi 8, Villa C: render 19 di 20" loading="lazy" decoding="async"></div><div class="slide"><img src="images/villa-c_19.webp" alt="Residenza Verdi 8, Villa C: render 20 di 20" loading="lazy" decoding="async"></div></div>
+        <button class="gnav gprev" type="button" aria-label="Foto precedente"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button>
+        <button class="gnav gnext" type="button" aria-label="Foto successiva"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>
+        <div class="gcount"><span id="gNow">01</span> <span>/ 20</span></div>
+        <button class="gzoom" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Schermo intero</button>
+        <div class="gbar"><i></i></div>
+      </div>
+      <div class="mview mplan" data-v="plan"><figure class="plan-fig"><a href="images/pianta-villa-c.webp" target="_blank" rel="noopener" aria-label="Apri la planimetria piano terra a piena risoluzione"><img src="images/pianta-villa-c.webp" srcset="images/pianta-villa-c-1000.webp 1000w, images/pianta-villa-c.webp 836w" sizes="(max-width:768px) 90vw, 50vw" width="836" height="1958" alt="Planimetria Villa C, piano terra: soggiorno, cucina, tre camere, due bagni, giardini e posto auto" loading="lazy" decoding="async"></a><figcaption>Piano terra</figcaption></figure><figure class="plan-fig"><a href="images/pianta-villa-c-terrazzo.webp" target="_blank" rel="noopener" aria-label="Apri la planimetria terrazzo a piena risoluzione"><img src="images/pianta-villa-c-terrazzo.webp" srcset="images/pianta-villa-c-terrazzo-1000.webp 1000w, images/pianta-villa-c-terrazzo.webp 951w" sizes="(max-width:768px) 90vw, 50vw" width="951" height="1529" alt="Planimetria Villa C, terrazzo panoramico" loading="lazy" decoding="async"></a><figcaption>Terrazzo</figcaption></figure></div>
+      <div class="mview m3d" data-v="3d" data-u="villa-c">
+        <canvas class="v8-gl" id="unitGl" aria-label="Modello 3D di Villa C, trascina per ruotarlo"></canvas>
+        <span class="src">Ricostruito dalle tavole di progetto</span>
+        <p class="hint">Trascina per ruotare</p>
+      </div>
     </div>
-    <a class="btn-mag" href="https://edilnordre.it/valutazione-immobile-gratuita-brugherio/" target="_blank" rel="noopener">Valutazione gratuita
-      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
+    <div class="thumbs" aria-label="Miniature"><button type="button" aria-label="Foto 1"><img src="images/villa-c_30.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 2"><img src="images/villa-c_1.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 3"><img src="images/villa-c_2.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 4"><img src="images/villa-c_3.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 5"><img src="images/villa-c_4.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 6"><img src="images/villa-c_5.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 7"><img src="images/villa-c_6.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 8"><img src="images/villa-c_7.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 9"><img src="images/villa-c_8.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 10"><img src="images/villa-c_9.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 11"><img src="images/villa-c_10.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 12"><img src="images/villa-c_11.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 13"><img src="images/villa-c_12.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 14"><img src="images/villa-c_13.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 15"><img src="images/villa-c_14.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 16"><img src="images/villa-c_15.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 17"><img src="images/villa-c_16.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 18"><img src="images/villa-c_17.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 19"><img src="images/villa-c_18.webp" alt="" loading="lazy" decoding="async"></button><button type="button" aria-label="Foto 20"><img src="images/villa-c_19.webp" alt="" loading="lazy" decoding="async"></button></div>
+  </section>
+
+  <article class="info">
+    <nav class="crumb" aria-label="Percorso"><a href="index.html">Residenza Verdi 8</a><span aria-hidden="true">›</span><a href="index.html#unita" data-back>Unità</a><span aria-hidden="true">›</span><span>Villa C</span></nav>
+    <p class="tag">Villa Indipendente · Piano Terra + Primo</p>
+    <h1>Villa indipendente</h1>
+    <p class="addr">Via Giuseppe Verdi 8, 20861 Brugherio (MB)</p>
+    <div class="price"><b>€ 645.000</b><span>box doppio compreso</span></div>
+    <div class="ruler">
+      <div><b data-n="158">158<small>m²</small></b><span>superficie commerciale</span></div>
+      <div><b data-n="4">4</b><span>locali</span></div>
+      <div><b data-n="300">300<small>m²</small></b><span>giardino / terrazzo</span></div>
+    </div>
+    <div class="energy" aria-label="Classe energetica A">
+      <div class="row"><span>Classe energetica</span><b>A</b></div>
+      <div class="ebar" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span></div>
+    </div>
+    <div class="ctas" id="contatti">
+      <a class="btn-mag" href="https://www.edilnordre.it" target="_blank" rel="noopener">Prenota una visita privata<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
+      <a class="btn-ghost" href="#casa">Caratteristiche</a>
+    </div>
+    <p class="note">Progetto, render e comunicazione a cura di <strong>Edilnord RE</strong> · edilnordre.it. Le proposte d’acquisto sono raccolte da Tecnobriantea Immobiliare — mediazione ai sensi della L. 39/89.</p>
+  </article>
+</main>
+
+<section class="blk" id="casa">
+  <div class="wrap">
+    <div class="blk-head rv">
+      <h2>La casa</h2>
+      <p class="lead">Una delle quattro unità esclusive di Residenza Verdi8, nel cuore residenziale di Brugherio. Nuova costruzione di pregio con finiture di alto livello, classe energetica A e tecnologie W4HOUSE, fotovoltaico e VMC.</p>
+    </div>
+    <ul class="feats rv"><li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 7l3.5 3.5L12 3"/></svg><span>Villa completamente indipendente</span></li><li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 7l3.5 3.5L12 3"/></svg><span>Giardino + terrazzo · 300 m²</span></li><li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 7l3.5 3.5L12 3"/></svg><span>Terrazzo panoramico</span></li><li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 7l3.5 3.5L12 3"/></svg><span>Doppi servizi · ingresso autonomo</span></li><li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 7l3.5 3.5L12 3"/></svg><span>Pavimenti in gres porcellanato</span></li><li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 7l3.5 3.5L12 3"/></svg><span>Struttura antisismica W4HOUSE · Classe A</span></li><li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 7l3.5 3.5L12 3"/></svg><span>Pompa di calore aria-aria indipendente</span></li><li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 7l3.5 3.5L12 3"/></svg><span>Fotovoltaico 1,20 kWp + VMC con recupero</span></li><li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 7l3.5 3.5L12 3"/></svg><span>Serramenti PVC 68 mm triplo vetro</span></li><li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 7l3.5 3.5L12 3"/></svg><span>Box doppio compreso nel prezzo</span></li></ul>
   </div>
 </section>
 
-<footer>
-  <div class="foot-brand">VERD<em>I</em>8</div>
-  <p class="foot-note">Residenza Verdi8 · Via Giuseppe Verdi 8, 20861 Brugherio (MB) · Nuova costruzione · Classe A · Consegna estate 2027 · Edilnord RE non è un’agenzia immobiliare ai sensi della L. 39/89. Le proposte d’acquisto sono gestite da Tecnobriantea Immobiliare.</p>
+<section class="blk">
+  <div class="wrap">
+    <h2 class="rv">Le altre unità</h2>
+    <div class="ogrid"><a class="ocard rv" href="app-a.html"><img src="images/app-a_24.webp" alt="Appartamento A" loading="lazy"><div class="in"><span class="ty">Appartamento A</span><h3>App. A</h3><p>4 locali · Giardino · 147 m²</p></div></a><a class="ocard rv" href="app-b.html"><img src="images/app-b_26.webp" alt="Appartamento B" loading="lazy"><div class="in"><span class="ty">Appartamento B</span><h3>App. B</h3><p>4 locali · Balconi e terrazzo · 154 m²</p></div></a><a class="ocard rv" href="attico.html"><img src="images/attico_28.webp" alt="Attico" loading="lazy"><div class="in"><span class="ty">Attico</span><h3>Attico</h3><p>4 locali · Ultimo piano · 134 m²</p></div></a></div>
+  </div>
+</section>
+
+<section class="valuta">
+  <div class="in wrap rv">
+    <p class="section-tag">Edilnord RE · Servizi</p>
+    <h2>Devi vendere il tuo <em>immobile?</em></h2>
+    <p class="l1">Scopri quanto vale in 2 minuti. Valutazione professionale <strong>gratuita e senza impegno</strong>, con dati OMI 2026.</p>
+    <p class="l2">Da oltre vent'anni a Brugherio e nella Monza-Brianza: due consulenti che conoscono ogni via. Ti accompagniamo nella vendita, nell'acquisto, nella locazione e nella gestione del tuo patrimonio, con chiarezza e cura in ogni passo.</p>
+    <div class="vstats"><div><b>20+</b><small>anni di esperienza</small></div><div><b>8</b><small>comuni serviti</small></div><div><b>2 min</b><small>per la stima</small></div></div>
+    <a class="btn-mag" href="https://edilnordre.it/valutazione-immobile-gratuita-brugherio/" target="_blank" rel="noopener">Valutazione gratuita<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="brand">VERD<em>I</em>8</div>
+    <div class="who">
+      <a href="https://www.edilnordre.it" target="_blank" rel="noopener"><img src="images/index_2.png" alt="Edilnord RE"></a>
+      <a class="tb" href="https://www.tecnobriantea.it" target="_blank" rel="noopener"><img src="images/index_3.png" alt="Tecnobriantea Immobiliare">Tecnobriantea Immobiliare</a>
+    </div>
+    <p class="legal">Residenza Verdi8 · Via Giuseppe Verdi 8, 20861 Brugherio (MB) · Nuova costruzione · Classe A · Consegna estate 2027 · Edilnord RE non è un’agenzia immobiliare ai sensi della L. 39/89. Le proposte d’acquisto sono gestite da Tecnobriantea Immobiliare.</p>
+  </div>
 </footer>
 
-<div class="lb" id="lb">
-  <button class="lb-close" id="lbClose" aria-label="Chiudi">✕</button>
-  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Precedente">←</button>
-  <img class="lb-img" id="lbImg" alt="Foto unità a schermo intero" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
-  <button class="lb-nav lb-next" id="lbNext" aria-label="Successivo">→</button>
-  <div class="lb-count" id="lbCount"></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Foto a schermo intero" aria-hidden="true">
+  <img alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+  <button class="x" type="button" aria-label="Chiudi"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+  <button class="p" type="button" aria-label="Foto precedente"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button>
+  <button class="n" type="button" aria-label="Foto successiva"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>
+  <span class="c"></span>
 </div>
 
-
-<script>
-/* cursor */
-(function(){var dot=document.getElementById('cDot'),ring=document.getElementById('cRing');
-  if(matchMedia('(pointer:coarse)').matches)return;var mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
-  addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.transform='translate('+mx+'px,'+my+'px) translate(-50%,-50%)';});
-  (function raf(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';requestAnimationFrame(raf);})();
-  document.querySelectorAll('a,button,.ocard,.slide,.spec').forEach(function(el){el.addEventListener('mouseenter',function(){ring.classList.add('grow');});el.addEventListener('mouseleave',function(){ring.classList.remove('grow');});});
-})();
-/* nav */
-var nav=document.getElementById('nav');
-addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>40);},{passive:true});
-/* reveals */
-var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
-document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-addEventListener('load',function(){setTimeout(function(){document.querySelectorAll('.reveal:not(.in)').forEach(function(el){el.classList.add('in');});},1800);});
-/* counters */
-var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var el=e.target,t=+el.dataset.target,n=0,step=Math.max(1,t/40);(function tick(){n+=step;if(n>=t){el.textContent=t;}else{el.textContent=Math.floor(n);requestAnimationFrame(tick);}})();cio.unobserve(el);});},{threshold:.6});
-document.querySelectorAll('.count').forEach(function(el){cio.observe(el);});
-/* magnetic */
-document.querySelectorAll('.btn-mag').forEach(function(btn){
-  btn.addEventListener('mousemove',function(e){var r=btn.getBoundingClientRect();var x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;btn.style.transform='translate('+(x*.3)+'px,'+(y*.4)+'px)';});
-  btn.addEventListener('mouseleave',function(){btn.style.transform='';});
-});
-/* toggle foto/plan */
-(function(){
-  var stage=document.getElementById('ustage'),pill=document.getElementById('pill'),btns=document.querySelectorAll('#toggle button');
-  function setPill(b){pill.style.width=b.offsetWidth+'px';pill.style.transform='translateX('+(b.offsetLeft-4)+'px)';}
-  setPill(document.querySelector('#toggle button.on'));
-  addEventListener('resize',function(){setPill(document.querySelector('#toggle button.on'));});
-  btns.forEach(function(b){b.addEventListener('click',function(){
-    btns.forEach(function(x){x.classList.remove('on');});b.classList.add('on');setPill(b);
-    stage.classList.toggle('show-plan',b.dataset.v==='plan');
-  });});
-})();
-/* slider */
-var SRC=['images/villa-c_30.webp','images/villa-c_1.webp','images/villa-c_2.webp','images/villa-c_3.webp','images/villa-c_4.webp','images/villa-c_5.webp','images/villa-c_6.webp','images/villa-c_7.webp','images/villa-c_8.webp','images/villa-c_9.webp','images/villa-c_10.webp','images/villa-c_11.webp','images/villa-c_12.webp','images/villa-c_13.webp','images/villa-c_14.webp','images/villa-c_15.webp','images/villa-c_16.webp','images/villa-c_17.webp','images/villa-c_18.webp','images/villa-c_19.webp'];
-(function(){
-  var slides=document.querySelectorAll('#media .slide'),dots=document.querySelectorAll('#dots .dot'),
-      fill=document.getElementById('fill'),count=document.getElementById('count');
-  var cur=0,timer,N=slides.length;
-  function go(n){var p=cur;cur=(n+N)%N;if(p===cur)return;
-    slides[p].classList.remove('on');dots[p]&&dots[p].classList.remove('on');
-    void slides[cur].offsetWidth;slides[cur].classList.add('on');dots[cur]&&dots[cur].classList.add('on');
-    document.getElementById('ustage').classList.toggle('bright',cur!==0);
-    fill.style.width=((cur+1)/N*100)+'%';
-    count.innerHTML=String(cur+1).padStart(2,'0')+' <span class="sep">—</span> '+N;
-    if(lbOpen)showLb();
-    restart();
-  }
-  function restart(){clearInterval(timer);timer=setInterval(function(){go(cur+1);},5800);}
-  document.getElementById('prev').addEventListener('click',function(){go(cur-1);});
-  document.getElementById('next').addEventListener('click',function(){go(cur+1);});
-  dots.forEach(function(d,i){d.addEventListener('click',function(){go(i);});});
-  var media=document.getElementById('media');
-  media.addEventListener('mouseenter',function(){clearInterval(timer);});
-  media.addEventListener('mouseleave',restart);
-  /* swipe */
-  var tx=0;media.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
-  media.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)go(dx<0?cur+1:cur-1);});
-  fill.style.width=(1/N*100)+'%';restart();
-  /* lightbox */
-  var lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCount=document.getElementById('lbCount');
-  window.lbOpen=false;
-  window.showLb=function(){lbImg.src=SRC[cur];lbCount.innerHTML=String(cur+1).padStart(2,'0')+' <span class="sep">—</span> '+N;};
-  function open(){lbOpen=true;showLb();lb.classList.add('open');document.body.style.overflow='hidden';}
-  function close(){lbOpen=false;lb.classList.remove('open');document.body.style.overflow='';}
-  media.addEventListener('click',open);
-  document.querySelector('.expand-hint').addEventListener('click',open);
-  document.getElementById('lbClose').addEventListener('click',close);
-  document.getElementById('lbPrev').addEventListener('click',function(e){e.stopPropagation();go(cur-1);});
-  document.getElementById('lbNext').addEventListener('click',function(e){e.stopPropagation();go(cur+1);});
-  lb.addEventListener('click',function(e){if(e.target===lb)close();});
-  addEventListener('keydown',function(e){
-    if(e.key==='Escape')close();
-    if(e.key==='ArrowRight')go(cur+1);
-    if(e.key==='ArrowLeft')go(cur-1);
-  });
-})();
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
-<script>
-if(window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches && !matchMedia('(pointer: coarse)').matches){
-  var lenis=new Lenis({lerp:0.085,wheelMultiplier:0.9,smoothWheel:true});window.__lenis=lenis;
-  function lraf(t){lenis.raf(t);requestAnimationFrame(lraf);}
-  requestAnimationFrame(lraf);
-}
-</script>
-<script>
-/* "Tutte le unità": se si arriva dalla homepage torna indietro (stessa posizione), altrimenti apre la sezione unità */
-(function(){var b=document.querySelector('.back');if(!b)return;b.addEventListener('click',function(e){try{
-  var r=document.referrer?new URL(document.referrer):null;
-  if(r&&r.origin===location.origin&&/\/(index\.html)?$/.test(r.pathname)&&history.length>1){e.preventDefault();history.back();}
-}catch(_){}});})();
-</script>
+<script src="assets/v8.js"></script>
+<script src="assets/unita.js"></script>
 </body>
 </html>

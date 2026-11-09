@@ -1203,6 +1203,33 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
   addEventListener('load',function(){gl.resize();ScrollTrigger.refresh();});
 })();
 </script>
+<script>
+/* ===== Manifesto: il testo si accende parola per parola mentre scorri ===== */
+(function(){
+  if(!window.gsap||!window.ScrollTrigger||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var ps=[].slice.call(document.querySelectorAll('.manifesto-body p'));if(!ps.length)return;
+  ps.forEach(function(p){
+    /* divido in parole mantenendo il grassetto */
+    function wrap(node){[].slice.call(node.childNodes).forEach(function(c){
+      if(c.nodeType===3){var f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(function(w){
+        if(!w)return;if(/^\s+$/.test(w)){f.appendChild(document.createTextNode(w));return;}
+        var s=document.createElement('span');s.className='mw';s.textContent=w;f.appendChild(s);});c.parentNode.replaceChild(f,c);}
+      else if(c.nodeType===1)wrap(c);});}
+    wrap(p);
+  });
+  gsap.fromTo('.manifesto-body .mw',{opacity:.16},{opacity:1,stagger:.04,ease:'none',
+    scrollTrigger:{trigger:'.manifesto-body',start:'top 78%',end:'bottom 42%',scrub:.6}});
+})();
+/* ===== Dalla card dell'unità alla sua pagina: l'immagine "vola" nella nuova pagina ===== */
+(function(){
+  document.querySelectorAll('a[href$=".html"]').forEach(function(a){
+    a.addEventListener('click',function(){
+      var card=a.closest('.hpanel,.me-card,.b3d-card');var img=card&&card.querySelector('.hp-img');
+      if(img)img.style.viewTransitionName='hero';
+    });
+  });
+})();
+</script>
 <script src="assets/v8.js"></script>
 </body>
 </html>
