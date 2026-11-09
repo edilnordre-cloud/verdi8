@@ -1,0 +1,95 @@
+/* =====================================================================
+   Verdi 8 × Edilnord RE — sistema condiviso
+   Forma, componenti e caratteri del nuovo sito Edilnord RE,
+   con i colori di Verdi 8 (nero, crema, verde salvia).
+   Caricato dopo gli stili di pagina: li sovrascrive dove serve.
+   ===================================================================== */
+:root{
+  --display:"Schibsted Grotesk",system-ui,sans-serif;
+  --sans:"DM Sans",system-ui,sans-serif;
+  --logo:"Anton",sans-serif;           /* solo per il logotipo VERDI8 */
+  --dtrack:-.035em;
+  --r-ctl:10px;--r-card:16px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+body{font-family:var(--sans)}
+
+/* ---------- etichette di sezione: niente maiuscolo spaziato, come Edilnord ---------- */
+.section-tag,.info-eyebrow,.feat-h,.cta-label,.ocard-tag,.hp-tag,.cc-role,.pl,.price .pl{
+  text-transform:none!important;letter-spacing:0!important;font-weight:500;font-size:14px!important}
+.section-tag::before,.info-eyebrow::before{display:none!important}
+
+/* ---------- TESTATA a pillola (dal nuovo Edilnord RE) ---------- */
+.top{position:fixed;z-index:300;top:14px;left:50%;transform:translateX(-50%);width:min(1180px,calc(100% - 28px));
+  display:flex;align-items:center;gap:16px;padding:8px 8px 8px 18px;border-radius:18px;
+  background:rgb(8 8 8 / .42);-webkit-backdrop-filter:blur(16px) saturate(150%);backdrop-filter:blur(16px) saturate(150%);
+  border:1px solid rgb(157 192 170 / .18);box-shadow:inset 0 1px 0 rgb(240 236 228 / .07),0 18px 50px rgb(0 0 0 / .38);
+  transition:background .5s var(--ease),border-color .5s,transform .6s var(--ease)}
+.top::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(100deg,rgb(240 236 228 / .06),rgb(240 236 228 / 0) 38%,rgb(157 192 170 / .05) 70%,rgb(240 236 228 / 0))}
+.top.scrolled{background:rgb(8 8 8 / .72)}
+.top.hide{transform:translate(-50%,-140%)}
+.top .brand{font-family:var(--logo);font-size:24px;line-height:1;letter-spacing:.01em;color:var(--t,#f0ece4);display:flex;align-items:center;flex:none}
+.top .brand em{color:var(--accent,#9dc0aa);font-style:normal}
+.top .by{display:flex;align-items:center;gap:8px;padding-left:14px;border-left:1px solid rgb(157 192 170 / .2);font-size:12.5px;color:rgb(240 236 228 / .62);white-space:nowrap}
+.top .by img{height:15px;width:auto;opacity:.85}
+.tnav{position:relative;display:flex;align-items:center;gap:2px;margin-left:auto;font-size:15px}
+.tnav a{position:relative;z-index:1;color:var(--t,#f0ece4);opacity:.84;padding:10px 14px;border-radius:12px;transition:opacity .25s}
+.tnav a:hover,.tnav a:focus-visible,.tnav a.on{opacity:1}
+.tnav .ind{position:absolute;z-index:0;top:0;left:0;height:100%;width:0;border-radius:12px;background:rgb(157 192 170 / .16);
+  box-shadow:inset 0 0 0 1px rgb(157 192 170 / .18);opacity:0;transition:transform .45s var(--ease),width .45s var(--ease),opacity .25s}
+.top .tb{display:flex;align-items:center;padding:0 6px 0 14px;border-left:1px solid rgb(157 192 170 / .2)}
+.top .tb img{height:13px;width:auto;filter:grayscale(1) brightness(2.2);opacity:.45}
+.tcta{position:relative;display:inline-flex;align-items:center;gap:10px;flex:none;background:var(--accent,#9dc0aa);color:#080808;font-weight:500;font-size:15px;
+  padding:6px 6px 6px 16px;border-radius:12px;transition:transform .2s var(--ease),background .2s}
+.tcta .arr{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:#080808;color:var(--accent,#9dc0aa);transition:transform .35s var(--ease)}
+.tcta:hover{background:#c4dccd}.tcta:hover .arr{transform:translate(2px,-2px) rotate(-8deg)}.tcta:active{transform:scale(.98)}
+.burger{display:none;width:42px;height:42px;border-radius:11px;border:0;background:rgb(157 192 170 / .14);cursor:pointer;flex:none;place-items:center;align-content:center;gap:4px}
+.burger span{display:block;width:17px;height:1.6px;border-radius:2px;background:var(--t,#f0ece4);transition:transform .35s var(--ease),opacity .2s}
+.mnav{position:fixed;inset:0;z-index:290;background:rgb(8 8 8 / .9);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  clip-path:circle(0 at var(--mx,92%) var(--my,40px));transition:clip-path .8s var(--ease),visibility 0s .8s;visibility:hidden;
+  display:flex;flex-direction:column;justify-content:center;gap:4px;padding:0 max(28px,env(safe-area-inset-left))}
+.mnav a{font-family:var(--display);font-weight:700;letter-spacing:var(--dtrack);font-size:2.6rem;line-height:1.15;color:var(--t,#f0ece4);opacity:0;transform:translateY(24px);transition:opacity .5s,transform .6s var(--ease)}
+.mnav .mtb{font-family:var(--sans);font-size:14px;font-weight:400;letter-spacing:0;color:rgb(240 236 228 / .55);margin-top:28px;display:flex;align-items:center;gap:10px}
+.mnav .mtb img{height:13px;filter:grayscale(1) brightness(2.2);opacity:.5}
+body.menu-open .mnav{clip-path:circle(150% at var(--mx,92%) var(--my,40px));visibility:visible;transition:clip-path .8s var(--ease)}
+body.menu-open .mnav a{opacity:1;transform:none}
+body.menu-open .mnav a:nth-child(2){transition-delay:.06s}body.menu-open .mnav a:nth-child(3){transition-delay:.12s}
+body.menu-open .mnav a:nth-child(4){transition-delay:.18s}body.menu-open .mnav a:nth-child(5){transition-delay:.24s}
+body.menu-open .burger span:nth-child(1){transform:translateY(5.6px) rotate(45deg)}
+body.menu-open .burger span:nth-child(2){opacity:0}
+body.menu-open .burger span:nth-child(3){transform:translateY(-5.6px) rotate(-45deg)}
+@media(max-width:1100px){.top .tb{display:none}}
+@media(max-width:980px){.tnav{display:none}.burger{display:grid}.top{padding:6px 6px 6px 14px;gap:10px}.top .by{margin-right:auto}}
+@media(max-width:560px){.top .by span{display:none}.tcta{font-size:13.5px;padding:6px 6px 6px 12px}.tcta .arr{width:28px;height:28px}}
+@media(max-width:400px){.tcta .lbl-l{display:none}}
+.tcta .lbl-s{display:none}@media(max-width:400px){.tcta .lbl-s{display:inline}}
+
+/* ---------- PULSANTI: freccia nel riquadretto, come Edilnord ---------- */
+.btn-mag,.me-cta,.hp-cta{display:inline-flex!important;align-items:center;gap:12px!important;border-radius:12px!important;
+  padding:7px 7px 7px 20px!important;font-family:var(--sans)!important;font-weight:500!important;letter-spacing:0!important;text-transform:none!important;font-size:15px!important}
+.btn-mag{background:var(--accent,#9dc0aa)!important;color:#080808!important;box-shadow:none!important}
+.btn-mag:hover{background:#c4dccd!important}
+.btn-mag svg,.me-cta svg,.hp-cta svg{width:34px!important;height:34px!important;padding:10px;border-radius:9px;background:#080808;color:var(--accent,#9dc0aa);
+  transition:transform .35s var(--ease);flex:none}
+.btn-mag:hover svg,.me-cta:hover svg,.hp-cta:hover svg{transform:translate(2px,-2px) rotate(-8deg)}
+.hp-cta{background:rgb(240 236 228 / .08)!important;border:1px solid rgb(240 236 228 / .16)!important;color:var(--t,#f0ece4)!important}
+.hp-cta svg{background:var(--accent,#9dc0aa);color:#080808}
+
+/* ---------- schede: angoli e superfici coerenti ---------- */
+.hpanel,.tech-item,.cta-card,.me-card,.ocard,.cta,.stage,.distmap,.brg-r img{border-radius:var(--r-card)!important}
+
+/* ---------- transizioni tra le pagine (Chrome, Edge, Safari 18) ---------- */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:.45s var(--ease) both v8-out}
+::view-transition-new(root){animation:.6s var(--ease) both v8-in}
+@keyframes v8-out{to{opacity:0;transform:scale(.985);filter:blur(6px)}}
+@keyframes v8-in{from{opacity:0;transform:scale(1.015)}}
+@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}
+
+/* ---------- 3D condiviso ---------- */
+.v8-gl{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
+.v8-gl.grab{cursor:grab}.v8-gl.grabbing{cursor:grabbing}
+
+/* il cursore personalizzato non fa parte del linguaggio Edilnord */
+.cursor-dot,.cursor-ring{display:none!important}
