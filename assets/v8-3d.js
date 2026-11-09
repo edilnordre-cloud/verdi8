@@ -1,188 +1,232 @@
 /* =====================================================================
    Verdi 8 — motore 3D (three.js r128)
-   I modelli nascono dalle tavole: la pianta a colori è il pavimento,
-   la maschera dei muri viene alzata a fette, la sagoma fa il solaio.
-   V8_3D.building(canvas, opzioni)  → l'edificio intero (homepage)
-   V8_3D.floor(canvas, id)          → il piano di una sola unità
+   Modello architettonico ricavato dalle tavole di progetto:
+   muri estrusi dai contorni veri, solaio dalla sagoma, vetri dove la tavola
+   disegna le finestre, pavimento con le ombre d'angolo già calcolate.
+   Luce del sole con ombre morbide, toni filmici.
+   V8_3D.building(canvas, opzioni) → l'edificio intero (homepage)
+   V8_3D.floor(canvas, id)         → il piano di una sola unità
    ===================================================================== */
 (function(){
   var T=window.THREE;
-  /* dimensioni delle tavole e riquadro del parquet, che allinea e mette in scala i piani */
+  /* dimensioni delle tavole e riquadro del parquet: allinea e mette in scala i piani */
   var META={"app-a":{"w":1209,"h":1400,"wood":[356,250,968,992]},"app-b":{"w":836,"h":1400,"wood":[173,364,637,1268]},
             "attico":{"w":1284,"h":1400,"wood":[287,256,986,1217]},"villa-c":{"w":607,"h":1400,"wood":[42,260,353,880]}};
-  var ROOM=12, WALL=2.7, SLICES=18, BASE='images/3d/';
-  var NIGHT=0x080808, SAGE=new (T?T.Color:Object)('#9dc0aa');
+  var ROOM=12, WALL=2.7, SLAB=.38, BASE='images/3d/';
 
   function ok(){
     if(!T)return false;
     if(matchMedia('(prefers-reduced-motion: reduce)').matches)return false;
     try{var c=document.createElement('canvas');return !!(c.getContext('webgl')||c.getContext('experimental-webgl'));}catch(e){return false;}
   }
-  function ease(t){t=Math.max(0,Math.min(1,t));return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
   function clamp(t){return Math.max(0,Math.min(1,t));}
+  function ease(t){t=clamp(t);return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
+  var geoCache={};
+  function geo(id){return geoCache[id]||(geoCache[id]=fetch(BASE+id+'-geo.json').then(function(r){return r.json();}));}
 
+  /* ---------- scena: luce, ombre, pavimento ---------- */
   function stage(canvas){
+    var mob=Math.min(innerWidth,innerHeight)<700;
     var r=new T.WebGLRenderer({canvas:canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
-    r.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
-    r.outputEncoding=T.sRGBEncoding;r.setClearColor(NIGHT,0);
-    var scene=new T.Scene();scene.fog=new T.Fog(NIGHT,60,170);
-    var cam=new T.PerspectiveCamera(32,1,0.1,500);
+    r.setPixelRatio(Math.min(window.devicePixelRatio||1,mob?1.75:2));
+    r.outputEncoding=T.sRGBEncoding;r.toneMapping=T.ACESFilmicToneMapping;r.toneMappingExposure=.78;
+    r.shadowMap.enabled=true;r.shadowMap.type=T.PCFSoftShadowMap;r.setClearColor(0x080808,0);
+    var scene=new T.Scene();scene.fog=new T.Fog(0x080808,70,190);
+    var cam=new T.PerspectiveCamera(30,1,0.5,4000);
+    /* cielo morbido dall'alto, terra scura dal basso */
+    scene.add(new T.HemisphereLight(0xdfe7e2,0x121410,.42));
+    /* sole caldo, alto e laterale: disegna le ombre dei muri sui pavimenti */
+    var sun=new T.DirectionalLight(0xffeed6,2.6);sun.position.set(-26,44,22);sun.castShadow=true;
+    sun.shadow.mapSize.set(mob?1024:2048,mob?1024:2048);
+    var sc=sun.shadow.camera;sc.left=-46;sc.right=46;sc.top=46;sc.bottom=-46;sc.near=1;sc.far=140;
+    sun.shadow.bias=-0.0006;sun.shadow.normalBias=.03;sun.shadow.radius=4;
+    scene.add(sun);scene.add(sun.target);
+    var fill=new T.DirectionalLight(0x9dc0aa,.35);fill.position.set(30,18,-24);scene.add(fill);
+    /* terreno: raccoglie le ombre, con la griglia da tavola tecnica che sfuma */
+    var g=document.createElement('canvas');g.width=g.height=1024;var x=g.getContext('2d');
+    x.strokeStyle='rgba(157,192,170,.16)';x.lineWidth=1;
+    for(var i=0;i<=1024;i+=32){x.beginPath();x.moveTo(i+.5,0);x.lineTo(i+.5,1024);x.stroke();x.beginPath();x.moveTo(0,i+.5);x.lineTo(1024,i+.5);x.stroke();}
+    x.globalCompositeOperation='destination-in';var m=x.createRadialGradient(512,512,80,512,512,512);m.addColorStop(0,'rgba(0,0,0,1)');m.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=m;x.fillRect(0,0,1024,1024);
+    var grid=new T.Mesh(new T.PlaneGeometry(150,150),new T.MeshBasicMaterial({map:new T.CanvasTexture(g),transparent:true,depthWrite:false}));
+    grid.rotation.x=-Math.PI/2;grid.position.y=-SLAB-.02;scene.add(grid);
+    var catcher=new T.Mesh(new T.PlaneGeometry(150,150),new T.ShadowMaterial({opacity:.42}));
+    catcher.rotation.x=-Math.PI/2;catcher.position.y=-SLAB-.01;catcher.receiveShadow=true;scene.add(catcher);
     var loader=new T.TextureLoader(),dirty={v:true};
-    function tex(u,color){var t=loader.load(BASE+u,function(){dirty.v=true;});if(color)t.encoding=T.sRGBEncoding;t.anisotropy=Math.min(8,r.capabilities.getMaxAnisotropy());return t;}
-    /* pavimento: griglia da tavola tecnica che sfuma nel buio */
-    var g=document.createElement('canvas');g.width=g.height=512;var x=g.getContext('2d');
-    var grd=x.createRadialGradient(256,256,10,256,256,256);grd.addColorStop(0,'rgba(157,192,170,.16)');grd.addColorStop(1,'rgba(157,192,170,0)');
-    x.fillStyle=grd;x.fillRect(0,0,512,512);x.strokeStyle='rgba(157,192,170,.13)';x.lineWidth=1;
-    for(var i=0;i<=512;i+=32){x.beginPath();x.moveTo(i+.5,0);x.lineTo(i+.5,512);x.stroke();x.beginPath();x.moveTo(0,i+.5);x.lineTo(512,i+.5);x.stroke();}
-    var mask=x.createRadialGradient(256,256,60,256,256,256);mask.addColorStop(0,'rgba(0,0,0,0)');mask.addColorStop(1,'rgba(8,8,8,1)');
-    x.globalCompositeOperation='destination-out';var m2=x.createRadialGradient(256,256,120,256,256,256);m2.addColorStop(0,'rgba(0,0,0,0)');m2.addColorStop(1,'rgba(0,0,0,1)');x.fillStyle=m2;x.fillRect(0,0,512,512);
-    var floorTex=new T.CanvasTexture(g);
-    var ground=new T.Mesh(new T.PlaneGeometry(120,120),new T.MeshBasicMaterial({map:floorTex,transparent:true,depthWrite:false}));
-    ground.rotation.x=-Math.PI/2;ground.position.y=-0.75;scene.add(ground);
-    /* ombra morbida */
-    var s=document.createElement('canvas');s.width=s.height=128;var sx=s.getContext('2d');
-    var sg=sx.createRadialGradient(64,64,4,64,64,64);sg.addColorStop(0,'rgba(0,0,0,.6)');sg.addColorStop(1,'rgba(0,0,0,0)');sx.fillStyle=sg;sx.fillRect(0,0,128,128);
-    var shadowTex=new T.CanvasTexture(s);
-    return {r:r,scene:scene,cam:cam,tex:tex,dirty:dirty,ground:ground,shadowTex:shadowTex};
+    function tex(u){var t=loader.load(BASE+u,function(){dirty.v=true;});t.encoding=T.sRGBEncoding;t.anisotropy=Math.min(8,r.capabilities.getMaxAnisotropy());return t;}
+    return {r:r,scene:scene,cam:cam,sun:sun,tex:tex,dirty:dirty,mob:mob,grid:grid};
   }
 
-  /* un piano: pavimento a colori, solaio, muri a fette, volume invisibile per il clic */
+  /* ---------- un piano: solaio, pavimento, muri, vetri ---------- */
   function makeFloor(S,id){
     var m=META[id],wd=m.wood,k=ROOM/(wd[3]-wd[1]);
-    var W=m.w*k,H=m.h*k,cx=(wd[0]+wd[2])/2,cy=(wd[1]+wd[3])/2,ox=(m.w/2-cx)*k,oz=(m.h/2-cy)*k;
-    var geo=new T.PlaneGeometry(W,H),g=new T.Group(),mats=[];
-    var cut=S.tex(id+'-cut.webp',true),sag=S.tex(id+'-sagoma.png'),wal=S.tex(id+'-muri.png');
-    var plan=new T.Mesh(geo,new T.MeshBasicMaterial({map:cut,transparent:true,alphaTest:.35}));
-    plan.rotation.x=-Math.PI/2;plan.position.set(ox,0.02,oz);g.add(plan);mats.push(plan.material);
-    for(var i=1;i<=6;i++){var sm=new T.MeshBasicMaterial({color:new T.Color().setRGB(.07+.012*i,.085+.012*i,.075+.01*i),alphaMap:sag,transparent:true,alphaTest:.35});
-      var sl=new T.Mesh(geo,sm);sl.rotation.x=-Math.PI/2;sl.position.set(ox,-i*0.08,oz);g.add(sl);mats.push(sm);}
-    var walls=new T.Group(),base=[];
-    for(var j=0;j<SLICES;j++){var f=j/(SLICES-1);
-      var c=j===SLICES-1?new T.Color('#f0ece4'):new T.Color().setRGB(.42+.4*f,.45+.38*f,.42+.38*f);
-      var wm=new T.MeshBasicMaterial({color:c,alphaMap:wal,transparent:true,alphaTest:.5});
-      var wl=new T.Mesh(geo,wm);wl.rotation.x=-Math.PI/2;wl.position.set(ox,f*WALL+0.03,oz);walls.add(wl);mats.push(wm);base.push(c.clone());}
-    walls.scale.y=0.001;g.add(walls);
-    var hit=new T.Mesh(new T.BoxGeometry((wd[2]-wd[0])*k*1.04,WALL+0.8,ROOM*1.04),new T.MeshBasicMaterial({visible:false}));hit.position.y=WALL/2;g.add(hit);
-    var sh=new T.Mesh(new T.PlaneGeometry(W*1.3,H*1.1),new T.MeshBasicMaterial({map:S.shadowTex,transparent:true,depthWrite:false,opacity:.0}));
-    sh.rotation.x=-Math.PI/2;sh.position.set(ox,-0.7,oz);g.add(sh);
-    g.userData={walls:walls,plan:plan,mats:mats,base:base,hit:hit,shadow:sh,W:W,H:H,ox:ox,oz:oz,ww:(wd[2]-wd[0])*k};
+    var W=m.w*k,H=m.h*k,ox=(m.w/2-(wd[0]+wd[2])/2)*k,oz=(m.h/2-(wd[1]+wd[3])/2)*k;
+    function X(px){return ox+(px-m.w/2)*k;}function Z(py){return oz+(py-m.h/2)*k;}
+    var g=new T.Group(),u={W:W,H:H,ox:ox,oz:oz,ww:(wd[2]-wd[0])*k,mats:[],ready:false};g.userData=u;
+    /* pavimento con la pianta a colori */
+    var floorMat=new T.MeshStandardMaterial({map:S.tex(id+'-floor.webp'),transparent:true,alphaTest:.4,roughness:.92,metalness:0});
+    var floor=new T.Mesh(new T.PlaneGeometry(W,H),floorMat);floor.rotation.x=-Math.PI/2;floor.position.set(ox,.012,oz);floor.receiveShadow=true;g.add(floor);
+    u.floorMat=floorMat;
+    var walls=new T.Group();walls.scale.y=.001;g.add(walls);u.walls=walls;
+    var capMat=new T.MeshStandardMaterial({color:0xf2eee6,roughness:.75}),sideMat=new T.MeshStandardMaterial({color:0xd9d4c9,roughness:.92});
+    var slabMat=new T.MeshStandardMaterial({color:0x1c1f1b,roughness:.95}),glassMat=new T.MeshStandardMaterial({color:0x8fc3d8,transparent:true,opacity:.5,roughness:.05,metalness:.35,emissive:0x1d3a44,emissiveIntensity:.35});
+    u.wallMats=[capMat,sideMat];u.base=[capMat.color.clone(),sideMat.color.clone()];u.glass=glassMat;u.slabMat=slabMat;
+    function shape(poly){var s=new T.Shape(poly.o.map(function(p){return new T.Vector2(X(p[0]),-Z(p[1]));}));
+      poly.h.forEach(function(h){s.holes.push(new T.Path(h.map(function(p){return new T.Vector2(X(p[0]),-Z(p[1]));})));});return s;}
+    geo(id).then(function(G){
+      /* muri: un solido unico per piano, estruso all'altezza di interpiano */
+      var wg=new T.ExtrudeGeometry(G.muri.map(shape),{depth:WALL,bevelEnabled:false,curveSegments:1});wg.rotateX(-Math.PI/2);
+      var wm=new T.Mesh(wg,[capMat,sideMat]);wm.castShadow=true;wm.receiveShadow=true;walls.add(wm);
+      /* solaio che segue la sagoma della tavola */
+      var sg=new T.ExtrudeGeometry(G.solaio.map(shape),{depth:SLAB,bevelEnabled:false,curveSegments:1});sg.rotateX(-Math.PI/2);sg.translate(0,-SLAB,0);
+      var sm=new T.Mesh(sg,slabMat);sm.receiveShadow=true;sm.castShadow=true;g.add(sm);
+      /* vetri nelle finestre */
+      G.finestre.forEach(function(f){var w=(f[2]-f[0])*k,d=(f[3]-f[1])*k;
+        var b=new T.Mesh(new T.BoxGeometry(Math.max(w,.08),1.45,Math.max(d,.08)),glassMat);
+        b.position.set(X((f[0]+f[2])/2),.85+.725,Z((f[1]+f[3])/2));walls.add(b);});
+      u.ready=true;S.dirty.v=true;
+    });
+    var hit=new T.Mesh(new T.BoxGeometry(u.ww*1.04,WALL+.8,ROOM*1.04),new T.MeshBasicMaterial({visible:false}));hit.position.y=WALL/2;g.add(hit);u.hit=hit;
     return g;
   }
   function paint(g,vis,dim,rise){
-    var u=g.userData;g.visible=vis>0.01;
-    u.mats.forEach(function(m){m.opacity=vis;});
-    u.plan.material.color.setScalar(dim);
-    u.walls.children.forEach(function(w,k){w.material.color.copy(u.base[k]).multiplyScalar(dim);});
-    u.walls.scale.y=Math.max(0.001,rise);u.shadow.material.opacity=.55*vis;
+    var u=g.userData;g.visible=vis>.01;
+    u.floorMat.opacity=vis;u.floorMat.color.setScalar(dim);
+    u.wallMats.forEach(function(m,i){m.color.copy(u.base[i]).multiplyScalar(.35+.65*dim);m.transparent=vis<1;m.opacity=vis;});
+    u.slabMat.transparent=vis<1;u.slabMat.opacity=vis;u.glass.opacity=.5*vis;
+    u.walls.scale.y=Math.max(.001,rise);
   }
-  function sizeTo(S,canvas){
-    var w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return;
-    S.r.setSize(w,h,false);S.cam.aspect=w/h;S.cam.updateProjectionMatrix();S.dirty.v=true;
-  }
+  function sizeTo(S,c){var w=c.clientWidth,h=c.clientHeight;if(!w||!h)return;S.r.setSize(w,h,false);S.cam.aspect=w/h;S.cam.updateProjectionMatrix();}
   function orbit(cam,look,dist,polar,az){
-    cam.position.set(Math.sin(polar)*Math.sin(az),Math.cos(polar),Math.sin(polar)*Math.cos(az)).multiplyScalar(dist).add(look);
-    cam.lookAt(look);
+    cam.position.set(Math.sin(polar)*Math.sin(az),Math.cos(polar),Math.sin(polar)*Math.cos(az)).multiplyScalar(dist).add(look);cam.lookAt(look);
   }
-  function drag(canvas,st,onMove){
-    var down=false,lx=0,ly=0;canvas.classList.add('grab');
-    canvas.addEventListener('pointerdown',function(e){if(e.pointerType==='touch'&&!st.touchOk)return;down=true;lx=e.clientX;ly=e.clientY;canvas.classList.add('grabbing');st.user=true;});
+  /* rotazione con inerzia: trascini, lasci, continua a girare e rallenta */
+  function control(canvas,st){
+    var down=false,lx=0,ly=0,lt=0;canvas.classList.add('grab');
+    canvas.addEventListener('pointerdown',function(e){if(e.pointerType==='touch')return;down=true;lx=e.clientX;ly=e.clientY;lt=performance.now();st.vaz=0;canvas.classList.add('grabbing');st.user=true;});
     addEventListener('pointerup',function(){down=false;canvas.classList.remove('grabbing');});
-    addEventListener('pointermove',function(e){if(!down)return;st.az-=(e.clientX-lx)*0.006;st.polar=Math.max(.35,Math.min(1.25,st.polar-(e.clientY-ly)*0.004));lx=e.clientX;ly=e.clientY;onMove();});
-    /* sul telefono: un dito ruota in orizzontale senza bloccare lo scorrimento verticale */
-    var tx=0,ty=0,lock=null;
-    canvas.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY;lock=null;},{passive:true});
+    addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-lx,dy=e.clientY-ly,now=performance.now(),dt=Math.max(8,now-lt);
+      st.az-=dx*.006;st.vaz=-dx*.006/dt*16;st.polar=Math.max(.32,Math.min(1.22,st.polar-dy*.004));lx=e.clientX;ly=e.clientY;lt=now;});
+    /* sul telefono un dito in orizzontale ruota, in verticale scorre la pagina */
+    var tx=0,ty=0,lock=null,tt=0;
+    canvas.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY;lock=null;tt=performance.now();st.vaz=0;},{passive:true});
     canvas.addEventListener('touchmove',function(e){var dx=e.touches[0].clientX-tx,dy=e.touches[0].clientY-ty;
       if(lock===null&&Math.abs(dx)+Math.abs(dy)>8)lock=Math.abs(dx)>Math.abs(dy)?'x':'y';
-      if(lock==='x'){e.preventDefault();st.az-=dx*0.008;tx=e.touches[0].clientX;st.user=true;onMove();}},{passive:false});
+      if(lock==='x'){e.preventDefault();var now=performance.now();st.az-=dx*.008;st.vaz=-dx*.008/Math.max(8,now-tt)*16;tx=e.touches[0].clientX;tt=now;st.user=true;}},{passive:false});
+  }
+  function inertia(st){st.az+=st.vaz;st.vaz*=.94;if(Math.abs(st.vaz)<1e-4)st.vaz=0;}
+
+
+  /* ---------- il quartiere vero: strade di Brugherio dai dati Edilnord RE ---------- */
+  function quartiere(S){
+    var g=new T.Group();g.visible=false;S.scene.add(g);
+    var st={reveal:0,ready:false,g:g,ring:null};
+    fetch(BASE+'quartiere.json').then(function(r){return r.json();}).then(function(Q){
+      /* le strade ruotano per correre parallele alla facciata, Via Verdi passa a sud del lotto */
+      var a=-Q.road.ang,ca=Math.cos(a),sa=Math.sin(a),SOUTH=15;
+      var rp=Q.road.p,ry=rp[0]*sa+rp[1]*ca;
+      function tf(x,y){return [x*ca-y*sa,x*sa+y*ca-ry+SOUTH];}
+      var WID=[11,9,7.5,6,3],pos=[],dst=[],lp=[],ld=[],lt=[];
+      Q.roads.forEach(function(w){var t=w[0],h=WID[t]/2,pts=[];
+        for(var i=1;i<w.length;i+=2)pts.push(tf(w[i],w[i+1]));
+        for(var j=0;j<pts.length-1;j++){var A=pts[j],B=pts[j+1],dx=B[0]-A[0],dz=B[1]-A[1],L=Math.hypot(dx,dz)||1,nx=-dz/L*h,nz=dx/L*h;
+          var q=[[A[0]+nx,A[1]+nz],[A[0]-nx,A[1]-nz],[B[0]+nx,B[1]+nz],[B[0]-nx,B[1]-nz]];
+          [0,1,2,2,1,3].forEach(function(k){pos.push(q[k][0],0,q[k][1]);dst.push(Math.hypot(q[k][0],q[k][1]));});
+          lp.push(A[0],0,A[1],B[0],0,B[1]);ld.push(Math.hypot(A[0],A[1]),Math.hypot(B[0],B[1]));lt.push(t,t);}
+      });
+      /* strade con la loro larghezza: da lontano una rete verde che si accende dal lotto,
+         da vicino diventano asfalto */
+      var rg=new T.BufferGeometry();rg.setAttribute('position',new T.Float32BufferAttribute(pos,3));rg.setAttribute('d',new T.Float32BufferAttribute(dst,1));
+      var rm=new T.ShaderMaterial({transparent:true,depthWrite:false,side:T.DoubleSide,uniforms:{r:{value:0},dive:{value:0},glow:{value:new T.Color(0x9dc0aa)},asph:{value:new T.Color(0x2b2f29)}},
+        vertexShader:'attribute float d;varying float vd;void main(){vd=d;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+        fragmentShader:'uniform float r;uniform float dive;uniform vec3 glow;uniform vec3 asph;varying float vd;void main(){float on=1.-smoothstep(r-80.,r,vd);float front=smoothstep(r-80.,r,vd)*on;float fade=1.-smoothstep(620.,900.,vd);vec3 c=mix(glow*.85,asph,dive)+vec3(.55,.7,.6)*front*(1.-dive);gl_FragColor=vec4(c,on*fade*mix(.85,1.,dive));}'});
+      var road=new T.Mesh(rg,rm);road.position.y=-SLAB-.04;road.renderOrder=-1;g.add(road);st.roadMat=rm;
+      /* segnale sul lotto: anello che pulsa */
+      var ring=new T.Mesh(new T.RingGeometry(1,1.5,64),new T.MeshBasicMaterial({color:0x9dc0aa,transparent:true,depthWrite:false,side:T.DoubleSide}));
+      ring.rotation.x=-Math.PI/2;ring.position.y=-SLAB+.05;g.add(ring);st.ring=ring;
+      st.ready=true;g.visible=true;
+    });
+    return st;
   }
 
   /* ================== EDIFICIO INTERO (homepage) ================== */
   function building(canvas,opt){
     var S=stage(canvas),scene=S.scene,cam=S.cam;
-    var ids=['app-a','app-b','attico'],floors=ids.map(function(id){var f=makeFloor(S,id);scene.add(f);return f;});
-    var villa=makeFloor(S,'villa-c');scene.add(villa);
-    var VX=22,VZ=5;villa.position.set(VX,0,VZ);
+    var floors=['app-a','app-b','attico'].map(function(id){var f=makeFloor(S,id);scene.add(f);return f;});
+    var villa=makeFloor(S,'villa-c');scene.add(villa);var VX=23,VZ=5;villa.position.set(VX,0,VZ);
     var all=floors.concat([villa]);
-    var st={p:0,pick:-1,pickT:0,focus:0,az:-0.7,polar:.95,user:false,t0:performance.now(),touchOk:false,hover:-1};
+    var Q=quartiere(S),grid=S.grid;
+    var st={p:0,pick:-1,az:-.7,vaz:0,polar:.98,user:false,t0:performance.now(),focus:0,zoom:0};
     var LIFT=[0,0,0,0],DIM=[0,0,0,0];
-    var look=new T.Vector3(),ray=new T.Raycaster(),mouse=new T.Vector2(),v=new T.Vector3();
+    var look=new T.Vector3(),v=new T.Vector3(),ray=new T.Raycaster(),mouse=new T.Vector2();
     var labels=opt&&opt.labels||[];
     function frame(now){
-      var p=st.p,mob=canvas.clientWidth<760;
-      /* regia: muri del piano terra → piani che scendono → villa → apertura */
-      var rise0=ease(p/.22), stack=ease((p-.18)/.3), vil=ease((p-.42)/.2), open=ease((p-.62)/.22);
-      var gap=3.4+3.6*open;
+      var P0=st.p,mob=canvas.clientWidth<760;inertia(st);
+      /* apertura: la rete delle vie si accende dal lotto, poi si scende */
+      var intro=clamp(P0/.18),dive=ease((P0-.06)/.14),p=clamp((P0-.18)/.82);
+      if(Q.ready){Q.roadMat.uniforms.r.value=40+900*ease(intro*1.15);Q.roadMat.uniforms.dive.value=dive;grid.visible=false;
+        var pu=(now*.0006)%1;Q.ring.scale.setScalar(6+70*pu*(1-dive)+2);Q.ring.material.opacity=(1-pu)*(1-dive);Q.ring.visible=dive<.99;}
+      var rise0=ease(p/.22),stack=ease((p-.18)/.3),vil=ease((p-.42)/.2),open=ease((p-.62)/.22);
+      var gap=WALL+SLAB+.35+3.6*open;
       floors.forEach(function(g,i){
-        var vis=i===0?1:clamp((stack-(i-1)*.35)/.4);
-        var drop=i===0?0:(1-ease((stack-(i-1)*.35)/.65))*26;
-        g.position.y=i*gap+drop+LIFT[i]*1.8+(st.pick>=0&&st.pick<3&&i>st.pick?3.4*st.pickT:0);
-        paint(g,vis,1-.6*DIM[i],i===0?rise0:Math.max(rise0,vis));
+        var vis=i===0?1:clamp((stack-(i-1)*.35)/.4),drop=i===0?0:(1-ease((stack-(i-1)*.35)/.65))*26;
+        g.position.y=i*gap+drop+LIFT[i]*1.8+(st.pick>=0&&st.pick<3&&i>st.pick?3.6*st.zoom:0);
+        paint(g,vis,1-.62*DIM[i],i===0?rise0:Math.max(rise0,vis));
       });
-      villa.position.y=(1-vil)*-6+LIFT[3]*1.8;paint(villa,vil,1-.6*DIM[3],vil);
-      /* telecamera: giro lento finché nessuno la tocca */
-      var idle=st.user?0:(now-st.t0)*0.00004;
-      var az=st.az+idle+p*0.9;
+      villa.position.y=(1-vil)*-6+LIFT[3]*1.8;paint(villa,vil,1-.62*DIM[3],vil);
+      var az=st.az+(st.user?0:(now-st.t0)*.00004)+p*.9;
       var stackH=2*gap*stack;
-      /* sul telefono la telecamera inquadra un edificio alla volta: si sposta sulla villa quando la scegli */
-      if(mob)look.set(VX*st.focus,stackH*.36*(1-st.focus),VZ*st.focus);else look.set(VX*.45*vil,stackH*.36,VZ*.5*vil);
-      var dist=mob?(80+stackH*1.3)*(1-.22*st.focus):48+stackH*.9+vil*22;
-      orbit(cam,look,dist,st.polar-.2*open,az);
+      /* quando scegli un piano la telecamera si avvicina a lui */
+      var pk=st.pick>=0?all[st.pick]:null,py=pk?pk.position.y+WALL*.5:0,px=pk?pk.position.x+pk.userData.ox*.3:0,pz=pk?pk.position.z:0;
+      var base=mob?new T.Vector3(VX*st.focus,stackH*.36*(1-st.focus),VZ*st.focus):new T.Vector3(VX*.45*vil,stackH*.36,VZ*.5*vil);
+      look.copy(base).lerp(v.set(px,py,pz),st.zoom*.55);
+      var dist=mob?(80+stackH*1.3)*(1-.22*st.focus):48+stackH*.9+vil*22;dist*=1-.28*st.zoom;
+      /* dall'alto sul quartiere fino al lotto */
+      var far=mob?1500:1100;dist=dist+(far-dist)*(1-dive);
+      var pol=(st.polar-.2*open)*dive+.04*(1-dive);
+      look.multiplyScalar(dive);
+      orbit(cam,look,dist,pol,az*dive-.25*(1-dive));
+      scene.fog.near=dist*.9;scene.fog.far=dist*2.4+200;
       if(!mob)cam.setViewOffset(canvas.clientWidth,canvas.clientHeight,-canvas.clientWidth*.14,0,canvas.clientWidth,canvas.clientHeight);
       else cam.setViewOffset(canvas.clientWidth,canvas.clientHeight,0,-canvas.clientHeight*.06,canvas.clientWidth,canvas.clientHeight);
+      /* il sole segue l'inquadratura, così le ombre restano leggibili */
+      S.sun.target.position.copy(look);S.sun.position.copy(look).add(v.set(-26,44,22));
       S.r.render(scene,cam);
-      /* etichette agganciate ai piani */
-      labels.forEach(function(el,i){
-        var g=all[i];if(!el)return;var u=g.userData;
+      labels.forEach(function(el,i){var g=all[i],u=g.userData;if(!el)return;
         v.set(u.ox+u.ww*.52,WALL+.4,u.oz-ROOM*.5).applyMatrix4(g.matrixWorld).project(cam);
-        var on=g.visible&&u.walls.scale.y>.5&&v.z<1;
-        el.style.opacity=on?(st.pick<0||st.pick===i?1:.45):0;
-        el.style.transform='translate('+((v.x*.5+.5)*canvas.clientWidth).toFixed(1)+'px,'+((-v.y*.5+.5)*canvas.clientHeight).toFixed(1)+'px)';
-      });
+        var on=g.visible&&u.walls.scale.y>.5&&v.z<1;el.style.opacity=on?(st.pick<0||st.pick===i?1:.42):0;
+        el.style.transform='translate('+((v.x*.5+.5)*canvas.clientWidth).toFixed(1)+'px,'+((-v.y*.5+.5)*canvas.clientHeight).toFixed(1)+'px)';});
     }
-    var running=false;
-    function loop(now){if(!running)return;frame(now);requestAnimationFrame(loop);}
-    var io=new IntersectionObserver(function(es){running=es[0].isIntersecting;if(running)requestAnimationFrame(loop);},{rootMargin:'100px'});io.observe(canvas);
-    addEventListener('resize',function(){sizeTo(S,canvas);});sizeTo(S,canvas);
-    drag(canvas,st,function(){});
-    function hitTest(e){var b=canvas.getBoundingClientRect();mouse.set(((e.clientX-b.left)/b.width)*2-1,-((e.clientY-b.top)/b.height)*2+1);
-      ray.setFromCamera(mouse,cam);var hs=ray.intersectObjects(all.filter(function(g){return g.visible;}).map(function(g){return g.userData.hit;}));
+    var running=false;function loop(now){if(!running)return;frame(now);requestAnimationFrame(loop);}
+    new IntersectionObserver(function(es){running=es[0].isIntersecting;if(running)requestAnimationFrame(loop);},{rootMargin:'100px'}).observe(canvas);
+    addEventListener('resize',function(){sizeTo(S,canvas);});sizeTo(S,canvas);control(canvas,st);
+    function hitTest(e){var b=canvas.getBoundingClientRect();mouse.set(((e.clientX-b.left)/b.width)*2-1,-((e.clientY-b.top)/b.height)*2+1);ray.setFromCamera(mouse,cam);
+      var hs=ray.intersectObjects(all.filter(function(g){return g.visible;}).map(function(g){return g.userData.hit;}));
       return hs.length?all.findIndex(function(g){return g.userData.hit===hs[0].object;}):-1;}
     var downAt=null;
     canvas.addEventListener('pointerdown',function(e){downAt=[e.clientX,e.clientY];});
-    canvas.addEventListener('pointerup',function(e){if(!downAt)return;var moved=Math.abs(e.clientX-downAt[0])+Math.abs(e.clientY-downAt[1]);downAt=null;
-      if(moved<6&&st.p>.55){var i=hitTest(e);if(i>=0&&opt&&opt.onPick)opt.onPick(i);}});
-    canvas.addEventListener('pointermove',function(e){if(st.p<.55)return;var i=hitTest(e);canvas.style.cursor=i>=0?'pointer':'';});
-    function pick(i){
-      st.pick=i;
-      [0,1,2,3].forEach(function(j){gsap.to(LIFT,{[j]:j===i?1:0,duration:.8,ease:'power3.out'});gsap.to(DIM,{[j]:j===i?0:1,duration:.5});});
-      gsap.to(st,{pickT:1,duration:.8,ease:'power3.out'});gsap.to(st,{focus:i===3?1:0,duration:1,ease:'power2.inOut'});
-    }
-    return {set:function(p){st.p=p;},pick:pick,resize:function(){sizeTo(S,canvas);}};
+    canvas.addEventListener('pointerup',function(e){if(!downAt)return;var mv=Math.abs(e.clientX-downAt[0])+Math.abs(e.clientY-downAt[1]);downAt=null;
+      if(mv<6&&st.p>.66){var i=hitTest(e);if(i>=0&&opt&&opt.onPick)opt.onPick(i);}});
+    canvas.addEventListener('pointermove',function(e){if(st.p<.66)return;canvas.style.cursor=hitTest(e)>=0?'pointer':'';});
+    function pick(i){st.pick=i;
+      [0,1,2,3].forEach(function(j){gsap.to(LIFT,{[j]:j===i?1:0,duration:.9,ease:'power3.out'});gsap.to(DIM,{[j]:j===i?0:1,duration:.6});});
+      gsap.to(st,{zoom:1,duration:1.4,ease:'power3.inOut'});gsap.to(st,{focus:i===3?1:0,duration:1.2,ease:'power2.inOut'});}
+    return {set:function(p){st.p=p;if(p<.7&&st.zoom>0){st.zoom=Math.max(0,st.zoom-.05);}},pick:pick,resize:function(){sizeTo(S,canvas);}};
   }
 
   /* ================== UN SOLO PIANO (pagine unità) ================== */
   function floor(canvas,id){
-    var S=stage(canvas),scene=S.scene,cam=S.cam;
-    var f=makeFloor(S,id);scene.add(f);var u=f.userData;
-    var st={az:-0.75,polar:.9,user:false,rise:0,t0:performance.now(),touchOk:false};
-    var look=new T.Vector3(u.ox*.0,WALL*.3,0);
-    var running=false;
-    function frame(now){
-      var mob=canvas.clientWidth<760;
+    var S=stage(canvas),scene=S.scene,cam=S.cam,f=makeFloor(S,id);scene.add(f);var u=f.userData;
+    var st={az:-.75,vaz:0,polar:.92,user:false,rise:0,t0:performance.now()},look=new T.Vector3(),running=false,v=new T.Vector3();
+    function frame(now){var mob=canvas.clientWidth<760;inertia(st);
       paint(f,1,1,ease(st.rise));
-      var idle=st.user?0:(now-st.t0)*0.00006;
-      var dist=Math.max(u.W,u.H)*(mob?2.25:1.85);
-      orbit(cam,look,dist,st.polar,st.az+idle);
-      S.r.render(scene,cam);
-    }
+      var dist=Math.max(u.W,u.H)*(mob?2.2:1.8);
+      look.set(0,WALL*.25,0);orbit(cam,look,dist,st.polar,st.az+(st.user?0:(now-st.t0)*.00006));
+      S.sun.target.position.copy(look);S.sun.position.copy(look).add(v.set(-26,44,22));
+      S.r.render(scene,cam);}
     function loop(now){if(!running)return;frame(now);requestAnimationFrame(loop);}
-    addEventListener('resize',function(){sizeTo(S,canvas);});
-    drag(canvas,st,function(){});
-    return {
-      show:function(){sizeTo(S,canvas);if(!running){running=true;requestAnimationFrame(loop);}st.rise=0;gsap.to(st,{rise:1,duration:1.8,ease:'power2.out',delay:.15});},
-      hide:function(){running=false;}
-    };
+    addEventListener('resize',function(){sizeTo(S,canvas);});control(canvas,st);
+    return {show:function(){sizeTo(S,canvas);if(!running){running=true;requestAnimationFrame(loop);}st.rise=0;gsap.to(st,{rise:1,duration:2,ease:'power2.out',delay:.2});},
+            hide:function(){running=false;}};
   }
-
   window.V8_3D={ok:ok,building:building,floor:floor};
 })();

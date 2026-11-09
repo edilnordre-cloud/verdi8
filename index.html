@@ -537,7 +537,7 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
       <div class="b3d-head">
         <p class="section-tag">Residenza Verdi8 · Brugherio</p>
         <h2 id="b3d-t">Scegli la tua unità</h2>
-        <p class="b3d-step" id="b3dStep">Le piante prendono forma: i muri si alzano dalle tavole di progetto.</p>
+        <p class="b3d-step" id="b3dStep">Brugherio, Via Giuseppe Verdi 8: il lotto nella rete vera delle vie.</p>
       </div>
       <div class="b3d-pick" id="b3dPick">
         <div class="b3d-tabs" role="tablist" aria-label="Scegli l'unità" id="b3dTabs">
@@ -1179,7 +1179,7 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
     {k:'App. B',p:'Piano primo · balconi e terrazzo',mq:'154 m²',loc:'4',est:'58 m²',estl:'balconi e terrazzo',pr:'€ 462.000',note:'+ box € 25.000',url:'app-b.html'},
     {k:'Attico',p:'Piano secondo · ultimo piano',mq:'134 m²',loc:'4',est:'28 m²',estl:'balconi',pr:'€ 420.000',note:'+ box € 30.000',url:'attico.html'},
     {k:'Villa C',p:'Villa indipendente · piano terra + primo',mq:'158 m²',loc:'4',est:'300 m²',estl:'giardino e terrazzo',pr:'€ 645.000',note:'box doppio compreso',url:'villa-c.html'}];
-  var STEPS=['Le piante prendono forma: i muri si alzano dalle tavole di progetto.','Piano primo e attico si appoggiano sul piano terra.','Accanto, la villa indipendente con il suo giardino.','L’edificio si apre: tocca un piano o scegli qui sotto.'];
+  var STEPS=['Brugherio, Via Giuseppe Verdi 8: il lotto nella rete vera delle vie.','Le piante prendono forma: i muri si alzano dalle tavole di progetto.','Piano primo e attico si appoggiano sul piano terra.','Accanto, la villa indipendente con il suo giardino.','L’edificio si apre: tocca un piano o scegli qui sotto.'];
   var tabs=[].slice.call(sec.querySelectorAll('.b3d-tab')),card=document.getElementById('b3dCard'),step=document.getElementById('b3dStep');
   var gl=null,cur=0,isReady=false;
   function show(i){var u=U[i];cur=i;
@@ -1195,10 +1195,10 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
   var mob=document.getElementById('unita-m');if(mob)mob.style.display='none';
   gl=V8_3D.building(document.getElementById('b3dGl'),{labels:[].slice.call(sec.querySelectorAll('.b3d-lab')),onPick:function(i){show(i);}});
   var last=-1;
-  ScrollTrigger.create({trigger:'#b3dPin',start:'top top',end:'+=260%',pin:true,scrub:.7,
+  ScrollTrigger.create({trigger:'#b3dPin',start:'top top',end:'+=360%',pin:true,scrub:.7,
     onUpdate:function(st){var p=st.progress;gl.set(p);
-      var k=p<.2?0:p<.42?1:p<.6?2:3;if(k!==last){last=k;step.textContent=STEPS[k];}
-      var ready=p>.62;sec.classList.toggle('ready',ready);if(ready&&!isReady){isReady=true;gl.pick(cur);}}});
+      var k=p<.16?0:p<.34?1:p<.52?2:p<.68?3:4;if(k!==last){last=k;step.textContent=STEPS[k];}
+      var ready=p>.69;sec.classList.toggle('ready',ready);if(ready&&!isReady){isReady=true;gl.pick(cur);}}});
   show(0);gl.set(0);
   addEventListener('load',function(){gl.resize();ScrollTrigger.refresh();});
 })();
