@@ -439,6 +439,51 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
   .b3d-hint{display:none}.b3d-lab{font-size:11px;padding:5px 8px}
   .b3d.ready .b3d-step{display:none}
 }
+/* ===== Revisione taste-skill: equilibrio, niente vuoti, niente ornamenti ===== */
+/* testo leggibile, in inchiostro pieno */
+.manifesto-body p,.brg-l p,.tech-item p,.valuta-body,.cta p,.cc-desc,.loc-addr{font-size:16.5px!important;line-height:1.6!important;color:var(--t)!important}
+.manifesto-body p{max-width:58ch}
+.manifesto{padding-block:clamp(90px,14vh,150px) clamp(60px,9vh,110px);align-items:start}
+.manifesto-lead{font-size:clamp(34px,3.8vw,56px)!important;line-height:1.02!important;margin-top:0!important}
+/* etichette sopra i titoli e numeri decorativi: via, l'informazione resta nel testo */
+.section-tag,.hp-idx,.stage-hint{display:none!important}
+.hp-tag{order:3;font-size:14px!important;letter-spacing:0!important;text-transform:none!important;color:var(--t2)!important}
+/* niente maiuscolo spaziato minuscolo */
+.brg-stats small,.valuta-stats small,.hp-specs div small,.brg-cap,.hero-meta span,.m-sub,.me-spec small,.mc-tag,.scroll-cue,.dm-tag,.loc-map-badge,.cc-role,.me-det-tag,.ic-label{
+  text-transform:none!important;letter-spacing:0!important;font-size:13.5px!important}
+.hero-meta .ln{display:none}
+.dm-ico{display:none}
+/* superfici: piene, senza sfumature né righe sottili */
+.valuta{background:var(--bg2)!important}
+.cta{background:#13241a!important}
+.cta-card{background:rgba(8,8,8,.34)!important;border:0!important;backdrop-filter:none!important}
+.marquee,.tech,.manifesto,.stage,.explorer,.hgallery,.loc,.valuta{border-top:0!important;border-bottom:0!important}
+/* capitolato: una griglia piena 3 × 2, schede in un passo di tono, nessuna resta sola */
+.tech{padding-block:clamp(100px,14vh,160px)!important}
+.tech-top{max-width:none!important;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:end}
+.tech-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important;border:0!important}
+.tech-item{border:0!important;border-radius:16px;background:#111311;padding:clamp(28px,3vw,40px)!important;min-height:230px}
+.tech-item h3{font-size:22px!important;font-family:var(--display)!important;font-weight:800!important;letter-spacing:-.03em!important;margin:22px 0 10px!important}
+.tech-item .ico{color:var(--accent)}
+@media(max-width:1000px){.tech-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.tech-top{grid-template-columns:1fr}}
+@media(max-width:600px){.tech-grid{grid-template-columns:1fr!important}.tech-item{min-height:0}}
+@media(min-width:821px){.manifesto{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)!important}}
+.tech-top{grid-template-columns:1fr!important}.tech-top h2{max-width:22ch}
+.tech-item .ico{display:none!important}.tech-item h3{margin-top:0!important;font-size:24px!important}
+.distmap,.foot-top,.b3d-card,.me-card,.me-spec,.hp-cta,.cta-card{border:0!important}
+.b3d-card{background:rgba(17,19,17,.92)!important}
+.foot-col h4{text-transform:none!important;letter-spacing:0!important;font-size:14px!important}
+@media(max-width:600px){.manifesto-lead{font-size:28px!important}}
+.m-label,.hpanel,.hp-cta,.loc-map-badge{border:0!important}
+.m-name{font-size:14px!important}
+.foot-legal p,.top .by{font-size:13px!important}
+.dm-center-sub{font-size:13px}
+.me-tip,.mc-name{font-size:13px!important}
+/* brugherio: altezza dal contenuto, non uno schermo quasi vuoto */
+.brg{min-height:0!important}
+.brg-r{min-height:min(640px,70vh)!important}
+.brg-l h2{margin-top:0!important}
+
 </style>
 <link rel="stylesheet" href="assets/v8.css">
 <script>
@@ -1020,18 +1065,7 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function init(){
-    /* ---- CAPITOLATO: tile legate allo scroll (scrub) ---- */
-    var tiles=gsap.utils.toArray('.tech-grid .tech-item');
-    if(tiles.length && !reduce){
-      tiles.forEach(function(el){el.style.transition='none';});
-      gsap.set(tiles,{opacity:0,y:90,rotateX:24,transformOrigin:'50% 100%'});
-      /* la sezione resta pinnata: le tile entrano una ad ogni scroll */
-      var tl=gsap.timeline({scrollTrigger:{trigger:'.tech',start:'top top',
-        end:'+='+(tiles.length*300),pin:true,scrub:true,anticipatePin:1,invalidateOnRefresh:true}});
-      tiles.forEach(function(t,i){
-        tl.to(t,{opacity:1,y:0,rotateX:0,ease:'power3.out',duration:.9},i*1);
-      });
-    }
+    /* capitolato: l'entrata a cascata la fa già l'osservatore più sopra, senza bloccare la pagina */
 
     /* ---- SEZIONE VERDE (Edilnord + Tecnobriantea) ---- */
     var ctaIn=document.querySelector('.cta-in');
