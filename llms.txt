@@ -1,0 +1,23 @@
+# Residenza Verdi8
+
+> Nuova costruzione in Classe A in Via Giuseppe Verdi 8, 20861 Brugherio (MB). Quattro unità: due appartamenti, un attico e una villa indipendente. Consegna prevista estate 2027. Progetto ideato, sviluppato e valorizzato da Edilnord RE (consulenza immobiliare); le proposte d'acquisto sono raccolte da Tecnobriantea Immobiliare.
+
+## Unità e prezzi
+
+- [Appartamento A](https://edilnordre-cloud.github.io/verdi8/app-a.html): piano terra, 4 locali, 147 m² commerciali, giardino privato di circa 130 m², 461.000 € compresi 2 posti auto.
+- [Appartamento B](https://edilnordre-cloud.github.io/verdi8/app-b.html): piano primo, 4 locali, 154 m² commerciali, terrazzo di 58 m², 462.000 € più box a 25.000 €.
+- [Attico](https://edilnordre-cloud.github.io/verdi8/attico.html): piano secondo, 4 locali, 134 m² commerciali, 28 m² di balconi, 420.000 € più box a 30.000 €.
+- [Villa C](https://edilnordre-cloud.github.io/verdi8/villa-c.html): villa indipendente, 4 locali, 158 m² commerciali, circa 300 m² tra giardino e terrazzo, 645.000 € con box doppio compreso.
+
+## Costruzione
+
+- Struttura antisismica W4HOUSE, Classe energetica A
+- Impianto fotovoltaico 1,20 kWp e ventilazione meccanica controllata con recupero di calore
+- Pompa di calore aria-aria indipendente per ogni unità
+- Serramenti in PVC da 68 mm con triplo vetro, pavimenti in gres porcellanato
+
+## Contatti
+
+- Visite: WhatsApp o telefono +39 389 0107445
+- Sito del progetto: https://edilnordre-cloud.github.io/verdi8/
+- Edilnord RE: https://www.edilnordre.it
