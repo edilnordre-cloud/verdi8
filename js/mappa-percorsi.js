@@ -5,10 +5,10 @@
   var sec=document.getElementById('posizione');if(!sec||!sec.classList.contains('pm'))return;
   var REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var DEST=[
-    {k:'increa',name:'Parco Increa',label:'Parco Increa',txt:'Il grande parco di Brugherio, con il lago e i percorsi nel verde.'},
-    {k:'tang',name:'Tangenziale Est',label:'Tangenziale Est A51',txt:'Svincolo Cernusco sul Naviglio / Brugherio: da qui A51 e A4 in pochi minuti.'},
-    {k:'mm2',name:'Metro MM2 Cologno Nord',label:'MM2 Cologno Nord',txt:'La linea verde della metropolitana: il centro di Milano anche senza auto.'},
-    {k:'milano',name:'Milano centro',label:'Piazza del Duomo',txt:'Dalla porta di casa a Piazza del Duomo, in auto senza traffico.'}
+    {k:'increa',c:'#8fd694',name:'Parco Increa',label:'Parco Increa',txt:'Il grande parco di Brugherio, con il lago e i percorsi nel verde.'},
+    {k:'tang',c:'#f2b64c',name:'Tangenziale Est',label:'Tangenziale Est A51',txt:'Svincolo Cernusco sul Naviglio / Brugherio: da qui A51 e A4 in pochi minuti.'},
+    {k:'mm2',c:'#c592ff',name:'Metro MM2 Cologno Nord',label:'MM2 Cologno Nord',txt:'La linea verde della metropolitana: il centro di Milano anche senza auto.'},
+    {k:'milano',c:'#ff8a73',name:'Milano centro',label:'Piazza del Duomo',txt:'Dalla porta di casa a Piazza del Duomo, in auto senza traffico.'}
   ];
   var NS='http://www.w3.org/2000/svg';
   var svg=document.getElementById('pmMap'),layer=document.getElementById('pmLayer'),stb=document.getElementById('pmStb');
@@ -43,9 +43,9 @@
       for(var i=0;i<p.length;i+=2)P.push([p[i],p[i+1]]);
       var x0=0,y0=0,x1=0,y1=0;
       P.forEach(function(q,i){if(i)C.push(C[i-1]+Math.hypot(q[0]-P[i-1][0],q[1]-P[i-1][1]));x0=Math.min(x0,q[0]);y0=Math.min(y0,q[1]);x1=Math.max(x1,q[0]);y1=Math.max(y1,q[1]);bb.push([x0,y0,x1,y1]);});
-      var done=document.createElementNS(NS,'path');done.setAttribute('class','rdone');done.setAttribute('d','M'+P.map(function(q){return q[0]+' '+q[1]}).join('L'));
+      var done=document.createElementNS(NS,'path');done.setAttribute('class','rdone');done.style.setProperty('--c',d.c);done.setAttribute('d','M'+P.map(function(q){return q[0]+' '+q[1]}).join('L'));
       svg.querySelector('.pm-routes').appendChild(done);
-      var pin=document.createElement('div');pin.className='pm-dest'+(d.k==='milano'?' last':'');
+      var pin=document.createElement('div');pin.className='pm-dest'+(d.k==='milano'?' last':'');pin.style.setProperty('--c',d.c);
       pin.innerHTML='<span class="n">'+D.routes[d.k].min+'′</span><span class="l">'+d.label+'</span>';layer.appendChild(pin);
       return {d:d,P:P,C:C,T:C[C.length-1],bb:bb,done:done,pin:pin,km:D.routes[d.k].km,min:D.routes[d.k].min,full:done.getAttribute('d')};
     });
@@ -57,7 +57,7 @@
     var html='';
     R.forEach(function(r,i){
       var tb='';for(var j=0;j<R.length;j++)tb+='<i'+(j<=i?' class="on"':'')+'></i>';
-      html+='<article class="pm-st"><div class="tb" aria-hidden="true">'+tb+'</div><p class="k">Tappa '+(i+1)+' di '+R.length+'</p><h3>'+r.d.name+'</h3>'+
+      html+='<article class="pm-st" style="--c:'+r.d.c+'"><div class="tb" aria-hidden="true">'+tb+'</div><p class="k">Tappa '+(i+1)+' di '+R.length+'</p><h3>'+r.d.name+'</h3>'+
         '<div class="m"><div><b>'+r.min+' min</b><small>in auto</small></div><div><b>'+fmtKm(r.km)+' km</b><small>di strada</small></div></div><p>'+r.d.txt+'</p></article>';
     });
     html+='<article class="pm-st"><p class="k">Residenza Verdi8</p><h3>Tutto a portata di mano.</h3><ul>'+
@@ -107,7 +107,7 @@
       } else if(ph.t==='draw'){
         var r=R[ph.i],f=Math.min(1,t/.88),fe=ease(f);cur=ph.i;
         for(var k2=0;k2<ph.i;k2++){R[k2].done.classList.add('on');R[k2].pin.classList.add('on');}
-        base.setAttribute('d',r.full);base.style.opacity=1;
+        base.setAttribute('d',r.full);base.style.opacity=1;svg.style.setProperty('--c',r.d.c);car.style.setProperty('--c',r.d.c);
         lit.setAttribute('d',upto(r,fe));
         var q=at(r,fe);place(car,q[0],q[1]);showCar=fe<.995;
         v=frame(bbTo(r,fe));

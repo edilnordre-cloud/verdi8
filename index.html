@@ -184,12 +184,12 @@ html.js .tech-grid.cards-in .tech-item:nth-child(6){transition-delay:.45s;}
 .pm-map .w3{stroke:#31503c;stroke-width:1.2}.pm-map .w4{stroke:#283f30;stroke-width:.9}
 .pm-map .pk{fill:rgba(58,122,82,.13);stroke:none}.pm-map .wt{fill:rgba(90,130,150,.12);stroke:rgba(90,130,150,.22);stroke-width:1}
 .pm-map .rbase{stroke:rgba(157,192,170,.28);stroke-width:3;stroke-dasharray:2 8;transition:opacity .4s}
-.pm-map .rdone{stroke:rgba(157,192,170,.42);stroke-width:2.4;opacity:0;transition:opacity .6s}
+.pm-map .rdone{stroke:var(--c,rgba(157,192,170,.42));stroke-opacity:.6;stroke-width:2.4;opacity:0;transition:opacity .6s}
 .pm-map .rdone.on{opacity:1}
-.pm-map .rlit{stroke:var(--accent);stroke-width:4.5;filter:drop-shadow(0 0 6px rgba(157,192,170,.75))}
+.pm-map .rlit{stroke:var(--c,var(--accent));stroke-width:4.5;filter:drop-shadow(0 0 6px var(--c,var(--accent)))}
 .pm-layer{position:absolute;inset:0;pointer-events:none;}
 .pm-car{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;opacity:0;transition:opacity .3s;
-  box-shadow:0 0 0 7px rgba(157,192,170,.25),0 0 26px 8px rgba(157,192,170,.55);}
+  box-shadow:0 0 0 7px color-mix(in srgb,var(--c,#9dc0aa) 30%,transparent),0 0 26px 8px color-mix(in srgb,var(--c,#9dc0aa) 60%,transparent);}
 .pm-home{position:absolute;transform:translate(-50%,-50%);}
 .pm-home i{display:block;width:16px;height:16px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(8,8,8,.9);}
 .pm-home i::before{content:"";position:absolute;inset:-12px;border-radius:50%;border:1.5px solid var(--accent);opacity:.6;animation:pmPulse 2.4s var(--e) infinite;}
@@ -198,9 +198,9 @@ html.js .tech-grid.cards-in .tech-item:nth-child(6){transition-delay:.45s;}
   background:var(--t);color:#080808;padding:7px 11px;border-radius:999px;}
 .pm-dest{position:absolute;transform:translate(-50%,-50%) scale(.6);opacity:0;transition:opacity .45s var(--e),transform .55s var(--e);}
 .pm-dest.on{opacity:1;transform:translate(-50%,-50%) scale(1);}
-.pm-dest .n{display:grid;place-items:center;min-width:44px;height:44px;padding:0 8px;border-radius:999px;background:rgba(8,12,9,.92);border:1.5px solid var(--accent);
+.pm-dest .n{display:grid;place-items:center;min-width:44px;height:44px;padding:0 8px;border-radius:999px;background:rgba(8,12,9,.92);border:1.5px solid var(--c,var(--accent));
   font:700 16px/1 var(--display);color:var(--t);font-variant-numeric:tabular-nums;transition:background .3s,color .3s;}
-.pm-dest.cur .n{background:var(--accent);color:#080808;}
+.pm-dest.cur .n{background:var(--c,var(--accent));color:#080808;}
 .pm-dest .l{transition:opacity .3s;}.pm-layer.far .pm-dest:not(.last) .l{opacity:0;}.pm-layer.far .pm-dest:not(.last) .n{min-width:34px;height:34px;font-size:13px;}
 .pm-dest .l{position:absolute;left:50%;top:calc(100% + 8px);transform:translateX(-50%);white-space:nowrap;font:500 12px/1 var(--sans);color:var(--t);
   text-shadow:0 1px 8px #000,0 0 3px #000;}
@@ -216,8 +216,8 @@ html.js .tech-grid.cards-in .tech-item:nth-child(6){transition-delay:.45s;}
 .pm-st.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s var(--e),transform .6s var(--e-expo);}
 .pm-st .tb{display:flex;gap:6px;margin-bottom:14px;}
 .pm-st .tb i{flex:1;height:3px;border-radius:9px;background:rgba(157,192,170,.16);}
-.pm-st .tb i.on{background:var(--accent);}
-.pm-st .k{font-size:13px;color:var(--accent);font-weight:500;}
+.pm-st .tb i.on{background:var(--c,var(--accent));}
+.pm-st .k{font-size:13px;color:var(--c,var(--accent));font-weight:500;}
 .pm-st h3{margin-top:6px;font-family:var(--display);font-weight:700;letter-spacing:-.03em;line-height:1.02;font-size:clamp(26px,2.6vw,38px);}
 .pm-st .m{display:flex;gap:22px;margin-top:14px;padding:12px 0;border-top:.5px solid var(--line);border-bottom:.5px solid var(--line);}
 .pm-st .m b{font:700 clamp(24px,2.4vw,32px)/1 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums;display:block;}
@@ -317,7 +317,7 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
 /* palco: il rendering è più largo dello schermo, la "camera" scorre fino all'unità scelta */
 .mx-stage{position:relative;height:min(46svh,420px);min-height:300px;overflow:hidden;background:#050605;
   touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
-.mx-cam{position:absolute;top:0;left:0;height:100%;aspect-ratio:1400/781;will-change:transform;
+.mx-cam{position:absolute;top:0;left:0;height:100%;aspect-ratio:1200/668;will-change:transform;
   transition:transform 1s var(--e-expo);}
 .mx-cam img{position:absolute;inset:0;width:100%;height:100%;display:block;transition:filter .6s var(--e);pointer-events:none;}
 .mx-stage.has-u .mx-cam > img{filter:brightness(.38) saturate(.4);}
@@ -566,32 +566,32 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
   <p class="section-tag">Residenza Verdi8 · Brugherio</p>
   <h2 class="reveal">Scegli la tua un<em>i</em>tà</h2>
   <div class="stage" id="stage">
-    <img class="stage-img" id="stageImg" src="images/index_4.webp" alt="Rendering della Residenza Verdi8 con la posizione delle quattro unità">
+    <img class="stage-img" id="stageImg" src="images/scegli-unita.webp" alt="Rendering della Residenza Verdi8 con la posizione delle quattro unità">
     <div class="stage-veil"></div>
-    <svg class="stage-units" id="stageUnits" viewBox="0 0 1400 781" preserveAspectRatio="none" aria-hidden="true">
+    <svg class="stage-units" id="stageUnits" viewBox="0 0 1200 668" preserveAspectRatio="none" aria-hidden="true">
       <defs>
-        <clipPath id="su-ATT"><polygon points="68,2 250,0 590,90 602,88 905,186 920,206 976,240 978,290 928,305 926,330 905,322 765,318 742,300 575,300 162,294 132,297"/></clipPath>
-        <clipPath id="su-B"><polygon points="162,294 575,300 742,300 765,318 905,322 926,330 928,405 1087,430 1087,472 1175,494 1175,550 905,548 570,540 162,527"/></clipPath>
-        <clipPath id="su-A"><polygon points="162,527 570,540 905,545 905,646 162,656"/></clipPath>
-        <clipPath id="su-C"><polygon points="1087,414 1385,410 1385,470 1400,472 1400,632 1095,642 1095,550 1175,550 1175,494 1087,472"/></clipPath>
+        <clipPath id="su-ATT"><polygon points="60,15 505,95 520,78 775,160 790,200 838,213 838,232 798,240 796,338 490,332 490,283 140,240 135,255"/></clipPath>
+        <clipPath id="su-B"><polygon points="140,240 490,283 490,332 796,338 796,350 930,356 930,405 1000,418 1000,470 775,466 490,462 490,437 140,420"/></clipPath>
+        <clipPath id="su-A"><polygon points="140,420 490,437 490,462 775,466 798,468 798,556 140,562"/></clipPath>
+        <clipPath id="su-C"><polygon points="930,356 1185,352 1185,400 1200,402 1200,540 940,550 940,470 1000,470 1000,418 930,405"/></clipPath>
       </defs>
     </svg>
 
-    <div class="marker" data-href="app-a.html" data-name="Appartamento A" data-sub="4 locali · giardino" data-zx="13%" data-zy="68%" data-zs="3.0" style="left:13%;top:78%">
+    <div class="marker" data-href="app-a.html" data-name="Appartamento A" data-sub="4 locali · giardino" data-zx="36%" data-zy="76%" data-zs="2.6" style="left:39%;top:78%">
       <div class="m-dot"></div><div class="m-line"></div>
       <div class="m-label" style="left:0"><span class="m-name">Appartamento A</span><span class="m-sub">4 locali · giardino</span></div>
     </div>
-    <div class="marker" data-href="attico.html" data-name="Attico" data-sub="ultimo piano · 28 m²" data-zx="44%" data-zy="16%" data-zs="2.8" style="left:42%;top:20%">
+    <div class="marker" data-href="attico.html" data-name="Attico" data-sub="ultimo piano · 28 m²" data-zx="40%" data-zy="22%" data-zs="2.6" style="left:40%;top:24%">
       <div class="m-dot"></div><div class="m-line"></div>
       <div class="m-label" style="left:50%;transform:translateX(-50%)"><span class="m-name">Attico</span><span class="m-sub">ultimo piano · 28 m²</span></div>
     </div>
-    <div class="marker" data-href="app-b.html" data-name="Appartamento B" data-sub="4 locali · terrazzo" data-zx="58%" data-zy="46%" data-zs="3.2" style="left:55%;top:50%">
+    <div class="marker" data-href="app-b.html" data-name="Appartamento B" data-sub="4 locali · terrazzo" data-zx="40%" data-zy="52%" data-zs="2.8" style="left:38%;top:52%">
       <div class="m-dot"></div><div class="m-line"></div>
-      <div class="m-label" style="right:0"><span class="m-name">Appartamento B</span><span class="m-sub">4 locali · terrazzo</span></div>
+      <div class="m-label" style="left:50%;transform:translateX(-50%)"><span class="m-name">Appartamento B</span><span class="m-sub">4 locali · terrazzo</span></div>
     </div>
-    <div class="marker" data-href="villa-c.html" data-name="Villa C" data-sub="indip. · giardino + terrazzo" data-zx="84%" data-zy="52%" data-zs="3.0" style="left:83%;top:50%">
+    <div class="marker" data-href="villa-c.html" data-name="Villa C" data-sub="indip. · giardino + terrazzo" data-zx="86%" data-zy="64%" data-zs="3.0" style="left:88%;top:62%">
       <div class="m-dot"></div><div class="m-line"></div>
-      <div class="m-label" style="left:50%;transform:translateX(-50%)"><span class="m-name">Villa C</span><span class="m-sub">indip. · giardino + terrazzo</span></div>
+      <div class="m-label" style="right:0"><span class="m-name">Villa C</span><span class="m-sub">indip. · giardino + terrazzo</span></div>
     </div>
 
     <div class="stage-reveal" id="stageReveal">
@@ -611,13 +611,13 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
 
   <div class="mx-stage" id="mxStage">
     <div class="mx-cam" id="mxCam">
-      <img src="images/index_4.webp" alt="Rendering della Residenza Verdi8 con le quattro unità" width="1400" height="781">
-      <svg class="mx-svg" id="mxSvg" viewBox="0 0 1400 781" preserveAspectRatio="none" aria-hidden="true">
+      <img src="images/scegli-unita.webp" alt="Rendering della Residenza Verdi8 con le quattro unità" width="1200" height="668">
+      <svg class="mx-svg" id="mxSvg" viewBox="0 0 1200 668" preserveAspectRatio="none" aria-hidden="true">
         <defs>
-          <clipPath id="m-ATT"><polygon points="68,2 250,0 590,90 602,88 905,186 920,206 976,240 978,290 928,305 926,330 905,322 765,318 742,300 575,300 162,294 132,297"/></clipPath>
-          <clipPath id="m-B"><polygon points="162,294 575,300 742,300 765,318 905,322 926,330 928,405 1087,430 1087,472 1175,494 1175,550 905,548 570,540 162,527"/></clipPath>
-          <clipPath id="m-A"><polygon points="162,527 570,540 905,545 905,646 162,656"/></clipPath>
-          <clipPath id="m-C"><polygon points="1087,414 1385,410 1385,470 1400,472 1400,632 1095,642 1095,550 1175,550 1175,494 1087,472"/></clipPath>
+          <clipPath id="m-ATT"><polygon points="60,15 505,95 520,78 775,160 790,200 838,213 838,232 798,240 796,338 490,332 490,283 140,240 135,255"/></clipPath>
+          <clipPath id="m-B"><polygon points="140,240 490,283 490,332 796,338 796,350 930,356 930,405 1000,418 1000,470 775,466 490,462 490,437 140,420"/></clipPath>
+          <clipPath id="m-A"><polygon points="140,420 490,437 490,462 775,466 798,468 798,556 140,562"/></clipPath>
+          <clipPath id="m-C"><polygon points="930,356 1185,352 1185,400 1200,402 1200,540 940,550 940,470 1000,470 1000,418 930,405"/></clipPath>
         </defs>
       </svg>
     </div>
@@ -896,7 +896,7 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
     var xs=pts.split(' ').map(function(p){return +p.split(',')[0];});
     CX[k]=(Math.min.apply(0,xs)+Math.max.apply(0,xs))/2;
     var g=mk('g',{'class':'su','data-u':k}),lift=mk('g',{'class':'su-lift'});
-    lift.appendChild(mk('image',{href:'images/index_4.webp',x:0,y:0,width:1400,height:781,preserveAspectRatio:'none','clip-path':'url(#m-'+k+')'}));
+    lift.appendChild(mk('image',{href:'images/scegli-unita.webp',x:0,y:0,width:1200,height:668,preserveAspectRatio:'none','clip-path':'url(#m-'+k+')'}));
     lift.appendChild(mk('polygon',{'class':'su-glow',points:pts}));
     lift.appendChild(mk('polygon',{'class':'su-edge',points:pts}));
     g.appendChild(mk('polygon',{'class':'su-ghost',points:pts}));
@@ -917,7 +917,7 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
   /* camera: sposta il rendering così che l'unità scelta stia al centro, senza uscire dai bordi */
   function aim(){
     if(!cur)return;
-    var W=stage.clientWidth,CW=cam.offsetWidth,x=CX[cur]/1400*CW;
+    var W=stage.clientWidth,CW=cam.offsetWidth,x=CX[cur]/1200*CW;
     var tx=Math.max(W-CW,Math.min(0,W/2-x));
     cam.style.transform='translate3d('+tx+'px,0,0)';
   }
@@ -995,7 +995,7 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
   ['ATT','B','A','C'].forEach(k=>{
     const pts=svg.querySelector('#su-'+k+' polygon').getAttribute('points');
     const g=mk('g',{'class':'su'}),lift=mk('g',{'class':'su-lift'});
-    lift.appendChild(mk('image',{href:'images/index_4.webp',x:0,y:0,width:1400,height:781,preserveAspectRatio:'none','clip-path':'url(#su-'+k+')'}));
+    lift.appendChild(mk('image',{href:'images/scegli-unita.webp',x:0,y:0,width:1200,height:668,preserveAspectRatio:'none','clip-path':'url(#su-'+k+')'}));
     lift.appendChild(mk('polygon',{'class':'su-glow',points:pts}));
     lift.appendChild(mk('polygon',{'class':'su-edge',points:pts}));
     g.appendChild(mk('polygon',{'class':'su-ghost',points:pts}));
