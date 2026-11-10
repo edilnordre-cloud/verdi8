@@ -1,0 +1,63 @@
+/* Menu Verdi8 — stessa struttura del menu del nuovo sito Edilnord RE (pillola sospesa in vetro,
+   indicatore che scorre, menu a tutto schermo su telefono), nei colori scuri di Verdi8. */
+.eh{position:fixed;z-index:200;top:14px;left:50%;transform:translateX(-50%);width:min(1240px,calc(100% - 28px));
+  display:flex;align-items:center;gap:16px;padding:8px 8px 8px 20px;border-radius:18px;
+  background:rgba(10,13,11,.46);-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);
+  border:1px solid rgba(157,192,170,.16);box-shadow:inset 0 1px 0 rgba(240,236,228,.07),0 18px 50px rgba(0,0,0,.4);
+  font-family:'DM Sans',system-ui,sans-serif;transition:background .5s var(--e),border-color .5s,transform .5s var(--e),opacity .4s;}
+.eh::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(100deg,rgba(240,236,228,.06),rgba(240,236,228,0) 38%,rgba(157,192,170,.05) 70%,rgba(240,236,228,0));}
+.eh.scrolled{background:rgba(8,10,9,.78);border-color:rgba(157,192,170,.2);}
+.eh-brand{display:flex;align-items:center;min-height:44px;flex:none;font:900 22px/1 'Verdi Display',system-ui,sans-serif;letter-spacing:-.02em;color:var(--t);}
+.eh-brand em{color:var(--accent);font-style:normal;}
+.eh-nav{position:relative;display:flex;align-items:center;gap:2px;margin-left:auto;font-size:15px;}
+.eh-nav a{position:relative;z-index:1;color:var(--t);opacity:.82;padding:10px 14px;border-radius:12px;transition:opacity .25s;}
+.eh-nav a:hover,.eh-nav a:focus-visible{opacity:1;}
+.eh-nav a[aria-current=page]{opacity:1;background:rgba(157,192,170,.14);}
+.eh-ind{position:absolute;z-index:0;top:0;left:0;height:100%;width:0;border-radius:12px;background:rgba(157,192,170,.14);
+  box-shadow:inset 0 0 0 1px rgba(157,192,170,.16);opacity:0;transition:transform .45s var(--e),width .45s var(--e),opacity .25s;}
+.eh-sep{width:1px;height:22px;background:rgba(157,192,170,.2);flex:none;}
+.eh-cta{position:relative;display:inline-flex;align-items:center;gap:10px;flex:none;background:var(--t);color:#0a0d0b;font-weight:500;font-size:15px;
+  padding:6px 6px 6px 16px;border-radius:12px;transition:transform .2s var(--e),background .2s;}
+.eh-arr{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--v);color:#fff;transition:transform .35s var(--e);}
+.eh-cta:hover{background:var(--accent);}
+.eh-cta:hover .eh-arr{transform:translate(2px,-2px) rotate(-8deg);}
+.eh-cta:active{transform:scale(.98);}
+.eh a:focus-visible,.eh button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.eh-burger{display:none;flex:none;width:44px;height:44px;border:0;border-radius:12px;background:rgba(157,192,170,.14);cursor:pointer;position:relative;}
+.eh-burger span{position:absolute;left:13px;right:13px;height:1.6px;border-radius:2px;background:var(--t);transition:transform .45s var(--e),opacity .2s;}
+.eh-burger span:nth-child(1){top:16px}.eh-burger span:nth-child(2){top:21px}.eh-burger span:nth-child(3){top:26px}
+html.eh-menu .eh-burger span:nth-child(1){transform:translateY(5px) rotate(45deg)}
+html.eh-menu .eh-burger span:nth-child(2){opacity:0}
+html.eh-menu .eh-burger span:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+/* menu a tutto schermo */
+.eh-mnav{position:fixed;inset:0;z-index:199;background:rgba(7,9,7,.94);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  clip-path:circle(0 at var(--mx,90%) var(--my,40px));transition:clip-path .8s var(--e),visibility 0s .8s;visibility:hidden;
+  display:flex;flex-direction:column;justify-content:center;gap:4px;padding:90px 28px 40px;font-family:'DM Sans',system-ui,sans-serif;}
+html.eh-menu .eh-mnav{clip-path:circle(150% at var(--mx,90%) var(--my,40px));visibility:visible;transition:clip-path .8s var(--e);}
+.eh-mnav a.big{font:700 clamp(36px,9vw,56px)/1.12 'Verdi Display',system-ui,sans-serif;letter-spacing:-.035em;color:var(--t);
+  opacity:0;transform:translateY(24px);transition:opacity .5s,transform .6s var(--e);}
+.eh-mnav a.big em{color:var(--accent);font-style:normal;}
+html.eh-menu .eh-mnav a.big{opacity:1;transform:none;}
+html.eh-menu .eh-mnav a.big:nth-child(2){transition-delay:.06s}html.eh-menu .eh-mnav a.big:nth-child(3){transition-delay:.12s}
+html.eh-menu .eh-mnav a.big:nth-child(4){transition-delay:.18s}html.eh-menu .eh-mnav a.big:nth-child(5){transition-delay:.24s}
+.eh-mnav .eh-units{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;}
+.eh-mnav .eh-units a{font-size:14px;color:var(--t);border:1px solid rgba(157,192,170,.3);border-radius:999px;padding:9px 14px;}
+.eh-mnav .eh-units a[aria-current=page]{background:rgba(157,192,170,.18);border-color:var(--accent);}
+.eh-mnav .eh-foot{margin-top:22px;font-size:14px;line-height:1.6;color:var(--t3);}
+.eh-mnav .eh-foot b{color:var(--accent);font-weight:500;}
+html.eh-menu,html.eh-menu body{overflow:hidden;}
+@media(max-width:980px){
+  .eh-nav,.eh-sep{display:none;}
+  .eh{gap:8px;padding:7px 7px 7px 16px;top:10px;width:calc(100% - 20px);}
+  .eh-brand{margin-right:auto;font-size:20px;}
+  .eh-cta{font-size:14px;padding:5px 5px 5px 12px;}
+  .eh-arr{width:28px;height:28px;}
+  .eh-burger{display:block;}
+}
+@media(max-width:420px){.eh-cta{font-size:13.5px;padding:9px 12px;gap:0}.eh-arr{display:none}.eh-burger{width:42px;height:42px}}
+@media(prefers-reduced-motion:reduce){.eh-mnav,.eh-mnav a,.eh-burger span,.eh-ind{transition:none!important}}
+/* pagine unità: frecce unità precedente/successiva dentro il menu */
+.eh .unav{flex:none;}
+@media(max-width:980px){.eh .unav{margin-right:2px;}.eh .unav-pos{display:none;}}
+@media(max-width:560px){.eh .unav{display:none;}}
