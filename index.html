@@ -388,14 +388,6 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
 .scroll-prog{position:fixed;top:0;left:0;height:2px;width:100%;transform:scaleX(0);transform-origin:left;
   background:linear-gradient(90deg,var(--v),var(--accent));z-index:250;pointer-events:none;opacity:.9;}
 
-/* ===== VELOCITY MARQUEE ===== */
-.marquee{overflow:hidden;border-top:.5px solid var(--line);border-bottom:.5px solid var(--line);background:var(--bg2);padding:clamp(14px,2.4vh,26px) 0;}
-.marquee-in{display:flex;width:max-content;will-change:transform;}
-.mq-set{display:flex;flex:0 0 auto;}
-.mq-set span{font-family:'Verdi Display',sans-serif;font-size:clamp(30px,6vw,78px);line-height:1;letter-spacing:-.035em;
-  color:transparent;-webkit-text-stroke:1px rgba(240,236,228,.5);padding:0 .32em;white-space:nowrap;}
-.mq-set span em{font-style:normal;color:var(--accent);-webkit-text-stroke:0;}
-
 /* ===== HORIZONTAL UNIT REEL ===== */
 .hgallery{position:relative;background:var(--bg3);padding:clamp(56px,9vh,110px) 0 clamp(40px,7vh,80px);}
 .hg-top{padding:0 clamp(20px,4vw,52px) clamp(22px,4vh,40px);}
@@ -544,18 +536,6 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
     <p>Ogni abitazione nasce su <strong>struttura antisismica W4HOUSE in Classe A</strong>, con fotovoltaico, ventilazione meccanica controllata, pompa di calore indipendente e serramenti a triplo vetro.</p>
   </div>
 </section>
-
-<!-- VELOCITY MARQUEE -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-in" id="mq">
-    <div class="mq-set">
-      <span>Residenza <em>Verdi8</em></span><span>Classe <em>A</em></span><span>Brugherio <em>MB</em></span><span>Nuova <em>Costruzione</em></span>
-    </div>
-    <div class="mq-set">
-      <span>Residenza <em>Verdi8</em></span><span>Classe <em>A</em></span><span>Brugherio <em>MB</em></span><span>Nuova <em>Costruzione</em></span>
-    </div>
-  </div>
-</div>
 
 <!-- EXPLORER -->
 <section class="explorer" id="unita">
@@ -1075,20 +1055,6 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
   }
 
   /* micro-parallax sui titoli Anton rimossa: causava la sovrapposizione con l'occhiello di sezione */
-
-  /* ---------- MARQUEE reattivo alla velocità di scroll ---------- */
-  var mq=document.getElementById('mq');
-  if(mq){
-    var loop=gsap.to(mq,{xPercent:-50,repeat:-1,duration:26,ease:'none'});
-    var mqTo;
-    ScrollTrigger.create({trigger:'.marquee',start:'top bottom',end:'bottom top',onUpdate:function(self){
-      var v=self.getVelocity();
-      loop.timeScale(gsap.utils.clamp(0.35,7,1+Math.abs(v)/520));
-      gsap.to(mq,{skewX:gsap.utils.clamp(-16,16,v/-140),overwrite:'auto',duration:.4,ease:'power2.out'});
-      clearTimeout(mqTo);
-      mqTo=setTimeout(function(){loop.timeScale(1);gsap.to(mq,{skewX:0,duration:.6,ease:'power3.out'});},130);
-    }});
-  }
 
   /* ---------- REEL ORIZZONTALE: pin + scrub (desktop), swipe nativo (mobile) ---------- */
   var hg=document.querySelector('.hgallery'),track=document.getElementById('hgTrack');
