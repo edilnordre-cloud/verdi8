@@ -304,7 +304,7 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
 .foot-legal{padding-top:28px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;}
 .foot-legal p{font-size:11px;color:var(--t3);line-height:1.7;max-width:680px;}
 
-/* EXPLORER MOBILE: le unità si staccano dal render, la camera segue la scheda, tieni premuto per la pianta */
+/* EXPLORER MOBILE: render intero fisso in alto, schede in verticale; la scheda al centro accende la sua unità; tieni premuto per la pianta */
 .mob-explorer{display:none;}
 @media(max-width:768px){.explorer{display:none;}.mob-explorer{display:block;}}
 /* ===== SEZIONE ===== */
@@ -315,10 +315,9 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
 .mx-head h2 em{color:var(--accent);font-style:normal;}
 
 /* palco: il rendering è più largo dello schermo, la "camera" scorre fino all'unità scelta */
-.mx-stage{position:relative;height:min(46svh,420px);min-height:300px;overflow:hidden;background:#050605;
+.mx-stage{position:sticky;top:78px;z-index:4;aspect-ratio:1200/668;overflow:hidden;background:#050605;box-shadow:0 -90px 0 var(--bg),0 18px 30px rgba(8,8,8,.85);
   touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
-.mx-cam{position:absolute;top:0;left:0;height:100%;aspect-ratio:1200/668;will-change:transform;
-  transition:transform 1s var(--e-expo);}
+.mx-cam{position:absolute;inset:0;}
 .mx-cam img{position:absolute;inset:0;width:100%;height:100%;display:block;transition:filter .6s var(--e);pointer-events:none;}
 .mx-stage.has-u .mx-cam > img{filter:brightness(.38) saturate(.4);}
 .mx-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
@@ -330,19 +329,19 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
 .su-glow{stroke:rgba(157,192,170,.5);stroke-width:8;filter:blur(4px);}
 .su-edge{stroke:#cfe3d6;stroke-width:2.2;}
 .su-ghost{fill:none;stroke:rgba(240,236,228,.34);stroke-width:1.1;stroke-dasharray:4 6;vector-effect:non-scaling-stroke;opacity:0;transition:opacity .5s;}
-.mx-stage.has-u .su:not(.on) .su-ghost{opacity:1;}
 .su-hit{fill:transparent;}
-.mx-stage::after{content:"";position:absolute;inset:auto 0 0 0;height:90px;pointer-events:none;
+.mx-stage::after{content:"";position:absolute;inset:auto 0 0 0;height:56px;pointer-events:none;
   background:linear-gradient(to top,rgba(8,8,8,.9),rgba(8,8,8,0));}
 
 /* etichetta dell'unità sopra il render */
-.mx-tag{position:absolute;left:16px;top:14px;z-index:3;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;
+.mx-tag{position:absolute;left:12px;bottom:10px;z-index:3;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;
   background:rgba(8,10,9,.78);border:.5px solid rgba(157,192,170,.3);border-radius:999px;padding:7px 12px 7px 9px;
   -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);}
 .mx-tag i{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);}
-.mx-hint{position:absolute;left:50%;bottom:14px;z-index:3;transform:translateX(-50%);display:flex;align-items:center;gap:8px;white-space:nowrap;
+.mx-hint{position:absolute;right:12px;bottom:14px;z-index:3;display:flex;align-items:center;gap:8px;white-space:nowrap;
   font-size:12px;color:var(--t2);transition:opacity .4s;}
-.mx-hint svg{width:18px;height:18px;flex:none;}
+.mx-hint svg{width:16px;height:16px;flex:none;}
+.mx-hint{font-size:11px;}
 .mx.used .mx-hint{opacity:0;}
 
 /* tieni premuto: anello che si riempie sotto il dito, poi la pianta prende il posto della facciata */
@@ -361,13 +360,10 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
 .mx-plan small{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:11px;color:var(--t3);}
 
 /* schede */
-.mx-cards{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:16px 20px 4px;scroll-padding:0 20px;scrollbar-width:none;
-  margin-top:-34px;position:relative;z-index:3;}
-.mx-cards::-webkit-scrollbar{display:none;}
-.mx-card{flex:0 0 82%;scroll-snap-align:center;border-radius:18px;padding:16px 18px 18px;background:rgba(14,18,15,.94);
-  border:.5px solid rgba(157,192,170,.16);transition:border-color .35s,transform .5s var(--e-expo),opacity .35s;opacity:.55;transform:scale(.96);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 20px 40px rgba(0,0,0,.45);}
-.mx-card.on{opacity:1;transform:none;border-color:rgba(157,192,170,.5);}
+.mx-cards{display:grid;gap:12px;padding:18px 20px 30vh;position:relative;z-index:1;}
+.mx-card{border-radius:18px;padding:16px 18px 18px;background:rgba(14,18,15,.94);
+  border:.5px solid rgba(157,192,170,.16);transition:border-color .35s,opacity .35s;opacity:.45;}
+.mx-card.on{opacity:1;border-color:rgba(157,192,170,.5);}
 .mx-card .fl{font-size:12px;color:var(--accent);font-weight:500;}
 .mx-card h3{margin-top:2px;font:700 26px/1.02 var(--display);letter-spacing:-.03em;}
 .mx-card .sp{display:flex;gap:18px;margin-top:12px;padding:10px 0;border-top:.5px solid var(--line);border-bottom:.5px solid var(--line);}
@@ -380,12 +376,12 @@ footer{background:#040404;padding:clamp(50px,7vh,80px) clamp(20px,5vw,64px) 40px
   padding:6px 6px 6px 16px;border-radius:12px;transition:transform .2s var(--e);}
 .mx-card .go span{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:var(--v);color:#fff;}
 .mx-card .go:active{transform:scale(.98);}
-.mx-dots{display:flex;justify-content:center;gap:6px;padding:12px 0 0;}
+.mx-dots{display:none;justify-content:center;gap:6px;padding:12px 0 0;}
 .mx-dots i{width:6px;height:6px;border-radius:9px;background:rgba(157,192,170,.25);transition:width .35s var(--e),background .35s;}
 .mx-dots i.on{width:18px;background:var(--accent);}
 
 @media(prefers-reduced-motion:reduce){
-  .mx-cam,.su-lift,.mx-plan,.mx-card,.mx-cam img{transition:none!important;}
+  .su-lift,.mx-plan,.mx-card,.mx-cam img{transition:none!important;}
 }
 
 /* scroll progress bar (GSAP/ScrollTrigger) */
@@ -874,7 +870,7 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
   wm.addEventListener('mouseleave',()=>ltrs.forEach(l=>l.style.transform=''));
 })();
 
-/* ---------- EXPLORER mobile: camera, unità sollevata, tieni premuto per la pianta ---------- */
+/* ---------- EXPLORER mobile: render fisso, schede in verticale, tieni premuto per la pianta ---------- */
 (function(){
   var U={
     A:  {name:'Appartamento A',floor:'Piano terra',  href:'app-a.html',  mq:'147',loc:'4',ext:'130',extL:'m² giardino',    price:'€ 461.000',note:'compresi 2 posti auto',plan:'images/pianta-app-a-1000.webp'},
@@ -914,35 +910,29 @@ document.querySelectorAll('.btn-mag').forEach(btn=>{
     if(mobile)new Image().src=u.plan; /* precarica la pianta: deve comparire subito */
   });
 
-  /* camera: sposta il rendering così che l'unità scelta stia al centro, senza uscire dai bordi */
-  function aim(){
-    if(!cur)return;
-    var W=stage.clientWidth,CW=cam.offsetWidth,x=CX[cur]/1200*CW;
-    var tx=Math.max(W-CW,Math.min(0,W/2-x));
-    cam.style.transform='translate3d('+tx+'px,0,0)';
-  }
-  addEventListener('resize',aim);
-
   function setU(k,fromCards){
     if(k===cur)return;cur=k;
     ORDER.forEach(function(j){var on=j===k;G[j].classList.toggle('on',on);C[j].classList.toggle('on',on);D[j].classList.toggle('on',on);});
     svg.appendChild(G[k]); /* l'unità accesa sopra le altre */
-    stage.classList.add('has-u');tag.textContent=U[k].name;aim();
-    if(!fromCards){var c=C[k];cards.scrollTo({left:c.offsetLeft-(cards.clientWidth-c.offsetWidth)/2,behavior:'smooth'});}
+    stage.classList.add('has-u');tag.textContent=U[k].name;
+    if(!fromCards){var c=C[k],y=c.getBoundingClientRect().top+scrollY-stage.getBoundingClientRect().bottom-16;
+      if(window.__lenis)try{window.__lenis.scrollTo(y);return;}catch(e){}
+      scrollTo({top:y,behavior:'smooth'});}
   }
 
-  /* la scheda al centro decide l'unità */
-  var raf=0;
-  cards.addEventListener('scroll',function(){
-    cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){
-      var mid=cards.scrollLeft+cards.clientWidth/2,best=null,bd=1e9;
-      ORDER.forEach(function(k){var c=C[k],d=Math.abs(c.offsetLeft+c.offsetWidth/2-mid);if(d<bd){bd=d;best=k;}});
-      if(best&&best!==cur){started=true;root.classList.add('used');setU(best,true);}
-    });
-  },{passive:true});
+  /* la scheda che passa sotto il render decide l'unità */
+  var started=false;
+  function pick(){
+    var r=root.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
+    var line=stage.getBoundingClientRect().bottom+(innerHeight-stage.getBoundingClientRect().bottom)*.35,best=null,bd=1e9;
+    ORDER.forEach(function(k){var c=C[k].getBoundingClientRect(),d=line<c.top?c.top-line:(line>c.bottom?line-c.bottom:0);if(d<bd){bd=d;best=k;}});
+    if(best&&best!==cur){if(started)root.classList.add('used');setU(best,true);}
+  }
+  addEventListener('scroll',function(){started=true;pick();},{passive:true});
+  addEventListener('resize',pick);
 
   /* tocco sull'edificio: seleziona; tieni premuto: pianta */
-  var HOLD=420,timer=0,sx=0,sy=0,holding=false,started=false;
+  var HOLD=420,timer=0,sx=0,sy=0,holding=false;
   function unitAt(x,y){
     var el=document.elementFromPoint(x,y),g=el&&el.closest&&el.closest('.su');return g?g.dataset.u:null;
   }
