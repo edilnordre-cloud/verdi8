@@ -10,6 +10,7 @@
 .eh.scrolled{background:rgba(8,10,9,.78);border-color:rgba(157,192,170,.2);}
 .eh-brand{display:flex;align-items:center;min-height:44px;flex:none;font:900 22px/1 'Verdi Display',system-ui,sans-serif;letter-spacing:-.02em;color:var(--t);}
 .eh-brand em{color:var(--accent);font-style:normal;}
+.eh-brand img{display:block;height:38px;width:auto;}
 .eh-nav{position:relative;display:flex;align-items:center;gap:2px;margin-left:auto;font-size:15px;}
 .eh-nav a{position:relative;z-index:1;color:var(--t);opacity:.82;padding:10px 14px;border-radius:12px;transition:opacity .25s;}
 .eh-nav a:hover,.eh-nav a:focus-visible{opacity:1;}
@@ -51,6 +52,7 @@ html.eh-menu,html.eh-menu body{overflow:hidden;}
   .eh-nav,.eh-sep{display:none;}
   .eh{gap:8px;padding:7px 7px 7px 16px;top:10px;width:calc(100% - 20px);}
   .eh-brand{margin-right:auto;font-size:20px;}
+  .eh-brand img{height:34px;}
   .eh-cta{font-size:14px;padding:5px 5px 5px 12px;}
   .eh-arr{width:28px;height:28px;}
   .eh-burger{display:block;}
